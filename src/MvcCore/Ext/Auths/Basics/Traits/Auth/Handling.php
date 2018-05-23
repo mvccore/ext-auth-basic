@@ -31,9 +31,9 @@ trait Handling
 	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\Interfaces\IAuth
 	 */
 	public static function GetInstance ($configuration = array()) {
-		if (static::$instance === NULL)
-			static::$instance = new static($configuration);
-		return static::$instance;
+		if (self::$instance === NULL)
+			self::$instance = new static($configuration);
+		return self::$instance;
 	}
 
 	/**
@@ -44,6 +44,7 @@ trait Handling
 	 * to add authentication routes when necessary and user instance when necessary.
 	 */
 	public function __construct ($config = array()) {
+		self::$instance = & $this;
 		// set up possible configuration
 		if ($config) $this->SetConfiguration($config);
 		// initialize classes configuration
