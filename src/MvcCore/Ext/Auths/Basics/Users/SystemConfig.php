@@ -11,7 +11,7 @@
  * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
  */
 
-namespace MvcCore\Ext\Auths\Users;
+namespace MvcCore\Ext\Auths\Basics\Users;
 
 /**
  * Responsibility - simply and only load user instance from system config, ids by users list sequence.
