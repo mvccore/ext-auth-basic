@@ -11,7 +11,7 @@
  * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
  */
 
-namespace MvcCore\Ext\Auths\Basics\Traits\Auth;
+namespace MvcCore\Ext\Auths\Basic;
 
 /**
  * Trait for `\MvcCore\Ext\Auths\Basic` class. Trait contains:
@@ -28,7 +28,7 @@ trait Handling
 	 * if not, create new basic authentication module instance, store it and return it.
 	 * @param array $configuration Optional configuration passed into method
 	 *                             `\MvcCore\Ext\Auths\Basic::__construct($configuration)`.
-	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\Interfaces\IAuth
+	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
 	 */
 	public static function GetInstance ($configuration = array()) {
 		if (self::$instance === NULL)

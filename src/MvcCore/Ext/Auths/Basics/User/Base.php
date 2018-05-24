@@ -11,7 +11,7 @@
  * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
  */
 
-namespace MvcCore\Ext\Auths\Basics\Traits\User;
+namespace MvcCore\Ext\Auths\Basics\User;
 
 /**
  * Trait for `\MvcCore\Ext\Auths\Basics\User` class. Trait contains:
@@ -59,7 +59,7 @@ trait Base
 	 * unique user name or anything uniquelse.
 	 * Example: `"admin" | "john" | "tomflidr@gmail.com"`
 	 * @param string $userName
-	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Interfaces\IUser
+	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
 	 */
 	public function & SetUserName ($userName) {
 		$this->userName = $userName;
@@ -81,7 +81,7 @@ trait Base
 	 * for authenticated user at sign out button.
 	 * Example: `"Administrator" | "John" | "Tom Flidr"`
 	 * @param string $fullName
-	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Interfaces\IUser
+	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
 	 */
 	public function & SetFullName ($fullName) {
 		$this->fullName = $fullName;
@@ -105,7 +105,7 @@ trait Base
 	 * moment, when is compared hashed sended password and stored password hash.
 	 * After password hashes comparation, password hash is unseted.
 	 * @param string|NULL $passwordHash
-	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Interfaces\IUser
+	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
 	 */
 	public function & SetPasswordHash ($passwordHash) {
 		$this->passwordHash = $passwordHash;

@@ -11,14 +11,14 @@
  * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
  */
 
-namespace MvcCore\Ext\Auths\Basics\Traits;
+namespace MvcCore\Ext\Auths\Basics\Form;
 
 /**
  * Trait for class `\MvcCore\Ext\Auths\Basics\SignInForm`. Trait contains:
  * - `Init()` method to initialize all necessary sign in form fields.
  * - `Submit()` method to handle signin form submit request (`POST` by default).
  */
-trait SignInForm
+trait SignIn
 {
 	/**
 	 * Initialize all form fields, initialize hidden field with
@@ -29,29 +29,28 @@ trait SignInForm
 	public function Init () {
 		parent::Init();
 
-		$this->initAuthFormPropsAndHiddenControls();
+		$this
+			->initAuthFormPropsAndHiddenControls()
+			->AddField(new \MvcCore\Ext\Forms\Fields\Text(array(
+				'name'			=> 'username',
+				'placeholder'	=> 'User',
+				'validators'	=> array('SafeString'),
+			)))
+			->AddField(new \MvcCore\Ext\Forms\Fields\Password(array(
+				'name'			=> 'password',
+				'placeholder'	=> 'Password',
+				'validators'	=> array('SafeString'),
+			)))
+			->AddField(new \MvcCore\Ext\Forms\Fields\SubmitButton(array(
+				'name'			=> 'send',
+				'value'			=> 'Sign In',
+				'cssClasses'	=> array('button'),
+			)));
 
-		$this->AddField(new \MvcCore\Ext\Form\Text(array(
-			'name'			=> 'username',
-			'placeholder'	=> 'User',
-			'validators'	=> array('SafeString'),
-		)));
-		$this->AddField(new \MvcCore\Ext\Form\Password(array(
-			'name'			=> 'password',
-			'placeholder'	=> 'Password',
-			'validators'	=> array('SafeString'),
-		)));
-		$this->AddField(new \MvcCore\Ext\Form\SubmitButton(array(
-			'name'			=> 'send',
-			'value'			=> 'Sign In',
-			'cssClasses'	=> array('button'),
-		)));
-
-		$sourceUrl = $this->application->GetRequest()
-			->GetParam('sourceUrl', '.*', '', 'string');
+		$sourceUrl = $this->request->GetParam('sourceUrl', '.*', '', 'string');
 		$sourceUrl = filter_var(rawurldecode($sourceUrl), FILTER_VALIDATE_URL);
 
-		$this->AddField(new \MvcCore\Ext\Form\Hidden(array(
+		$this->AddField(new \MvcCore\Ext\Forms\Fields\Hidden(array(
 			'name'			=> 'sourceUrl',
 			'value'			=> rawurlencode($sourceUrl) ?: '',
 			'validators'	=> array('Url'),
@@ -68,13 +67,14 @@ trait SignInForm
 	 * @return array
 	 */
 	public function Submit ($rawParams = array()) {
-		parent::Submit();
-		if ($this->Result === \MvcCore\Ext\Form::RESULT_SUCCESS) {
+		parent::Submit($rawParams);
+		$data = (object) $this->values;
+		if ($this->result) {
 			// now sended values are safe strings,
 			// try to get use by username and compare password hashes:
 			$userClass = $this->auth->GetUserClass();
 			$user = $userClass::LogIn(
-				$this->Data['username'], $this->Data['password']
+				$data->username, $data->password
 			);
 			if ($user !== NULL) {
 				$user->SetPasswordHash(NULL);
@@ -85,15 +85,15 @@ trait SignInForm
 				);
 			}
 		}
-		$data = (object) $this->Data;
-		$this->SetSuccessUrl($data->sourceUrl ? $data->sourceUrl : $data->successUrl);
-		$this->SetErrorUrl($data->errorUrl);
-		if ($this->Result !== \MvcCore\Ext\Form::RESULT_SUCCESS)
+		$this
+			->SetSuccessUrl($data->sourceUrl ? $data->sourceUrl : $data->successUrl)
+			->SetErrorUrl($data->errorUrl);
+		if (!$this->result)
 			sleep($this->auth->GetInvalidCredentialsTimeout());
 		return array(
-			$this->Result,
-			$this->Data,
-			$this->Errors
+			$this->result,
+			$this->values,
+			$this->errors
 		);
 	}
 }

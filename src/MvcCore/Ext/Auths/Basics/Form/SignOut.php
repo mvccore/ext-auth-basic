@@ -11,7 +11,7 @@
  * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
  */
 
-namespace MvcCore\Ext\Auths\Basics\Traits;
+namespace MvcCore\Ext\Auths\Basics\Form;
 
 /**
  * Trait for class `\MvcCore\Ext\Auths\Basics\SignOutForm`. Trait contains:
@@ -20,9 +20,9 @@ namespace MvcCore\Ext\Auths\Basics\Traits;
  * - `Submit()` method to handle signin form submit request (`POST` by default).
  * - `Render()` method to render sign out form without template by default.
  */
-trait SignOutForm
+trait SignOut
 {
-	/** @var \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Interfaces\IUser */
+	/** @var \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser */
 	protected $user = NULL;
 
 	/**
@@ -33,13 +33,13 @@ trait SignOutForm
 	public function Init () {
 		parent::Init();
 
-		$this->initAuthFormPropsAndHiddenControls();
-
-		$this->AddField(new \MvcCore\Ext\Form\SubmitButton(array(
-			'name'			=> 'send',
-			'value'			=> 'Log Out',
-			'cssClasses'	=> array('button'),
-		)));
+		$this
+			->initAuthFormPropsAndHiddenControls()
+			->AddField(new \MvcCore\Ext\Forms\Fields\SubmitButton(array(
+				'name'			=> 'send',
+				'value'			=> 'Log Out',
+				'cssClasses'	=> array('button'),
+			)));
 
 		$this->user = $this->auth->GetUser();
 
@@ -53,14 +53,16 @@ trait SignOutForm
 	 * @return array
 	 */
 	public function Submit ($rawParams = array()) {
-		parent::Submit();
-		if ($this->Result === \MvcCore\Ext\Form::RESULT_SUCCESS) {
+		parent::Submit($rawParams);
+		$data = (object) $this->values;
+		if ($this->result === \MvcCore\Ext\Form::RESULT_SUCCESS) {
 			$userClass = $this->auth->GetUserClass();
 			$userClass::LogOut();
 		}
-		$this->SetSuccessUrl($this->Data['successUrl']);
-		$this->SetErrorUrl($this->Data['errorUrl']);
-		return array($this->Result, $this->Data, $this->Errors);
+		$this
+			->SetSuccessUrl($data->successUrl)
+			->SetErrorUrl($data->errorUrl);
+		return array($this->result, $this->values, $this->errors);
 	}
 
 	/**
@@ -72,7 +74,7 @@ trait SignOutForm
 		$result = $this->RenderBegin();
 		if ($this->user)
 			$result .= '<span>'.$this->user->GetFullName().'</span>';
-		foreach ($this->Fields as & $field)
+		foreach ($this->fields as & $field)
 			$result .= $field->Render();
 		$result .= $this->RenderEnd();
 		return $result;

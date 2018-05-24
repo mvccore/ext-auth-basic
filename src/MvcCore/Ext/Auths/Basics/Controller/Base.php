@@ -11,12 +11,12 @@
  * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
  */
 
-namespace MvcCore\Ext\Auths\Basics\Traits;
+namespace MvcCore\Ext\Auths\Basics\Controller;
 
 /**
  * Responsibility - handle configured signin form and signout form submit requests.
  */
-trait Controller
+trait Base
 {
 	/**
 	 * Authentication form submit action to sign in.
@@ -34,7 +34,7 @@ trait Controller
 
 		}
 		$form->ClearSession(); // to remove all submited data from session
-		$form->RedirectAfterSubmit();
+		$form->SubmittedRedirect();
 	}
 
 	/**
@@ -48,6 +48,6 @@ trait Controller
 		$form = \MvcCore\Ext\Auths\Basic::GetInstance()->GetSignOutForm();
 		$form->Submit();
 		$form->ClearSession(); // to remove all submited data from session
-		$form->RedirectAfterSubmit();
+		$form->SubmittedRedirect();
 	}
 }

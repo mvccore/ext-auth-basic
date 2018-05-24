@@ -11,7 +11,7 @@
  * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
  */
 
-namespace MvcCore\Ext\Auths\Basics\Traits\User;
+namespace MvcCore\Ext\Auths\Basics\User;
 
 /**
  * Trait for `\MvcCore\Ext\Auths\Basics\User` class. Trait contains:
@@ -34,12 +34,12 @@ trait Auth
 	 * (it could be database table or system config) by user session namespace
 	 * `userName` record if `authenticated` boolean in user session namespace is `TRUE`.
 	 * Or return `NULL` for no user by user session namespace records.
-	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Interfaces\IUser|NULL
+	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser|NULL
 	 */
 	public static function SetUpUserBySession () {
 		$userSessionNamespace = static::GetUserSessionNamespace();
-		$userNameStr = \MvcCore\Ext\Auths\Basics\Interfaces\IUser::SESSION_USERNAME_KEY;
-		$authenticatedStr = \MvcCore\Ext\Auths\Basics\Interfaces\IUser::SESSION_AUTHENTICATED_KEY;
+		$userNameStr = \MvcCore\Ext\Auths\Basics\IUser::SESSION_USERNAME_KEY;
+		$authenticatedStr = \MvcCore\Ext\Auths\Basics\IUser::SESSION_AUTHENTICATED_KEY;
 		if (
 			isset($userSessionNamespace->$userNameStr) &&
 			isset($userSessionNamespace->$authenticatedStr) &&
@@ -59,7 +59,7 @@ trait Auth
 	 * into user session namespace. Then user is logged in.
 	 * @param string $userName Submitted and cleaned username. Characters `' " ` < > \ = ^ | & ~` are automaticly encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
 	 * @param string $password Submitted and cleaned password. Characters `' " ` < > \ = ^ | & ~` are automaticly encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
-	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Interfaces\IUser|NULL
+	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser|NULL
 	 */
 	public static function LogIn ($userName = '', $password = '') {
 		$user = static::GetByUserName($userName);
@@ -67,8 +67,8 @@ trait Auth
 			$hashedPassword = static::EncodePasswordToHash($password);
 			if ($user->passwordHash === $hashedPassword) {
 				$userSessionNamespace = & static::GetUserSessionNamespace();
-				$userNameStr = \MvcCore\Ext\Auths\Basics\Interfaces\IUser::SESSION_USERNAME_KEY;
-				$authenticatedStr = \MvcCore\Ext\Auths\Basics\Interfaces\IUser::SESSION_AUTHENTICATED_KEY;
+				$userNameStr = \MvcCore\Ext\Auths\Basics\IUser::SESSION_USERNAME_KEY;
+				$authenticatedStr = \MvcCore\Ext\Auths\Basics\IUser::SESSION_AUTHENTICATED_KEY;
 				$userSessionNamespace->$userNameStr = $user->userName;
 				$userSessionNamespace->$authenticatedStr = TRUE;
 				return $user;
@@ -90,7 +90,7 @@ trait Auth
 		if ($destroyWholeSession) {
 			static::GetUserSessionNamespace()->Destroy();
 		} else {
-			$authenticatedStr = \MvcCore\Ext\Auths\Basics\Interfaces\IUser::SESSION_AUTHENTICATED_KEY;
+			$authenticatedStr = \MvcCore\Ext\Auths\Basics\IUser::SESSION_AUTHENTICATED_KEY;
 			$userSessionNamespace->$authenticatedStr = FALSE;
 		}
 	}

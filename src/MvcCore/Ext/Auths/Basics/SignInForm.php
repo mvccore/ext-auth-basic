@@ -18,8 +18,8 @@ namespace MvcCore\Ext\Auths\Basics;
  */
 class SignInForm
 	extends		\MvcCore\Ext\Form
-	implements	\MvcCore\Ext\Auths\Basics\Interfaces\IForm
+	implements	\MvcCore\Ext\Auths\Basics\IForm
 {
-	use			\MvcCore\Ext\Auths\Basics\Traits\Form,
-				\MvcCore\Ext\Auths\Basics\Traits\SignInForm;
+	use			\MvcCore\Ext\Auths\Basics\Form\Base;
+	use			\MvcCore\Ext\Auths\Basics\Form\SignIn;
 }

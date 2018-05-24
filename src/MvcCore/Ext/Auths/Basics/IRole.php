@@ -11,7 +11,7 @@
  * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
  */
 
-namespace MvcCore\Ext\Auths\Basics\Interfaces;
+namespace MvcCore\Ext\Auths\Basics;
 
 /**
  * Responsibility - base role model class.
@@ -33,7 +33,7 @@ interface IRole
 	 * or sequence number in system config.
 	 * Example: `0 | 1 | 2...`
 	 * @param int|NULL $id
-	 * @return \MvcCore\Ext\Auths\Basics\Interfaces\IRole
+	 * @return \MvcCore\Ext\Auths\Basics\IRole
 	 */
 	public function & SetId ($id);
 
@@ -52,7 +52,7 @@ interface IRole
 
 	/**
 	 * Set user active state boolean. `TRUE` for active, `FALSE` otherwise.
-	 * @return \MvcCore\Ext\Auths\Basics\Interfaces\IRole
+	 * @return \MvcCore\Ext\Auths\Basics\IRole
 	 */
 	public function & SetActive ($active);
 
@@ -71,7 +71,7 @@ interface IRole
 	 * or to disallow permission (with `$allow = FALSE`) for user or role.
 	 * @param string $permissionName Strings describing what is allowed/disallowed to do for user or role.
 	 * @param bool $allow `TRUE` by default.
-	 * @return \MvcCore\Ext\Auths\Basics\Interfaces\IRole
+	 * @return \MvcCore\Ext\Auths\Basics\IRole
 	 */
 	public function & SetPermission ($permissionName, $allow = TRUE);
 
@@ -84,7 +84,7 @@ interface IRole
 	/**
 	 * Set array of strings describing what is allowed to do for user or role.
 	 * @param string|\string[] $permissions Permitions string, separated by comma character or array of strings.
-	 * @return \MvcCore\Ext\Auths\Basics\Interfaces\IRole
+	 * @return \MvcCore\Ext\Auths\Basics\IRole
 	 */
 	public function & SetPermissions ($permissions);
 
@@ -102,7 +102,7 @@ interface IRole
 	 * Set unique role name.
 	 * Example: `"management" | "editor" | "quest"`
 	 * @param string $name
-	 * @return \MvcCore\Ext\Auths\Basics\Interfaces\IRole
+	 * @return \MvcCore\Ext\Auths\Basics\IRole
 	 */
 	public function & SetName ($name);
 
@@ -120,7 +120,7 @@ interface IRole
 	 * Get role instance from application roles list. It could be database or any other custom resource.
 	 * @param string $name Role unique name.
 	 * @throws \RuntimeException
-	 * @return \MvcCore\Ext\Auths\Basics\Interfaces\IRole
+	 * @return \MvcCore\Ext\Auths\Basics\IRole
 	 */
 	public function GetByName ($roleName);
 }

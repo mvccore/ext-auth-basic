@@ -11,14 +11,14 @@
  * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
  */
 
-namespace MvcCore\Ext\Auths\Basics\Traits;
+namespace MvcCore\Ext\Auths\Basics\Role;
 
 /**
  * Trait for `\MvcCore\Ext\Auths\Basics\Role` class. Trait contains:
  * - `$name` property, it's public getter and setter.
  * - public `IsAllowed()` method.
  */
-trait Role
+trait Base
 {
 	/**
 	 * Unique role name.
@@ -40,7 +40,7 @@ trait Role
 	 * Set unique role name.
 	 * Example: `"management" | "editor" | "quest"`
 	 * @param string $name
-	 * @return \MvcCore\Ext\Auths\Basics\Role|\MvcCore\Ext\Auths\Basics\Interfaces\IRole
+	 * @return \MvcCore\Ext\Auths\Basics\Role|\MvcCore\Ext\Auths\Basics\IRole
 	 */
 	public function & SetName ($name) {
 		$this->name = $name;

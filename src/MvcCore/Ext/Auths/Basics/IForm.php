@@ -11,7 +11,7 @@
  * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
  */
 
-namespace MvcCore\Ext\Auths\Basics\Interfaces;
+namespace MvcCore\Ext\Auths\Basics;
 
 /**
  * Responsibility - base authentication signin/signout form class specification.
@@ -34,7 +34,7 @@ interface IForm
 	 * csrf tokens, html form attribute id value and much more.
 	 * @requires
 	 * @param string $id
-	 * @return \MvcCore\Ext\Form\Interfaces\IForm
+	 * @return \MvcCore\Ext\Form|\MvcCore\Ext\Forms\IForm
 	 */
 	public function & SetId ($id = '');
 
@@ -44,7 +44,7 @@ interface IForm
 	 * and overwrite any previous css class attribute value. Value is used for
 	 * standard css class attribute for HTML `<form>` tag.
 	 * @param string $cssClass
-	 * @return \MvcCore\Ext\Form\Interfaces\IForm
+	 * @return \MvcCore\Ext\Form|\MvcCore\Ext\Forms\IForm
 	 */
 	public function & SetCssClass ($cssClass = '');
 
@@ -52,7 +52,7 @@ interface IForm
 	 * Set form http submitting method.
 	 * `POST` by default.
 	 * @param string $method
-	 * @return \MvcCore\Ext\Form\Interfaces\IForm
+	 * @return \MvcCore\Ext\Form|\MvcCore\Ext\Forms\IForm
 	 */
 	public function & SetMethod ($method = '');
 
@@ -62,7 +62,7 @@ interface IForm
 	 * to complete classic html form attribute `action`.
 	 * @requires
 	 * @param string $url
-	 * @return \MvcCore\Ext\Form\Interfaces\IForm
+	 * @return \MvcCore\Ext\Form|\MvcCore\Ext\Forms\IForm
 	 */
 	public function & SetAction ($action = '');
 
@@ -70,10 +70,10 @@ interface IForm
 	 * Set success url string, relative or absolute, to specify, where
 	 * to redirect user after form submitted successfully.
 	 * It's not required to use `\MvcCore\Ext\Form` like this, but if you want to use method
-	 * `$form->RedirectAfterSubmit();` at the end of custom `Submit()` method implementation,
+	 * `$form->SubmittedRedirect();` at the end of custom `Submit()` method implementation,
 	 * you need to specify at least success and error url strings.
 	 * @param string $url
-	 * @return \MvcCore\Ext\Form\Interfaces\IForm
+	 * @return \MvcCore\Ext\Form|\MvcCore\Ext\Forms\IForm
 	 */
 	public function & SetSuccessUrl ($url = '');
 
@@ -81,10 +81,10 @@ interface IForm
 	 * Set error url string, relative or absolute, to specify, where
 	 * to redirect user after form not submitted successfully.
 	 * It's not required to use `\MvcCore\Ext\Form` like this, but if you want to use method
-	 * `$form->RedirectAfterSubmit();` at the end of custom `Submit()` method implementation,
+	 * `$form->SubmittedRedirect();` at the end of custom `Submit()` method implementation,
 	 * you need to specify at least success and error url strings.
 	 * @param string $url
-	 * @return \MvcCore\Ext\Form\Interfaces\IForm
+	 * @return \MvcCore\Ext\Form|\MvcCore\Ext\Forms\IForm
 	 */
 	public function & SetErrorUrl ($url = '');
 
@@ -96,7 +96,7 @@ interface IForm
 	 * everything in form will be translated, except fields strictly defined to not translate.
 	 * Default value is `NULL`, it means no translation will be processed.
 	 * @param callable $handler
-	 * @return \MvcCore\Ext\Form\Interfaces\IForm
+	 * @return \MvcCore\Ext\Form|\MvcCore\Ext\Forms\IForm
 	 */
 	public function & SetTranslator (callable $translator = NULL);
 
@@ -105,23 +105,23 @@ interface IForm
 	 * Check if any form id exists and initialize translation boolean for better field initializations.
 	 * This is template method. To define any fields in custom `\MvcCore\Ext\Form` class extension,
 	 * do it in `Init()` method and call `parent::Init();` as first line inside your custom `Init()` method.
-	 * @throws \MvcCore\Ext\Form\Interfaces\IException
-	 * @return \MvcCore\Ext\Form\Interfaces\IForm
+	 * @throws \RuntimeException No form id property defined.
+	 * @return \MvcCore\Ext\Form|\MvcCore\Ext\Forms\IForm
 	 */
 	public function Init ();
 
 	/**
 	 * Add configured form field instance.
-	 * @param \MvcCore\Ext\Form\Interfaces\IField $field
-	 * @return \MvcCore\Ext\Form\Interfaces\IForm
+	 * @param \MvcCore\Ext\Forms\IField $field
+	 * @return \MvcCore\Ext\Form|\MvcCore\Ext\Forms\IForm
 	 */
-	public function & AddField (\MvcCore\Ext\Form\Interfaces\IField $field);
+	public function & AddField (\MvcCore\Ext\Forms\IField $field);
 
 	/**
 	 * Add multiple configured form field instances,
 	 * function have infinite params with new field instances.
-	 * @param \MvcCore\Ext\Form\Interfaces\IField[] $fields,... Any `\MvcCore\Ext\Form\Interfaces\IField` instance to add into form.
-	 * @return \MvcCore\Ext\Form\Interfaces\IForm
+	 * @param \MvcCore\Ext\Forms\IField[] $fields,... Any `\MvcCore\Ext\Forms\IField` instance to add into form.
+	 * @return \MvcCore\Ext\Form|\MvcCore\Ext\Forms\IForm
 	 */
 	public function & AddFields ();
 
@@ -143,7 +143,7 @@ interface IForm
 	/**
 	 * Clear all session records for this form by form id.
 	 * Data sended from last submit, any csrf tokens and any errors.
-	 * @return \MvcCore\Ext\Form\Interfaces\IForm
+	 * @return \MvcCore\Ext\Form|\MvcCore\Ext\Forms\IForm
 	 */
 	public function & ClearSession ();
 
@@ -153,7 +153,7 @@ interface IForm
 	 * step url address into final place and store everything into session.
 	 * @return void
 	 */
-	public function RedirectAfterSubmit ();
+	public function SubmittedRedirect ();
 
 	/**
 	 * Alias for method `\MvcCore\Ext\Form::Render();`.

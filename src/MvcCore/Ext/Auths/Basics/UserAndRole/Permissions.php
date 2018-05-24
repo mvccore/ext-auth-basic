@@ -11,7 +11,7 @@
  * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
  */
 
-namespace MvcCore\Ext\Auths\Basics\Traits\UserAndRole;
+namespace MvcCore\Ext\Auths\Basics\UserAndRole;
 
 /**
  * Trait for `\MvcCore\Ext\Auths\Basics\User` and `\MvcCore\Ext\Auths\Basics\Role` class. Trait contains:
@@ -41,7 +41,7 @@ trait Permissions
 	 * or to disallow permission (with `$allow = FALSE`) for user or role.
 	 * @param string $permissionName Strings describing what is allowed/disallowed to do for user or role.
 	 * @param bool $allow `TRUE` by default.
-	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Interfaces\IUser|\MvcCore\Ext\Auths\Basics\Role|\MvcCore\Ext\Auths\Basics\Interfaces\IRole
+	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser|\MvcCore\Ext\Auths\Basics\Role|\MvcCore\Ext\Auths\Basics\IRole
 	 */
 	public function & SetPermission ($permissionName, $allow = TRUE) {
 		if (!in_array($permissionName, $this->permissions) && $allow) {
@@ -64,7 +64,7 @@ trait Permissions
 	/**
 	 * Set array of strings describing what is allowed to do for user or role.
 	 * @param string|\string[] $permissions Permitions string, separated by comma character or array of strings.
-	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Interfaces\IUser|\MvcCore\Ext\Auths\Basics\Role|\MvcCore\Ext\Auths\Basics\Interfaces\IRole
+	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser|\MvcCore\Ext\Auths\Basics\Role|\MvcCore\Ext\Auths\Basics\IRole
 	 */
 	public function & SetPermissions ($permissions) {
 		if (is_string($permissions)) {

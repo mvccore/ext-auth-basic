@@ -11,17 +11,17 @@
  * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
  */
 
-namespace MvcCore\Ext\Auths\Basics\Traits;
+namespace MvcCore\Ext\Auths\Basics\Form;
 
 /**
  * Trait for class `\MvcCore\Ext\Auths\Basics\SignInForm` and `\MvcCore\Ext\Auths\Basics\SignOutForm`. Trait contains:
  * - Protected property `$auth` to use authentication module more flexible for fields init.
  * - method `initAuthFormPropsAndHiddenControls()` always called from `Init()` method to init hidden fields for success url and error url.
  */
-trait Form
+trait Base
 {
 	/**
-	 * @var \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\Interfaces\IAuth
+	 * @var \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
 	 */
 	protected $auth = NULL;
 
@@ -29,19 +29,21 @@ trait Form
 	 * Add success and error url which are used
 	 * to redirect user to success url or error url
 	 * after form is submitted.
-	 * @return void
+	 * @return \MvcCore\Ext\Form|\MvcCore\Ext\Forms\IForm
 	 */
 	protected function initAuthFormPropsAndHiddenControls () {
 		$this->auth = \MvcCore\Ext\Auths\Basic::GetInstance();
-		$this->AddField(new \MvcCore\Ext\Form\Hidden(array(
-			'name'			=> 'successUrl',
-			'value'			=> $this->auth->GetSignedInUrl(),
-			'validators'	=> array('Url'),
-		)));
-		$this->AddField(new \MvcCore\Ext\Form\Hidden(array(
-			'name'			=> 'errorUrl',
-			'value'			=> $this->auth->GetSignErrorUrl(),
-			'validators'	=> array('Url'),
-		)));
+		$this
+			->AddField(new \MvcCore\Ext\Forms\Fields\Hidden(array(
+				'name'			=> 'successUrl',
+				'value'			=> $this->auth->GetSignedInUrl(),
+				'validators'	=> array('Url'),
+			)))
+			->AddField(new \MvcCore\Ext\Forms\Fields\Hidden(array(
+				'name'			=> 'errorUrl',
+				'value'			=> $this->auth->GetSignErrorUrl(),
+				'validators'	=> array('Url'),
+			)));
+		return $this;
 	}
 }

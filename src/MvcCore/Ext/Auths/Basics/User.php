@@ -20,13 +20,13 @@ namespace MvcCore\Ext\Auths\Basics;
  */
 class User
 	extends		\MvcCore\Model
-	implements	\MvcCore\Ext\Auths\Basics\Interfaces\IUser
+	implements	\MvcCore\Ext\Auths\Basics\IUser
 {
-	use \MvcCore\Ext\Auths\Basics\Traits\User\Base,
-		\MvcCore\Ext\Auths\Basics\Traits\UserAndRole\Base,
-		\MvcCore\Ext\Auths\Basics\Traits\UserAndRole\Permissions,
-		\MvcCore\Ext\Auths\Basics\Traits\User\Auth,
-		\MvcCore\Ext\Auths\Basics\Traits\User\Roles;
+	use \MvcCore\Ext\Auths\Basics\User\Base;
+	use \MvcCore\Ext\Auths\Basics\UserAndRole\Base;
+	use \MvcCore\Ext\Auths\Basics\UserAndRole\Permissions;
+	use \MvcCore\Ext\Auths\Basics\User\Auth;
+	use \MvcCore\Ext\Auths\Basics\User\Roles;
 
 	/**
 	 * Do not automaticly initialize protected properties
@@ -40,7 +40,7 @@ class User
 	 * resource by submitted and cleaned `$userName` field value.
 	 * @param string $userName Submitted and cleaned username. Characters `' " ` < > \ = ^ | & ~` are automaticly encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
 	 * @throws \RuntimeException
-	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Interfaces\IUser
+	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
 	 */
 	public static function & GetByUserName ($userName) {
 		throw new \RuntimeException(

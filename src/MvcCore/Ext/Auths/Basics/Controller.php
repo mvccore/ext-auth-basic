@@ -18,8 +18,8 @@ namespace MvcCore\Ext\Auths\Basics;
  */
 class Controller
 	extends		\MvcCore\Controller
-	implements	\MvcCore\Ext\Auths\Basics\Interfaces\IController,
+	implements	\MvcCore\Ext\Auths\Basics\IController,
 				\MvcCore\Interfaces\IController
 {
-	use			\MvcCore\Ext\Auths\Basics\Traits\Controller;
+	use			\MvcCore\Ext\Auths\Basics\Controller\Base;
 }

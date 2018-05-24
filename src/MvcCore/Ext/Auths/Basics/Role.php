@@ -16,17 +16,17 @@ namespace MvcCore\Ext\Auths\Basics;
 /**
  * Responsibility - base role model class.
  * This class is necessary to extend and implement method
- * `GetByName()` or more. It's also necessary to implement 
- * loading users with roles and their permitions to be able 
+ * `GetByName()` or more. It's also necessary to implement
+ * loading users with roles and their permitions to be able
  * to check user roles and permissions.
  */
 class Role
 	extends		\MvcCore\Model
-	implements	\MvcCore\Ext\Auths\Basics\Interfaces\IRole
+	implements	\MvcCore\Ext\Auths\Basics\IRole
 {
-	use \MvcCore\Ext\Auths\Basics\Traits\UserAndRole\Base,
-		\MvcCore\Ext\Auths\Basics\Traits\UserAndRole\Permissions,
-		\MvcCore\Ext\Auths\Basics\Traits\Role;
+	use \MvcCore\Ext\Auths\Basics\UserAndRole\Base;
+	use \MvcCore\Ext\Auths\Basics\UserAndRole\Permissions;
+	use \MvcCore\Ext\Auths\Basics\Role\Base;
 
 	/**
 	 * Do not automaticly initialize protected properties
@@ -39,7 +39,7 @@ class Role
 	 * Get role instance from application roles list. It could be database or any other custom resource.
 	 * @param string $name Role unique name.
 	 * @throws \RuntimeException
-	 * @return \MvcCore\Ext\Auths\Basics\Role|\MvcCore\Ext\Auths\Basics\Interfaces\IRole
+	 * @return \MvcCore\Ext\Auths\Basics\Role|\MvcCore\Ext\Auths\Basics\IRole
 	 */
 	public function GetByName ($roleName) {
 		throw new \RuntimeException(

@@ -1,6 +1,6 @@
 <?php
 
-namespace MvcCore\Ext\Auths\Basics\Interfaces;
+namespace MvcCore\Ext\Auths\Basics;
 
 interface IAuth
 {
@@ -16,7 +16,7 @@ interface IAuth
 	 * if not, create new basic authentication module instance, store it and return it.
 	 * @param array $configuration Optional configuration passed into method
 	 *                             `\MvcCore\Ext\Auths\Basic::__construct($configuration)`.
-	 * @return \MvcCore\Ext\Auths\Basics\Interfaces\IAuth
+	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
 	public static function GetInstance ($configuration = array());
 
@@ -36,7 +36,7 @@ interface IAuth
 	/**
 	 * Get full class name to use for user instance.
 	 * Class name has to implement interface
-	 * `\MvcCore\Ext\Auths\Basics\Interfaces\IUser`.
+	 * `\MvcCore\Ext\Auths\Basics\IUser`.
 	 * Default value after auth module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\User`.
 	 * @return string
@@ -46,7 +46,7 @@ interface IAuth
 	/**
 	 * Get full class name to use for user role class.
 	 * Class name has to implement interface
-	 * `\MvcCore\Ext\Auths\Basics\Interfaces\IRole`.
+	 * `\MvcCore\Ext\Auths\Basics\IRole`.
 	 * Default value after auth module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\Role`.
 	 * @return string
@@ -56,7 +56,7 @@ interface IAuth
 	/**
 	 * Get full class name to use for controller instance
 	 * to submit auth form(s). Class name has to implement interfaces:
-	 * - `\MvcCore\Ext\Auths\Basics\Interfaces\IController`
+	 * - `\MvcCore\Ext\Auths\Basics\IController`
 	 * - `\MvcCore\Interfaces\IController`
 	 * Default value after auth module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\Controller`.
@@ -67,7 +67,7 @@ interface IAuth
 	/**
 	 * Get full class name to use for sign in form instance.
 	 * Class name has to implement interface
-	 * `\MvcCore\Ext\Auths\Basics\Interfaces\IForm`.
+	 * `\MvcCore\Ext\Auths\Basics\IForm`.
 	 * Default value after auth module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\SignInForm`.
 	 * @return string
@@ -77,7 +77,7 @@ interface IAuth
 	/**
 	 * Full class name to use for sign out form instance.
 	 * Class name has to implement interface
-	 * `\MvcCore\Ext\Auths\Basics\Interfaces\IForm`.
+	 * `\MvcCore\Ext\Auths\Basics\IForm`.
 	 * Default value after auth module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\SignOutForm`.
 	 * @return string
@@ -157,7 +157,7 @@ interface IAuth
 	 * If user has not yet been initialized, load the user internaly by
 	 * `{$configuredUserClass}::SetUpUserBySession();` to try to load
 	 * user by username record in session namespace.
-	 * @return \MvcCore\Ext\Auths\Basics\Interfaces\IUser|NULL
+	 * @return \MvcCore\Ext\Auths\Basics\IUser|NULL
 	 */
 	public function & GetUser ();
 
@@ -181,7 +181,7 @@ interface IAuth
 	 * This method is only alias to call two other methods:
 	 * - `\MvcCore\Ext\Auths\Basic::GetInstance()->GetSignInForm();` for not authenticated users.
 	 * - `\MvcCore\Ext\Auths\Basic::GetInstance()->GetSignOutForm();` for authenticated users.
-	 * @var \MvcCore\Ext\Auths\Basics\Interfaces\IForm
+	 * @var \MvcCore\Ext\Auths\Basics\IForm
 	 */
 	public function & GetForm ();
 
@@ -189,7 +189,7 @@ interface IAuth
 	 * Return completed sign in form instance.
 	 * Form instance completition is processed only once,
 	 * created form instance is stored in `$auth->form` property.
-	 * @return \MvcCore\Ext\Auths\Basics\Interfaces\IForm
+	 * @return \MvcCore\Ext\Auths\Basics\IForm
 	 */
 	public function GetSignInForm ();
 
@@ -197,7 +197,7 @@ interface IAuth
 	 * Return completed sign out form instance.
 	 * Form instance completition is processed only once,
 	 * created form instance is stored in `$auth->form` property.
-	 * @return \MvcCore\Ext\Auths\Basics\Interfaces\IForm
+	 * @return \MvcCore\Ext\Auths\Basics\IForm
 	 */
 	public function GetSignOutForm ();
 
@@ -217,63 +217,63 @@ interface IAuth
 	 * So better is not to use a zero value.
 	 * Default value is 10 minutes (600 seconds).
 	 * @param int $expirationSeconds
-	 * @return \MvcCore\Ext\Auths\Basics\Interfaces\IAuth
+	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
 	public function & SetExpirationSeconds ($expirationSeconds = 600);
 
 	/**
 	 * Set full class name to use for user instance.
 	 * Class name has to implement interface
-	 * `\MvcCore\Ext\Auths\Basics\Interfaces\IUser`.
+	 * `\MvcCore\Ext\Auths\Basics\IUser`.
 	 * Default value after auth module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\User`.
-	 * @param string $userClass User full class name implementing `\MvcCore\Ext\Auths\Basics\Interfaces\IUser`.
-	 * @return \MvcCore\Ext\Auths\Basics\Interfaces\IAuth
+	 * @param string $userClass User full class name implementing `\MvcCore\Ext\Auths\Basics\IUser`.
+	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
 	public function & SetUserClass ($userClass = '');
 
 	/**
 	 * Set full class name to use for user role class.
 	 * Class name has to implement interface
-	 * `\MvcCore\Ext\Auths\Basics\Interfaces\IRole`.
+	 * `\MvcCore\Ext\Auths\Basics\IRole`.
 	 * Default value after auth module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\Role`.
-	 * @param string $roleClass Role full class name implementing `\MvcCore\Ext\Auths\Basics\Interfaces\IRole`.
-	 * @return \MvcCore\Ext\Auths\Basics\Interfaces\IAuth
+	 * @param string $roleClass Role full class name implementing `\MvcCore\Ext\Auths\Basics\IRole`.
+	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
 	public function & SetRoleClass ($roleClass = '');
 
 	/**
 	 * Set full class name to use for controller instance
 	 * to submit auth form(s). Class name has to implement interfaces:
-	 * - `\MvcCore\Ext\Auths\Basics\Interfaces\IController`
+	 * - `\MvcCore\Ext\Auths\Basics\IController`
 	 * - `\MvcCore\Interfaces\IController`
 	 * Default value after auth module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\Controller`.
-	 * @param string $controllerClass Controller full class name implementing `\MvcCore\Ext\Auths\Basics\Interfaces\IController`.
-	 * @return \MvcCore\Ext\Auths\Basics\Interfaces\IAuth
+	 * @param string $controllerClass Controller full class name implementing `\MvcCore\Ext\Auths\Basics\IController`.
+	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
 	public function & SetControllerClass ($controllerClass = '');
 
 	/**
 	 * Set full class name to use for sign in form instance.
 	 * Class name has to implement interface
-	 * `\MvcCore\Ext\Auths\Basics\Interfaces\IForm`.
+	 * `\MvcCore\Ext\Auths\Basics\IForm`.
 	 * Default value after auth module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\SignInForm`.
-	 * @param string $signInFormClass Form full class name implementing `\MvcCore\Ext\Auths\Basics\Interfaces\IForm`.
-	 * @return \MvcCore\Ext\Auths\Basics\Interfaces\IAuth
+	 * @param string $signInFormClass Form full class name implementing `\MvcCore\Ext\Auths\Basics\IForm`.
+	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
 	public function & SetSignInFormClass ($signInFormClass = '');
 
 	/**
 	 * Set full class name to use for sign out form instance.
 	 * Class name has to implement interface
-	 * `\MvcCore\Ext\Auths\Basics\Interfaces\IForm`.
+	 * `\MvcCore\Ext\Auths\Basics\IForm`.
 	 * Default value after auth module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\SignOutForm`.
-	 * @param string $signInFormClass Form full class name implementing `\MvcCore\Ext\Auths\Basics\Interfaces\IForm`.
-	 * @return \MvcCore\Ext\Auths\Basics\Interfaces\IAuth
+	 * @param string $signInFormClass Form full class name implementing `\MvcCore\Ext\Auths\Basics\IForm`.
+	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
 	public function & SetSignOutFormClass ($signOutFormClass = '');
 
@@ -283,7 +283,7 @@ interface IAuth
 	 * If `NULL` (by default), user will be redirected
 	 * to the same url, where was sign in form rendered.
 	 * @param string|NULL $signedInUrl
-	 * @return \MvcCore\Ext\Auths\Basics\Interfaces\IAuth
+	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
 	public function & SetSignedInUrl ($signedInUrl = NULL);
 
@@ -293,7 +293,7 @@ interface IAuth
 	 * If `NULL` (by default), user will be redirected
 	 * to the same url, where was sign out form rendered.
 	 * @param string|NULL $signedOutUrl
-	 * @return \MvcCore\Ext\Auths\Basics\Interfaces\IAuth
+	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
 	public function & SetSignedOutUrl ($signedOutUrl = NULL);
 
@@ -304,7 +304,7 @@ interface IAuth
 	 * If `NULL` (by default), user will be redirected
 	 * to the same url, where was sign in/out form rendered.
 	 * @param string|NULL $signErrorUrl
-	 * @return \MvcCore\Ext\Auths\Basics\Interfaces\IAuth
+	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
 	public function & SetSignErrorUrl ($signErrorUrl = NULL);
 
@@ -312,7 +312,7 @@ interface IAuth
 	 * Set route instance to submit sign in form into.
 	 * Default configured route for sign in request is `/signin` by POST.
 	 * @param string|array|\MvcCore\Interfaces\IRoute $signInRoute
-	 * @return \MvcCore\Ext\Auths\Basics\Interfaces\IAuth
+	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
 	public function & SetSignInRoute ($signInRoute = NULL);
 
@@ -320,7 +320,7 @@ interface IAuth
 	 * Set route to submit sign out form into.
 	 * Default configured route for sign in request is `/signout` by POST.
 	 * @param string|array|\MvcCore\Interfaces\IRoute $signOutRoute
-	 * @return \MvcCore\Ext\Auths\Basics\Interfaces\IAuth
+	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
 	public function & SetSignOutRoute ($signOutRoute = NULL);
 
@@ -329,7 +329,7 @@ interface IAuth
 	 * `NULL` by default. This option is the only one option required
 	 * to configure authentication module to use it properly.
 	 * @param string $passwordHashSalt
-	 * @return \MvcCore\Ext\Auths\Basics\Interfaces\IAuth
+	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
 	public function & SetPasswordHashSalt ($passwordHashSalt = '');
 
@@ -338,7 +338,7 @@ interface IAuth
 	 * when user submitted invalid username or password.
 	 * Default value is `3` (3 seconds).
 	 * @param int $seconds
-	 * @return \MvcCore\Ext\Auths\Basics\Interfaces\IAuth
+	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
 	public function & SetInvalidCredentialsTimeout ($seconds = 3);
 
@@ -347,7 +347,7 @@ interface IAuth
 	 * to translate form labels, placeholders or buttons.
 	 * Default value is `NULL` (forms without translations).
 	 * @param callable $translator
-	 * @return \MvcCore\Ext\Auths\Basics\Interfaces\IAuth
+	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
 	public function & SetTranslator (callable $translator = NULL);
 
@@ -355,18 +355,18 @@ interface IAuth
 	 * Set user instance manualy. If you use this method
 	 * no authentication by `{$configuredUserClass}::SetUpUserBySession();`
 	 * is used and authentication state is always positive.
-	 * @param \MvcCore\Ext\Auths\Basics\Interfaces\IUser|NULL $user
-	 * @return \MvcCore\Ext\Auths\Basics\Interfaces\IAuth
+	 * @param \MvcCore\Ext\Auths\Basics\IUser|NULL $user
+	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
-	public function & SetUser (\MvcCore\Ext\Auths\Basics\Interfaces\IUser & $user = NULL);
+	public function & SetUser (\MvcCore\Ext\Auths\Basics\IUser & $user = NULL);
 
 	/**
 	 * Set sign in, sign out or any authentication form instance.
 	 * Use this method only if you need sometimes to complete different form to render.
-	 * @param \MvcCore\Ext\Auths\Basics\Interfaces\IForm $form
-	 * @return \MvcCore\Ext\Auths\Basics\Interfaces\IAuth
+	 * @param \MvcCore\Ext\Auths\Basics\IForm $form
+	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
-	public function & SetForm (\MvcCore\Ext\Auths\Basics\Interfaces\IForm & $form);
+	public function & SetForm (\MvcCore\Ext\Auths\Basics\IForm & $form);
 
 	/**
 	 * Set up authorization module configuration.
@@ -375,7 +375,7 @@ interface IAuth
 	 * @param array $configuration Keys by protected properties names in camel case.
 	 * @param bool $throwExceptionIfPropertyIsMissing
 	 * @throws \InvalidArgumentException
-	 * @return \MvcCore\Ext\Auths\Basics\Interfaces\IAuth
+	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
 	public function & SetConfiguration ($configuration = array(), $throwExceptionIfPropertyIsMissing = TRUE);
 
