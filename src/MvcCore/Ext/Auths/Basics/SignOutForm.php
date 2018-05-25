@@ -20,6 +20,8 @@ class SignOutForm
 	extends		\MvcCore\Ext\Form
 	implements	\MvcCore\Ext\Auths\Basics\IForm
 {
+	protected $id = \MvcCore\Ext\Auths\Basics\IForm::HTML_ID_SIGNOUT;
+
 	use			\MvcCore\Ext\Auths\Basics\Form\Base;
 	use			\MvcCore\Ext\Auths\Basics\Form\SignOut;
 }

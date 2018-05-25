@@ -36,7 +36,25 @@ interface IForm
 	 * @param string $id
 	 * @return \MvcCore\Ext\Form|\MvcCore\Ext\Forms\IForm
 	 */
-	public function & SetId ($id = '');
+	public function & SetId ($id);
+
+	/**
+	 * Set form submitting url value.
+	 * It could be relative or absolute, anything
+	 * to complete classic html form attribute `action`.
+	 * @requires
+	 * @param string $url
+	 * @return \MvcCore\Ext\Form|\MvcCore\Ext\Forms\IForm
+	 */
+	public function & SetAction ($url = NULL);
+
+	/**
+	 * Set form http submitting method.
+	 * `POST` by default.
+	 * @param string $method
+	 * @return \MvcCore\Ext\Form|\MvcCore\Ext\Forms\IForm
+	 */
+	public function & SetMethod ($method = \MvcCore\Ext\Forms\IForm::METHOD_POST);
 
 	/**
 	 * Set form html element css class attribute value.
@@ -49,24 +67,6 @@ interface IForm
 	public function & SetCssClass ($cssClass = '');
 
 	/**
-	 * Set form http submitting method.
-	 * `POST` by default.
-	 * @param string $method
-	 * @return \MvcCore\Ext\Form|\MvcCore\Ext\Forms\IForm
-	 */
-	public function & SetMethod ($method = '');
-
-	/**
-	 * Set form submitting url value.
-	 * It could be relative or absolute, anything
-	 * to complete classic html form attribute `action`.
-	 * @requires
-	 * @param string $url
-	 * @return \MvcCore\Ext\Form|\MvcCore\Ext\Forms\IForm
-	 */
-	public function & SetAction ($action = '');
-
-	/**
 	 * Set success url string, relative or absolute, to specify, where
 	 * to redirect user after form submitted successfully.
 	 * It's not required to use `\MvcCore\Ext\Form` like this, but if you want to use method
@@ -75,7 +75,7 @@ interface IForm
 	 * @param string $url
 	 * @return \MvcCore\Ext\Form|\MvcCore\Ext\Forms\IForm
 	 */
-	public function & SetSuccessUrl ($url = '');
+	public function & SetSuccessUrl ($url = NULL);
 
 	/**
 	 * Set error url string, relative or absolute, to specify, where
@@ -86,7 +86,7 @@ interface IForm
 	 * @param string $url
 	 * @return \MvcCore\Ext\Form|\MvcCore\Ext\Forms\IForm
 	 */
-	public function & SetErrorUrl ($url = '');
+	public function & SetErrorUrl ($url = NULL);
 
 	/**
 	 * Set translator callable to translate everything visible in form.
