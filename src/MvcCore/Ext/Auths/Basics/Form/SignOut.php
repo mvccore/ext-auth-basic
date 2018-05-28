@@ -22,9 +22,6 @@ namespace MvcCore\Ext\Auths\Basics\Form;
  */
 trait SignOut
 {
-	/** @var \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser */
-	protected $user = NULL;
-
 	/**
 	 * Initialize sign out button and user into
 	 * template for any custom template rendering.

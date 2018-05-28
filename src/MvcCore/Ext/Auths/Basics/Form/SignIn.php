@@ -55,7 +55,6 @@ trait SignIn
 			'value'			=> rawurlencode($sourceUrl) ?: '',
 			'validators'	=> array('Url'),
 		)));
-
 		return $this;
 	}
 
@@ -68,13 +67,13 @@ trait SignIn
 	 */
 	public function Submit ($rawParams = array()) {
 		parent::Submit($rawParams);
-		$data = (object) $this->values;
+		$data = & $this->values;
 		if ($this->result) {
 			// now sended values are safe strings,
 			// try to get use by username and compare password hashes:
 			$userClass = $this->auth->GetUserClass();
 			$user = $userClass::LogIn(
-				$data->username, $data->password
+				$data['username'], $data['password']
 			);
 			if ($user !== NULL) {
 				$user->SetPasswordHash(NULL);
@@ -86,8 +85,8 @@ trait SignIn
 			}
 		}
 		$this
-			->SetSuccessUrl($data->sourceUrl ? $data->sourceUrl : $data->successUrl)
-			->SetErrorUrl($data->errorUrl);
+			->SetSuccessUrl(isset($data['sourceUrl']) ? $data['sourceUrl'] : $data['successUrl'])
+			->SetErrorUrl(isset($data['errorUrl']) ? $data['errorUrl'] : '');
 		if (!$this->result)
 			sleep($this->auth->GetInvalidCredentialsTimeout());
 		return array(

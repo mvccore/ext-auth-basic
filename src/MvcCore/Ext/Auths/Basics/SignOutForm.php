@@ -22,6 +22,9 @@ class SignOutForm
 {
 	protected $id = \MvcCore\Ext\Auths\Basics\IForm::HTML_ID_SIGNOUT;
 
+	/** @var \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser */
+	protected $user = NULL;
+
 	use			\MvcCore\Ext\Auths\Basics\Form\Base;
 	use			\MvcCore\Ext\Auths\Basics\Form\SignOut;
 }
