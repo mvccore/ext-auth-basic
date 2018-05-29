@@ -46,19 +46,19 @@ trait SignOut
 	/**
 	 * Sign out submit - if everything is ok, unser user unique name from session
 	 * for next requests to hanve not authenticated user anymore.
-	 * @param array $rawParams
+	 * @param array $rawRequestParams
 	 * @return array
 	 */
-	public function Submit ($rawParams = array()) {
-		parent::Submit($rawParams);
-		$data = (object) $this->values;
+	public function Submit (array & $rawRequestParams = array()) {
+		parent::Submit($rawRequestParams);
+		$data = & $this->values;
 		if ($this->result === \MvcCore\Ext\Form::RESULT_SUCCESS) {
 			$userClass = $this->auth->GetUserClass();
 			$userClass::LogOut();
 		}
 		$this
-			->SetSuccessUrl($data->successUrl)
-			->SetErrorUrl($data->errorUrl);
+			->SetSuccessUrl($data['successUrl'])
+			->SetErrorUrl(isset($data['errorUrl']) ? $data['errorUrl'] : '');
 		return array($this->result, $this->values, $this->errors);
 	}
 

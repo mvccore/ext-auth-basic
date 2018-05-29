@@ -135,10 +135,10 @@ interface IForm
 	 * - Process all field values and their validators and call `$form->AddError()` where necessary.
 	 *	 `AddError()` method automaticly switch `$form->Result` property to zero - `0`, it means error submit result.
 	 * Return array with form result, safe values from validators and errors array.
-	 * @param array $rawParams optional
+	 * @param array $rawRequestParams optional
 	 * @return array Array to list: `array($form->Result, $form->Data, $form->Errors);`
 	 */
-	public function Submit ($rawParams = array());
+	public function Submit (array & $rawRequestParams = array());
 
 	/**
 	 * Clear all session records for this form by form id.
