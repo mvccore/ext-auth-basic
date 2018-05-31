@@ -26,6 +26,24 @@ trait Base
 	protected $auth = NULL;
 
 	/**
+	 * Hidden input with success url value.
+	 * @var \MvcCore\Ext\Forms\Fields\Hidden
+	 */
+	protected $successUrlField = NULL;
+
+	/**
+	 * Hidden input with error url value.
+	 * @var \MvcCore\Ext\Forms\Fields\Hidden
+	 */
+	protected $errorUrlField = NULL;
+
+	/**
+	 * Hidden input with source url value.
+	 * @var \MvcCore\Ext\Forms\Fields\Hidden
+	 */
+	protected $sourceUrlField = NULL;
+
+	/**
 	 * Add success and error url which are used
 	 * to redirect user to success url or error url
 	 * after form is submitted.
@@ -33,17 +51,54 @@ trait Base
 	 */
 	protected function initAuthFormPropsAndHiddenControls () {
 		$this->auth = \MvcCore\Ext\Auths\Basic::GetInstance();
-		$this
-			->AddField(new \MvcCore\Ext\Forms\Fields\Hidden(array(
-				'name'			=> 'successUrl',
-				'value'			=> $this->auth->GetSignedInUrl(),
-				'validators'	=> array('Url'),
-			)))
-			->AddField(new \MvcCore\Ext\Forms\Fields\Hidden(array(
-				'name'			=> 'errorUrl',
-				'value'			=> $this->auth->GetSignErrorUrl(),
-				'validators'	=> array('Url'),
-			)));
+		$this->successUrlField = new \MvcCore\Ext\Forms\Fields\Hidden(array(
+			'name'			=> 'successUrl',
+			'value'			=> $this->auth->GetSignedInUrl(),
+			'validators'	=> array('Url'),
+		));
+		$this->errorUrlField = new \MvcCore\Ext\Forms\Fields\Hidden(array(
+			'name'			=> 'errorUrl',
+			'value'			=> $this->auth->GetSignErrorUrl(),
+			'validators'	=> array('Url'),
+		));
+		$this->sourceUrlField = new \MvcCore\Ext\Forms\Fields\Hidden(array(
+			'name'			=> 'sourceUrl',
+			'validators'	=> array('Url'),
+		));
+		$this->AddFields($this->successUrlField, $this->errorUrlField, $this->sourceUrlField);
+		return $this;
+	}
+
+	/**
+	 * Prepare form for rendering.
+	 * @return \MvcCore\Ext\Form|\MvcCore\Ext\Forms\IForm
+	 */
+	public function PreDispatch () {
+		parent::PreDispatch();
+		
+		$successUrlValue = $this->successUrlField->GetValue();
+		if ($successUrlValue) {
+			$this->auth->SetSignedInUrl($successUrlValue);
+		} else {
+			$successUrlValue = $this->auth->GetSignedInUrl();
+			if (!$successUrlValue)
+				$successUrlValue = htmlspecialchars($this->request->GetFullUrl());
+			$this->successUrlField->SetValue(rawurlencode($successUrlValue));
+		}
+		
+		$errorUrlValue = $this->errorUrlField->GetValue();
+		if ($errorUrlValue) {
+			$this->auth->SetSignErrorUrl($errorUrlValue);
+		} else {
+			$errorUrlValue = $this->auth->GetSignErrorUrl();
+			if (!$errorUrlValue)
+				$errorUrlValue = htmlspecialchars($this->request->GetFullUrl());
+			$this->errorUrlField->SetValue(rawurlencode($errorUrlValue));
+		}
+
+		$sourceUrl = $this->request->GetParam('sourceUrl', '.*', '', 'string');
+		$sourceUrl = filter_var(rawurldecode(htmlspecialchars($sourceUrl)), FILTER_VALIDATE_URL);
+		if ($sourceUrl) $this->sourceUrlField->SetValue(rawurlencode($sourceUrl));
 		return $this;
 	}
 }

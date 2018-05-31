@@ -28,7 +28,6 @@ trait SignIn
 	 */
 	public function Init () {
 		parent::Init();
-
 		$this
 			->initAuthFormPropsAndHiddenControls()
 			->AddField(new \MvcCore\Ext\Forms\Fields\Text(array(
@@ -46,15 +45,6 @@ trait SignIn
 				'value'			=> 'Sign In',
 				'cssClasses'	=> array('button'),
 			)));
-
-		$sourceUrl = $this->request->GetParam('sourceUrl', '.*', '', 'string');
-		$sourceUrl = filter_var(rawurldecode($sourceUrl), FILTER_VALIDATE_URL);
-
-		$this->AddField(new \MvcCore\Ext\Forms\Fields\Hidden(array(
-			'name'			=> 'sourceUrl',
-			'value'			=> rawurlencode($sourceUrl) ?: '',
-			'validators'	=> array('Url'),
-		)));
 		return $this;
 	}
 
@@ -68,12 +58,14 @@ trait SignIn
 	public function Submit (array & $rawRequestParams = array()) {
 		parent::Submit($rawRequestParams);
 		$data = & $this->values;
+
 		if ($this->result) {
 			// now sended values are safe strings,
 			// try to get use by username and compare password hashes:
 			$userClass = $this->auth->GetUserClass();
 			$user = $userClass::LogIn(
-				$data['username'], $data['password']
+				isset($data['username']) ? $data['username'] : '', 
+				isset($data['password']) ? $data['password'] : ''
 			);
 			if ($user !== NULL) {
 				$user->SetPasswordHash(NULL);
@@ -84,9 +76,17 @@ trait SignIn
 				);
 			}
 		}
-		$this
-			->SetSuccessUrl(isset($data['sourceUrl']) ? $data['sourceUrl'] : $data['successUrl'])
-			->SetErrorUrl(isset($data['errorUrl']) ? $data['errorUrl'] : '');
+
+		$successUrl = (isset($data['sourceUrl']) 
+			? $data['sourceUrl'] 
+			: (isset($data['successUrl']) 
+				? $data['successUrl'] 
+				: ''));
+		if ($successUrl) $this->SetSuccessUrl($successUrl);
+
+		if (isset($data['errorUrl']) && $data['errorUrl'])
+			$this->SetErrorUrl($data['errorUrl']);
+		
 		if (!$this->result)
 			sleep($this->auth->GetInvalidCredentialsTimeout());
 		return array(
