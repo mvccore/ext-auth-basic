@@ -23,7 +23,7 @@ trait Permissions
 	 * Array of strings describing what is allowed to do for user or role.
 	 * @var \string[]
 	 */
-	protected $permissions = array();
+	protected $permissions = [];
 
 	/**
 	 * Get `TRUE` if given permission string is allowed for user or role. `FALSE` otherwise.

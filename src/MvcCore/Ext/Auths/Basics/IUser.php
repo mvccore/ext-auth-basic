@@ -167,7 +167,7 @@ interface IUser
 	 * @param array $options Options for `password_hash()`.
 	 * @return string
 	 */
-	public static function EncodePasswordToHash ($password = '', $options = array());
+	public static function EncodePasswordToHash ($password = '', $options = []);
 
 	/**
 	 * MvcCore session namespace instance
@@ -219,7 +219,7 @@ interface IUser
 	 * @param \string[]|\MvcCore\Ext\Auths\Basics\IRole[] $rolesOrRolesNames
 	 * @return \MvcCore\Ext\Auths\Basics\IUser
 	 */
-	public function & SetRoles ($rolesOrRolesNames = array());
+	public function & SetRoles ($rolesOrRolesNames = []);
 
 	/**
 	 * Add user role or role name.

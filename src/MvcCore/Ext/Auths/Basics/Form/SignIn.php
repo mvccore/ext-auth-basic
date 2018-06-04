@@ -30,21 +30,21 @@ trait SignIn
 		parent::Init();
 		$this
 			->initAuthFormPropsAndHiddenControls()
-			->AddField(new \MvcCore\Ext\Forms\Fields\Text(array(
+			->AddField(new \MvcCore\Ext\Forms\Fields\Text([
 				'name'			=> 'username',
 				'placeholder'	=> 'User',
-				'validators'	=> array('SafeString'),
-			)))
-			->AddField(new \MvcCore\Ext\Forms\Fields\Password(array(
+				'validators'	=> ['SafeString'],
+			]))
+			->AddField(new \MvcCore\Ext\Forms\Fields\Password([
 				'name'			=> 'password',
 				'placeholder'	=> 'Password',
-				'validators'	=> array('SafeString'),
-			)))
-			->AddField(new \MvcCore\Ext\Forms\Fields\SubmitButton(array(
+				'validators'	=> ['SafeString'],
+			]))
+			->AddField(new \MvcCore\Ext\Forms\Fields\SubmitButton([
 				'name'			=> 'send',
 				'value'			=> 'Sign In',
-				'cssClasses'	=> array('button'),
-			)));
+				'cssClasses'	=> ['button'],
+			]));
 		return $this;
 	}
 
@@ -55,7 +55,7 @@ trait SignIn
 	 * @param array $rawRequestParams
 	 * @return array
 	 */
-	public function Submit (array & $rawRequestParams = array()) {
+	public function Submit (array & $rawRequestParams = []) {
 		parent::Submit($rawRequestParams);
 		$data = & $this->values;
 
@@ -72,7 +72,7 @@ trait SignIn
 			} else {
 				$this->AddError(
 					'User name or password is incorrect.',
-					array('username', 'password')
+					['username', 'password']
 				);
 			}
 		}
@@ -89,10 +89,10 @@ trait SignIn
 		
 		if (!$this->result)
 			sleep($this->auth->GetInvalidCredentialsTimeout());
-		return array(
+		return [
 			$this->result,
 			$this->values,
 			$this->errors
-		);
+		];
 	}
 }

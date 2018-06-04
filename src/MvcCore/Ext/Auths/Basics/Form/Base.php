@@ -51,20 +51,20 @@ trait Base
 	 */
 	protected function initAuthFormPropsAndHiddenControls () {
 		$this->auth = \MvcCore\Ext\Auths\Basic::GetInstance();
-		$this->successUrlField = new \MvcCore\Ext\Forms\Fields\Hidden(array(
+		$this->successUrlField = new \MvcCore\Ext\Forms\Fields\Hidden([
 			'name'			=> 'successUrl',
 			'value'			=> $this->auth->GetSignedInUrl(),
-			'validators'	=> array('Url'),
-		));
-		$this->errorUrlField = new \MvcCore\Ext\Forms\Fields\Hidden(array(
+			'validators'	=> ['Url'],
+		]);
+		$this->errorUrlField = new \MvcCore\Ext\Forms\Fields\Hidden([
 			'name'			=> 'errorUrl',
 			'value'			=> $this->auth->GetSignErrorUrl(),
-			'validators'	=> array('Url'),
-		));
-		$this->sourceUrlField = new \MvcCore\Ext\Forms\Fields\Hidden(array(
+			'validators'	=> ['Url'],
+		]);
+		$this->sourceUrlField = new \MvcCore\Ext\Forms\Fields\Hidden([
 			'name'			=> 'sourceUrl',
-			'validators'	=> array('Url'),
-		));
+			'validators'	=> ['Url'],
+		]);
 		$this->AddFields($this->successUrlField, $this->errorUrlField, $this->sourceUrlField);
 		return $this;
 	}

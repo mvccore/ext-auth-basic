@@ -27,10 +27,10 @@ trait Handling
 	 * Return singleton instance. If instance exists, return existing instance,
 	 * if not, create new basic authentication module instance, store it and return it.
 	 * @param array $configuration Optional configuration passed into method
-	 *                             `\MvcCore\Ext\Auths\Basic::__construct($configuration)`.
+	 *							 `\MvcCore\Ext\Auths\Basic::__construct($configuration)`.
 	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
 	 */
-	public static function GetInstance ($configuration = array()) {
+	public static function GetInstance ($configuration = []) {
 		if (self::$instance === NULL)
 			self::$instance = new static($configuration);
 		return self::$instance;
@@ -43,7 +43,7 @@ trait Handling
 	 * Set up MvcCore application instance reference and set up pre route handler
 	 * to add authentication routes when necessary and user instance when necessary.
 	 */
-	public function __construct ($config = array()) {
+	public function __construct ($config = []) {
 		self::$instance = & $this;
 		// set up possible configuration
 		if ($config) $this->SetConfiguration($config);
@@ -79,10 +79,10 @@ trait Handling
 	 * - Everytime try to load user by stored session username from any previous request(s).
 	 * - If request could target any authentication route or request is post:
 	 *   - Set up signin form success url, signout form success url and error
-	 *     url for both (sign in and sign out) forms, all urls as current request url by default.
-	 *     If any url is configured already, nothing is changed.
+	 *	 url for both (sign in and sign out) forms, all urls as current request url by default.
+	 *	 If any url is configured already, nothing is changed.
 	 *   - Set up sign in or sign out route into router, only route which
-	 *     is currently necessary by authenticated/not authenticated user.
+	 *	 is currently necessary by authenticated/not authenticated user.
 	 * @return void
 	 */
 	protected function preRouteHandler () {
@@ -151,11 +151,11 @@ trait Handling
 			return $rawRoute;
 		} else {
 			$routeClass = $this->application->GetRouteClass();
-			$routeInitData = array('controller' => $this->controllerClass, 'action' => $actionName);
+			$routeInitData = ['controller' => $this->controllerClass, 'action' => $actionName];
 			$route = $routeClass::CreateInstance(
 				gettype($rawRoute) == 'array'
 					? array_merge($routeInitData, $rawRoute)
-					: array_merge(array('pattern' => $rawRoute), $routeInitData)
+					: array_merge(['pattern' => $rawRoute], $routeInitData)
 			);
 			$this->$routeName = & $route;
 			return $route;

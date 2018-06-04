@@ -25,7 +25,7 @@ namespace MvcCore\Ext\Auths\Basic;
 trait PropsGettersSetters
 {
 	/***********************************************************************************
-	 *                                Static Properties                                *
+	 *								Static Properties								*
 	 ***********************************************************************************/
 
 	/**
@@ -48,13 +48,13 @@ trait PropsGettersSetters
 	 * This array is used only in `\MvcCore\Ext\Auth::GetConfiguration();`.
 	 * @var array
 	 */
-	protected static $nonConfigurationProperties = array(
+	protected static $nonConfigurationProperties = [
 		'userInitialized', 'application', 'user', 'form',
-	);
+	];
 
 
 	/***********************************************************************************
-	 *                            Configuration Properties                             *
+	 *							Configuration Properties							 *
 	 ***********************************************************************************/
 
 	/**
@@ -157,12 +157,12 @@ trait PropsGettersSetters
 	 * `/signin` by POST.
 	 * @var string|array|\MvcCore\Route|\MvcCore\Interfaces\IRoute
 	 */
-	protected $signInRoute = array(
+	protected $signInRoute = [
 		'name'		=> 'auth_signin',
 		'match'		=> '#^/signin(?=/$|$)#',
 		'reverse'	=> '/signin',
 		'method'	=> \MvcCore\Interfaces\IRequest::METHOD_POST
-	);
+	];
 
 	/**
 	 * Route to submit sign out form into.
@@ -172,12 +172,12 @@ trait PropsGettersSetters
 	 * `/signout` by POST.
 	 * @var string|array|\MvcCore\Route|\MvcCore\Interfaces\IRoute
 	 */
-	protected $signOutRoute = array(
+	protected $signOutRoute = [
 		'name'		=> 'auth_signout',
 		'match'		=> '#^/signout(?=/$|$)#',
 		'reverse'	=> '/signout',
 		'method'	=> \MvcCore\Interfaces\IRequest::METHOD_POST
-	);
+	];
 
 	/**
 	 * Salt for `passord_hash();` to generate password by `PASSWORD_BCRYPT`.
@@ -212,7 +212,7 @@ trait PropsGettersSetters
 
 
 	/***********************************************************************************
-	 *                               Internal Properties                               *
+	 *							   Internal Properties							   *
 	 ***********************************************************************************/
 
 	/**
@@ -264,7 +264,7 @@ trait PropsGettersSetters
 
 
 	/***********************************************************************************
-	 *                                     Getters                                     *
+	 *									 Getters									 *
 	 ***********************************************************************************/
 
 	/**
@@ -526,7 +526,7 @@ trait PropsGettersSetters
 	 * @return \stdClass
 	 */
 	public function & GetConfiguration () {
-		$result = array();
+		$result = [];
 		$type = new \ReflectionClass($this);
 		/** @var $props \ReflectionProperty[] */
 		$props = $type->getProperties(\ReflectionProperty::IS_PUBLIC | \ReflectionProperty::IS_PROTECTED);
@@ -540,7 +540,7 @@ trait PropsGettersSetters
 
 
 	/***********************************************************************************
-	 *                                     Setters                                     *
+	 *									 Setters									 *
 	 ***********************************************************************************/
 
 	/**
@@ -790,7 +790,7 @@ trait PropsGettersSetters
 	 * @throws \InvalidArgumentException
 	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
 	 */
-	public function & SetConfiguration ($configuration = array(), $throwExceptionIfPropertyIsMissing = TRUE) {
+	public function & SetConfiguration ($configuration = [], $throwExceptionIfPropertyIsMissing = TRUE) {
 		foreach ($configuration as $key => & $value) {
 			$setter = 'Set' . ucfirst($key);
 			if (method_exists($this, $setter)) {

@@ -26,16 +26,16 @@ class Database
 	 * and used by method `GetByUserName()`.
 	 * @var array
 	 */
-	protected static $usersTableStructure = array(
+	protected static $usersTableStructure = [
 		'table'		=> 'users',
-		'columns'	=> array(
+		'columns'	=> [
 			'id'			=> 'id',
 			'active'		=> 'active',
 			'userName'		=> 'user_name',
 			'passwordHash'	=> 'password_hash',
 			'fullName'		=> 'full_name',
-		)
-	);
+		]
+	];
 
 	/**
 	 * Set database table structure how to load user from db.
@@ -78,10 +78,10 @@ class Database
 			throw new \RuntimeException(
 				implode(' ', $db->errorInfo()) . ': ' . $sql, intval($db->errorCode())
 			);
-		$select->execute(array(
+		$select->execute([
 			":user_name"	=> $userName,
 			":active"		=> 1,
-		));
+		]);
 		$user = NULL;
 		$data = $select->fetch(\PDO::FETCH_ASSOC);
 		if ($data) {

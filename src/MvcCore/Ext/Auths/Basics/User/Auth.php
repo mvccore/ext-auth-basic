@@ -104,7 +104,7 @@ trait Auth
 	 * @param array $options Options for `password_hash()`.
 	 * @return string
 	 */
-	public static function EncodePasswordToHash ($password = '', $options = array()) {
+	public static function EncodePasswordToHash ($password = '', $options = []) {
 		if (!isset($options['salt'])) {
 			$configuredSalt = \MvcCore\Ext\Auths\Basic::GetInstance()->GetPasswordHashSalt();
 			if ($configuredSalt !== NULL) {

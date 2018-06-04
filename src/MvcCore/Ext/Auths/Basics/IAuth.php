@@ -15,10 +15,10 @@ interface IAuth
 	 * Return singleton instance. If instance exists, return existing instance,
 	 * if not, create new basic authentication module instance, store it and return it.
 	 * @param array $configuration Optional configuration passed into method
-	 *                             `\MvcCore\Ext\Auths\Basic::__construct($configuration)`.
+	 *							 `\MvcCore\Ext\Auths\Basic::__construct($configuration)`.
 	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
-	public static function GetInstance ($configuration = array());
+	public static function GetInstance ($configuration = []);
 
 	/**
 	 * Get expiration time (in seconds) how long to remember the user in session.
@@ -377,7 +377,7 @@ interface IAuth
 	 * @throws \InvalidArgumentException
 	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
-	public function & SetConfiguration ($configuration = array(), $throwExceptionIfPropertyIsMissing = TRUE);
+	public function & SetConfiguration ($configuration = [], $throwExceptionIfPropertyIsMissing = TRUE);
 
 	/**
 	 * Optional alias method if you have user class configured

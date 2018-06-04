@@ -32,11 +32,11 @@ trait SignOut
 
 		$this
 			->initAuthFormPropsAndHiddenControls()
-			->AddField(new \MvcCore\Ext\Forms\Fields\SubmitButton(array(
+			->AddField(new \MvcCore\Ext\Forms\Fields\SubmitButton([
 				'name'			=> 'send',
 				'value'			=> 'Log Out',
-				'cssClasses'	=> array('button'),
-			)));
+				'cssClasses'	=> ['button'],
+			]));
 
 		$this->user = $this->auth->GetUser();
 
@@ -49,7 +49,7 @@ trait SignOut
 	 * @param array $rawRequestParams
 	 * @return array
 	 */
-	public function Submit (array & $rawRequestParams = array()) {
+	public function Submit (array & $rawRequestParams = []) {
 		parent::Submit($rawRequestParams);
 		$data = & $this->values;
 		if ($this->result === \MvcCore\Ext\Form::RESULT_SUCCESS) {
@@ -59,7 +59,7 @@ trait SignOut
 		$this
 			->SetSuccessUrl($data['successUrl'])
 			->SetErrorUrl(isset($data['errorUrl']) ? $data['errorUrl'] : '');
-		return array($this->result, $this->values, $this->errors);
+		return [$this->result, $this->values, $this->errors];
 	}
 
 	/**

@@ -31,7 +31,7 @@ trait Roles
 	 * Array of roles names assigned for current user instance.
 	 * @var \string[]
 	 */
-	protected $roles = array();
+	protected $roles = [];
 
 	/**
 	 * Get if user is Administrator. Administrator has always allowed everything.
@@ -72,8 +72,8 @@ trait Roles
 	 * @param \string[]|\MvcCore\Ext\Auths\Basics\Role[]|\MvcCore\Ext\Auths\Basics\IRole[] $rolesOrRolesNames
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
 	 */
-	public function & SetRoles ($rolesOrRolesNames = array()) {
-		$this->roles = array();
+	public function & SetRoles ($rolesOrRolesNames = []) {
+		$this->roles = [];
 		foreach ($rolesOrRolesNames as $roleOrRoleName)
 			$this->roles[] = static::getRoleName($roleOrRoleName);
 		return $this;

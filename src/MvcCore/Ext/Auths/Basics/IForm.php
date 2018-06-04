@@ -138,7 +138,7 @@ interface IForm
 	 * @param array $rawRequestParams optional
 	 * @return array Array to list: `array($form->Result, $form->Data, $form->Errors);`
 	 */
-	public function Submit (array & $rawRequestParams = array());
+	public function Submit (array & $rawRequestParams = []);
 
 	/**
 	 * Clear all session records for this form by form id.
