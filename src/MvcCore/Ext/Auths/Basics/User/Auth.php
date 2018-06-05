@@ -122,7 +122,7 @@ trait Auth
 			);
 		$result = @password_hash($password, PASSWORD_BCRYPT, $options);
 		if (!$result || strlen($result) < 60) throw new \RuntimeException(
-			'['.__CLASS__.'] Hash computed by `password_hash()` is invalid.'
+			'['.__CLASS__.'] Hash computed by `password_hash()` is invalid. Try a little bit longer salt.'
 		);
 		return $result;
 	}

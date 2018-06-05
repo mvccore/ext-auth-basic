@@ -57,14 +57,15 @@ interface IForm
 	public function & SetMethod ($method = \MvcCore\Ext\Forms\IForm::METHOD_POST);
 
 	/**
-	 * Set form html element css class attribute value.
-	 * To specify more css classes - add more strings separated by space
-	 * and overwrite any previous css class attribute value. Value is used for
-	 * standard css class attribute for HTML `<form>` tag.
-	 * @param string $cssClass
+	 * Set form HTML element css classes strings.
+	 * All previously defined css classes will be removed.
+	 * Default value is an empty array to not render HTML `class` attribute.
+	 * You can define css classes as single string, more classes separated 
+	 * by space or you can define css classes as array with strings.
+	 * @param string|\string[] $cssClasses
 	 * @return \MvcCore\Ext\Form|\MvcCore\Ext\Forms\IForm
 	 */
-	public function & SetCssClass ($cssClass = '');
+	public function & SetCssClasses ($cssClasses);
 
 	/**
 	 * Set success url string, relative or absolute, to specify, where
