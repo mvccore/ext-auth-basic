@@ -176,5 +176,5 @@ interface IForm
 	 *   only once, only when it's used and it's now - in this rendering process.
 	 * @return string
 	 */
-	public function Render ();
+	public function Render ($controllerDashedName = '', $actionDashedName = '');
 }

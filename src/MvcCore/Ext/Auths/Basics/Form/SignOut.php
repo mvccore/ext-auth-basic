@@ -67,7 +67,7 @@ trait SignOut
 	 * user full name, sign out button and all necessary hidden fields.
 	 * @return string
 	 */
-	public function Render () {
+	public function Render ($controllerDashedName = '', $actionDashedName = '') {
 		$result = $this->RenderBegin();
 		if ($this->user)
 			$result .= '<span>'.$this->user->GetFullName().'</span>';
