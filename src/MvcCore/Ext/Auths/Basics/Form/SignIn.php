@@ -32,12 +32,12 @@ trait SignIn
 			->initAuthFormPropsAndHiddenControls()
 			->AddField(new \MvcCore\Ext\Forms\Fields\Text([
 				'name'			=> 'username',
-				'placeholder'	=> 'User',
+				'placeHolder'	=> 'User',
 				'validators'	=> ['SafeString'],
 			]))
 			->AddField(new \MvcCore\Ext\Forms\Fields\Password([
 				'name'			=> 'password',
-				'placeholder'	=> 'Password',
+				'placeHolder'	=> 'Password',
 				'validators'	=> ['SafeString'],
 			]))
 			->AddField(new \MvcCore\Ext\Forms\Fields\SubmitButton([
