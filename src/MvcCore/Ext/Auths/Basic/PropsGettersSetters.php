@@ -815,7 +815,7 @@ trait PropsGettersSetters
 	public function & SetTableStructureForDbUsers ($tableName = NULL, $columnNames = NULL) {
 		$userClass = $this->userClass;
 		$toolClass = static::$toolClass;
-		if ($toolClass::CheckClassInterface($userClass, \MvcCore\Ext\Auths\Basics\IDatabaseUser::class, TRUE, TRUE)) {
+		if ($toolClass::CheckClassInterface($userClass, 'MvcCore\\Ext\\Auths\\Basics\\IDatabaseUser', TRUE, TRUE)) {
 			$userClass::SetUsersTableStructure($tableName, $columnNames);
 		};
 		return $this;

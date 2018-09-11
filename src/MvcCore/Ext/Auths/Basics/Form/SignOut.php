@@ -57,7 +57,7 @@ trait SignOut
 			$userClass::LogOut();
 		}
 		$this
-			->SetSuccessUrl($data['successUrl'])
+			->SetSuccessUrl(isset($data['successUrl']) ? $data['successUrl'] : '')
 			->SetErrorUrl(isset($data['errorUrl']) ? $data['errorUrl'] : '');
 		return [$this->result, $this->values, $this->errors];
 	}
@@ -68,6 +68,7 @@ trait SignOut
 	 * @return string
 	 */
 	public function Render ($controllerDashedName = '', $actionDashedName = '') {
+		$this->PreDispatch();
 		$result = $this->RenderBegin();
 		if ($this->user)
 			$result .= '<span>'.$this->user->GetFullName().'</span>';

@@ -87,11 +87,11 @@ trait Handling
 	 */
 	protected function preRouteHandler () {
 		$this->GetUser();
+		$this->preRouteHandlerSetUpUrlAdresses();
 		if (
 			$this->addRoutesForAnyRequestMethod ||
 			$this->application->GetRequest()->GetMethod() == \MvcCore\Interfaces\IRequest::METHOD_POST
 		) {
-			$this->preRouteHandlerSetUpUrlAdresses();
 			$this->preRouteHandlerSetUpRouter();
 		}
 	}
