@@ -1,7 +1,7 @@
 {
 	"name": "mvccore/ext-auth-basic",
 	"type": "library",
-	"description": "MvcCore Extension - Auth - Basic - simple authentication extension, only to signin/signout user. Extension can use credentials defined in system `config.ini` or in database. Possibility to extend user, signin/signout forms, submit controller and extension class itself.",
+	"description": "MvcCore - Extension - Auth - Basic - simple authentication extension, only to signin/signout user. Extension can use credentials defined in system `config.ini` or in database. Possibility to extend user, signin/signout forms, submit controller and extension class itself.",
 	"keywords": [
 		"mvc", 
 		"mvccore", 
