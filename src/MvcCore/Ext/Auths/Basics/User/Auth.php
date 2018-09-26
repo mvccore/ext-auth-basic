@@ -65,7 +65,7 @@ trait Auth
 		$user = static::GetByUserName($userName);
 		if ($user) {
 			$hashedPassword = static::EncodePasswordToHash($password);
-			if ($user->passwordHash === $hashedPassword) {
+			if (hash_equals($user->passwordHash, $hashedPassword)) {
 				$userSessionNamespace = & static::GetUserSessionNamespace();
 				$userNameStr = \MvcCore\Ext\Auths\Basics\IUser::SESSION_USERNAME_KEY;
 				$authenticatedStr = \MvcCore\Ext\Auths\Basics\IUser::SESSION_AUTHENTICATED_KEY;
