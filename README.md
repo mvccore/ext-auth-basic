@@ -16,9 +16,9 @@ Add this to `Bootstrap.php` or to very application beginning, before application
 ```php
 \MvcCore\Ext\Auths\Basic::GetInstance()
 	->SetPasswordHashSalt('s9E56/QH6!a69sJML9aS$6s+')
-	->SetUserClass(\MvcCore\Ext\Auths\Users\SystemConfig::class);
+	->SetUserClass('\\MvcCore\\Ext\\Auths\\Users\\SystemConfig');
 	/* // or you can use database user:
-	->SetUserClass(\MvcCore\Ext\Auths\Users\Database::class)
+	->SetUserClass('\\MvcCore\\Ext\\Auths\\Users\\Database')
 	->SetTableStructureForDbUsers('users', array(
 		'id'			=> 'id',
 		'active'		=> 'active',

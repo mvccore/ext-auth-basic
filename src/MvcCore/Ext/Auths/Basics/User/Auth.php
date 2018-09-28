@@ -25,7 +25,7 @@ trait Auth
 	 * MvcCore session namespace instance
 	 * to get/clear username record from session
 	 * to load user for authentication.
-	 * @var \MvcCore\Session|\MvcCore\Interfaces\ISession
+	 * @var \MvcCore\Session|\MvcCore\ISession
 	 */
 	protected static $userSessionNamespace = NULL;
 
@@ -133,12 +133,12 @@ trait Auth
 	 * to load user for authentication.
 	 * Session is automaticly started if necessary
 	 * by `\MvcCore\Session::GetNamespace();`.
-	 * @return \MvcCore\Session|\MvcCore\Interfaces\ISession
+	 * @return \MvcCore\Session|\MvcCore\ISession
 	 */
 	public static function & GetUserSessionNamespace () {
 		if (static::$userSessionNamespace === NULL) {
 			$sessionClass = \MvcCore\Application::GetInstance()->GetSessionClass();
-			static::$userSessionNamespace = $sessionClass::GetNamespace(\MvcCore\Ext\Auths\Basic::class);
+			static::$userSessionNamespace = $sessionClass::GetNamespace('\\MvcCore\\Ext\\Auths\\Basic');
 			static::$userSessionNamespace->SetExpirationSeconds(
 				\MvcCore\Ext\Auths\Basic::GetInstance()->GetExpirationSeconds()
 			);
@@ -148,10 +148,10 @@ trait Auth
 
 	/**
 	 * Summary of SetUserSessionNamespace
-	 * @param \MvcCore\Session|\MvcCore\Interfaces\ISession $userSessionNamespace
-	 * @return \MvcCore\Session|\MvcCore\Interfaces\ISession
+	 * @param \MvcCore\Session|\MvcCore\ISession $userSessionNamespace
+	 * @return \MvcCore\Session|\MvcCore\ISession
 	 */
-	public static function & SetUserSessionNamespace (\MvcCore\Interfaces\ISession & $userSessionNamespace) {
+	public static function & SetUserSessionNamespace (\MvcCore\ISession & $userSessionNamespace) {
 		static::$userSessionNamespace = $userSessionNamespace;
 		return $userSessionNamespace;
 	}

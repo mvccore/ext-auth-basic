@@ -175,16 +175,16 @@ interface IUser
 	 * to load user for authentication.
 	 * Session is automaticly started if necessary
 	 * by `\MvcCore\Session::GetNamespace();`.
-	 * @return \MvcCore\Interfaces\ISession
+	 * @return \MvcCore\ISession
 	 */
 	public static function & GetUserSessionNamespace ();
 
 	/**
 	 * Summary of SetUserSessionNamespace
-	 * @param \MvcCore\Interfaces\ISession $userSessionNamespace
-	 * @return \MvcCore\Interfaces\ISession
+	 * @param \MvcCore\ISession $userSessionNamespace
+	 * @return \MvcCore\ISession
 	 */
-	public static function & SetUserSessionNamespace (\MvcCore\Interfaces\ISession & $userSessionNamespace);
+	public static function & SetUserSessionNamespace (\MvcCore\ISession & $userSessionNamespace);
 
 
 	// trait: \MvcCore\Ext\Auths\Basics\Traits\User\Roles

@@ -94,7 +94,7 @@ trait PropsGettersSetters
 	 * Full class name to use for controller instance
 	 * to submit auth form(s). Class name has to implement interfaces:
 	 * - `\MvcCore\Ext\Auths\Basics\IController`
-	 * - `\MvcCore\Interfaces\IController`
+	 * - `\MvcCore\IController`
 	 * Default value after auth module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\Controller`.
 	 * @var string
@@ -155,13 +155,13 @@ trait PropsGettersSetters
 	 * or as route configuration array or as route instance.
 	 * Default match/reverse pattern for route sign request is
 	 * `/signin` by POST.
-	 * @var string|array|\MvcCore\Route|\MvcCore\Interfaces\IRoute
+	 * @var string|array|\MvcCore\Route|\MvcCore\IRoute
 	 */
 	protected $signInRoute = [
 		'name'		=> 'auth_signin',
 		'match'		=> '#^/signin(?=/$|$)#',
 		'reverse'	=> '/signin',
-		'method'	=> \MvcCore\Interfaces\IRequest::METHOD_POST
+		'method'	=> \MvcCore\IRequest::METHOD_POST
 	];
 
 	/**
@@ -170,13 +170,13 @@ trait PropsGettersSetters
 	 * or as route configuration array or as route instance.
 	 * Default match/reverse pattern for route sign request is
 	 * `/signout` by POST.
-	 * @var string|array|\MvcCore\Route|\MvcCore\Interfaces\IRoute
+	 * @var string|array|\MvcCore\Route|\MvcCore\IRoute
 	 */
 	protected $signOutRoute = [
 		'name'		=> 'auth_signout',
 		'match'		=> '#^/signout(?=/$|$)#',
 		'reverse'	=> '/signout',
-		'method'	=> \MvcCore\Interfaces\IRequest::METHOD_POST
+		'method'	=> \MvcCore\IRequest::METHOD_POST
 	];
 
 	/**
@@ -219,7 +219,7 @@ trait PropsGettersSetters
 	 * MvcCore application instance reference from
 	 * `\MvcCore\Application::GetInstance()`, because
 	 * it's used many times in authentication class.
-	 * @var \MvcCore\Application|\MvcCore\Interfaces\IApplication
+	 * @var \MvcCore\Application|\MvcCore\IApplication
 	 */
 	protected $application = NULL;
 
@@ -310,7 +310,7 @@ trait PropsGettersSetters
 	 * Get full class name to use for controller instance
 	 * to submit auth form(s). Class name has to implement interfaces:
 	 * - `\MvcCore\Ext\Auths\Basics\IController`
-	 * - `\MvcCore\Interfaces\IController`
+	 * - `\MvcCore\IController`
 	 * Default value after auth module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\Controller`.
 	 * @return string
@@ -381,7 +381,7 @@ trait PropsGettersSetters
 	/**
 	 * Get route instance to submit sign in form into.
 	 * Default configured route for sign in request is `/signin` by POST.
-	 * @return \MvcCore\Route|\MvcCore\Interfaces\IRoute
+	 * @return \MvcCore\Route|\MvcCore\IRoute
 	 */
 	public function & GetSignInRoute () {
 		return $this->getInitializedRoute('SignIn');
@@ -390,7 +390,7 @@ trait PropsGettersSetters
 	/**
 	 * Get route to submit sign out form into.
 	 * Default configured route for sign in request is `/signout` by POST.
-	 * @return \MvcCore\Route|\MvcCore\Interfaces\IRoute
+	 * @return \MvcCore\Route|\MvcCore\IRoute
 	 */
 	public function & GetSignOutRoute () {
 		return $this->getInitializedRoute('SignOut');
@@ -492,7 +492,7 @@ trait PropsGettersSetters
 		$this->form = new \MvcCore\Ext\Auths\Basics\SignInForm($this->application->GetController());
 		return $this->form
 			->SetCssClasses(str_replace('_', ' ', $this->form->GetId()))
-			->SetMethod($method !== NULL ? $method : \MvcCore\Interfaces\IRequest::METHOD_POST)
+			->SetMethod($method !== NULL ? $method : \MvcCore\IRequest::METHOD_POST)
 			->SetAction($routerClass::GetInstance()->UrlByRoute($route))
 			->SetSuccessUrl($this->signedInUrl)
 			->SetErrorUrl($this->signErrorUrl)
@@ -513,7 +513,7 @@ trait PropsGettersSetters
 		$this->form = new \MvcCore\Ext\Auths\Basics\SignOutForm($this->application->GetController());
 		return $this->form
 			->SetCssClasses(str_replace('_', ' ', $this->form->GetId()))
-			->SetMethod($method !== NULL ? $method : \MvcCore\Interfaces\IRequest::METHOD_POST)
+			->SetMethod($method !== NULL ? $method : \MvcCore\IRequest::METHOD_POST)
 			->SetAction($routerClass::GetInstance()->UrlByRoute($route))
 			->SetSuccessUrl($this->signedOutUrl)
 			->SetErrorUrl($this->signErrorUrl)
@@ -571,7 +571,7 @@ trait PropsGettersSetters
 	 */
 	public function & SetUserClass ($userClass = '') {
 		$this->userClass = $this->checkClassImplementation(
-			$userClass, \MvcCore\Ext\Auths\Basics\IUser::class, TRUE
+			$userClass, '\\MvcCore\\Ext\\Auths\\Basics\\IUser', TRUE
 		);
 		return $this;
 	}
@@ -587,7 +587,7 @@ trait PropsGettersSetters
 	 */
 	public function & SetRoleClass ($roleClass = '') {
 		$this->userClass = $this->checkClassImplementation(
-			$roleClass, \MvcCore\Ext\Auths\Basics\IRole::class, TRUE
+			$roleClass, '\\MvcCore\\Ext\\Auths\\Basics\\IRole', TRUE
 		);
 		return $this;
 	}
@@ -596,7 +596,7 @@ trait PropsGettersSetters
 	 * Set full class name to use for controller instance
 	 * to submit auth form(s). Class name has to implement interfaces:
 	 * - `\MvcCore\Ext\Auths\Basics\IController`
-	 * - `\MvcCore\Interfaces\IController`
+	 * - `\MvcCore\IController`
 	 * Default value after auth module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\Controller`.
 	 * @param string $controllerClass Controller full class name implementing `\MvcCore\Ext\Auths\Basics\IController`.
@@ -604,10 +604,10 @@ trait PropsGettersSetters
 	 */
 	public function & SetControllerClass ($controllerClass = '') {
 		$controllerClass = $this->checkClassImplementation(
-			$controllerClass, \MvcCore\Ext\Auths\Basics\IController::class, FALSE
+			$controllerClass, '\\MvcCore\\Ext\\Auths\\Basics\\IController', FALSE
 		);
 		$this->controllerClass = $this->checkClassImplementation(
-			$controllerClass, \MvcCore\Interfaces\IController::class, TRUE
+			$controllerClass, '\\MvcCore\\IController', TRUE
 		);
 		return $this;
 	}
@@ -623,7 +623,7 @@ trait PropsGettersSetters
 	 */
 	public function & SetSignInFormClass ($signInFormClass = '') {
 		$this->signInFormClass = $this->checkClassImplementation(
-			$signInFormClass, \MvcCore\Ext\Auths\Basics\IForm::class, FALSE
+			$signInFormClass, '\\MvcCore\\Ext\\Auths\\Basics\\IForm', FALSE
 		);
 		return $this;
 	}
@@ -639,7 +639,7 @@ trait PropsGettersSetters
 	 */
 	public function & SetSignOutFormClass ($signOutFormClass = '') {
 		$this->signOutFormClass = $this->checkClassImplementation(
-			$signOutFormClass, \MvcCore\Ext\Auths\Basics\IForm::class, FALSE
+			$signOutFormClass, '\\MvcCore\\Ext\\Auths\\Basics\\IForm', FALSE
 		);
 		return $this;
 	}
@@ -687,7 +687,7 @@ trait PropsGettersSetters
 	/**
 	 * Set route instance to submit sign in form into.
 	 * Default configured route for sign in request is `/signin` by POST.
-	 * @param string|array|\MvcCore\Route|\MvcCore\Interfaces\IRoute $signInRoute
+	 * @param string|array|\MvcCore\Route|\MvcCore\IRoute $signInRoute
 	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
 	 */
 	public function & SetSignInRoute ($signInRoute = NULL) {
@@ -695,9 +695,9 @@ trait PropsGettersSetters
 		$method = NULL;
 		if (gettype($signInRoute) == 'array' && isset($signInRoute['method']))
 			$method = strtoupper($signInRoute['method']);
-		if ($signInRoute instanceof \MvcCore\Interfaces\IRoute)
+		if ($signInRoute instanceof \MvcCore\IRoute)
 			$method = $signInRoute->GetMethod();
-		if ($method !== \MvcCore\Interfaces\IRequest::METHOD_POST)
+		if ($method !== \MvcCore\IRequest::METHOD_POST)
 			$this->addRoutesForAnyRequestMethod = TRUE;
 		return $this;
 	}
@@ -705,7 +705,7 @@ trait PropsGettersSetters
 	/**
 	 * Set route to submit sign out form into.
 	 * Default configured route for sign in request is `/signout` by POST.
-	 * @param string|array|\MvcCore\Route|\MvcCore\Interfaces\IRoute $signOutRoute
+	 * @param string|array|\MvcCore\Route|\MvcCore\IRoute $signOutRoute
 	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
 	 */
 	public function & SetSignOutRoute ($signOutRoute = NULL) {
@@ -713,9 +713,9 @@ trait PropsGettersSetters
 		$method = NULL;
 		if (gettype($signOutRoute) == 'array' && isset($signOutRoute['method']))
 			$method = strtoupper($signOutRoute['method']);
-		if ($signOutRoute instanceof \MvcCore\Interfaces\IRoute)
+		if ($signOutRoute instanceof \MvcCore\IRoute)
 			$method = $signOutRoute->GetMethod();
-		if ($method !== \MvcCore\Interfaces\IRequest::METHOD_POST)
+		if ($method !== \MvcCore\IRequest::METHOD_POST)
 			$this->addRoutesForAnyRequestMethod = TRUE;
 		return $this;
 	}

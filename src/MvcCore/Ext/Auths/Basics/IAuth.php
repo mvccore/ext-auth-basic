@@ -57,7 +57,7 @@ interface IAuth
 	 * Get full class name to use for controller instance
 	 * to submit auth form(s). Class name has to implement interfaces:
 	 * - `\MvcCore\Ext\Auths\Basics\IController`
-	 * - `\MvcCore\Interfaces\IController`
+	 * - `\MvcCore\IController`
 	 * Default value after auth module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\Controller`.
 	 * @return string
@@ -116,14 +116,14 @@ interface IAuth
 	/**
 	 * Get route instance to submit sign in form into.
 	 * Default configured route for sign in request is `/signin` by POST.
-	 * @return \MvcCore\Route|\MvcCore\Interfaces\IRoute
+	 * @return \MvcCore\Route|\MvcCore\IRoute
 	 */
 	public function & GetSignInRoute ();
 
 	/**
 	 * Get route to submit sign out form into.
 	 * Default configured route for sign in request is `/signout` by POST.
-	 * @return \MvcCore\Route|\MvcCore\Interfaces\IRoute
+	 * @return \MvcCore\Route|\MvcCore\IRoute
 	 */
 	public function & GetSignOutRoute ();
 
@@ -247,7 +247,7 @@ interface IAuth
 	 * Set full class name to use for controller instance
 	 * to submit auth form(s). Class name has to implement interfaces:
 	 * - `\MvcCore\Ext\Auths\Basics\IController`
-	 * - `\MvcCore\Interfaces\IController`
+	 * - `\MvcCore\IController`
 	 * Default value after auth module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\Controller`.
 	 * @param string $controllerClass Controller full class name implementing `\MvcCore\Ext\Auths\Basics\IController`.
@@ -311,7 +311,7 @@ interface IAuth
 	/**
 	 * Set route instance to submit sign in form into.
 	 * Default configured route for sign in request is `/signin` by POST.
-	 * @param string|array|\MvcCore\Interfaces\IRoute $signInRoute
+	 * @param string|array|\MvcCore\IRoute $signInRoute
 	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
 	public function & SetSignInRoute ($signInRoute = NULL);
@@ -319,7 +319,7 @@ interface IAuth
 	/**
 	 * Set route to submit sign out form into.
 	 * Default configured route for sign in request is `/signout` by POST.
-	 * @param string|array|\MvcCore\Interfaces\IRoute $signOutRoute
+	 * @param string|array|\MvcCore\IRoute $signOutRoute
 	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
 	public function & SetSignOutRoute ($signOutRoute = NULL);

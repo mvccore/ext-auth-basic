@@ -90,7 +90,7 @@ trait Handling
 		$this->preRouteHandlerSetUpUrlAdresses();
 		if (
 			$this->addRoutesForAnyRequestMethod ||
-			$this->application->GetRequest()->GetMethod() == \MvcCore\Interfaces\IRequest::METHOD_POST
+			$this->application->GetRequest()->GetMethod() == \MvcCore\IRequest::METHOD_POST
 		) {
 			$this->preRouteHandlerSetUpRouter();
 		}
@@ -142,12 +142,12 @@ trait Handling
 	 * Prepare configured route record into route instance if record is string or array.
 	 * @param string $routeName
 	 * @param string $actionName
-	 * @return \MvcCore\Route|\MvcCore\Interfaces\IRoute
+	 * @return \MvcCore\Route|\MvcCore\IRoute
 	 */
 	protected function getInitializedRoute ($actionName) {
 		$routeName = lcfirst($actionName) . 'Route';
 		$rawRoute = & $this->$routeName;
-		if ($rawRoute instanceof \MvcCore\Interfaces\IRoute) {
+		if ($rawRoute instanceof \MvcCore\IRoute) {
 			return $rawRoute;
 		} else {
 			$routeClass = $this->application->GetRouteClass();
