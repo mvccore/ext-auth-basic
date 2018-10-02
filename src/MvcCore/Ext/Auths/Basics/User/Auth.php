@@ -41,11 +41,11 @@ trait Auth
 		$userNameStr = \MvcCore\Ext\Auths\Basics\IUser::SESSION_USERNAME_KEY;
 		$authenticatedStr = \MvcCore\Ext\Auths\Basics\IUser::SESSION_AUTHENTICATED_KEY;
 		if (
-			isset($userSessionNamespace->$userNameStr) &&
-			isset($userSessionNamespace->$authenticatedStr) &&
-			$userSessionNamespace->$authenticatedStr
+			isset($userSessionNamespace->{$userNameStr}) &&
+			isset($userSessionNamespace->{$authenticatedStr}) &&
+			$userSessionNamespace->{$authenticatedStr}
 		) {
-			return static::GetByUserName($userSessionNamespace->$userNameStr);
+			return static::GetByUserName($userSessionNamespace->{$userNameStr});
 		}
 		return NULL;
 	}

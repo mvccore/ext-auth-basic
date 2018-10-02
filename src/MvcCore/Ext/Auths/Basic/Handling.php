@@ -30,7 +30,7 @@ trait Handling
 	 *							 `\MvcCore\Ext\Auths\Basic::__construct($configuration)`.
 	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
 	 */
-	public static function GetInstance ($configuration = []) {
+	public static function & GetInstance ($configuration = []) {
 		if (self::$instance === NULL)
 			self::$instance = new static($configuration);
 		return self::$instance;
@@ -101,7 +101,7 @@ trait Handling
 	 * @return void
 	 */
 	protected function preDispatchHandler () {
-		if ($this->user!== NULL)
+		if ($this->user !== NULL)
 			$this->application->GetController()->SetUser($this->user);
 	}
 

@@ -18,7 +18,7 @@ interface IAuth
 	 *							 `\MvcCore\Ext\Auths\Basic::__construct($configuration)`.
 	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
-	public static function GetInstance ($configuration = []);
+	public static function & GetInstance ($configuration = []);
 
 	/**
 	 * Get expiration time (in seconds) how long to remember the user in session.
