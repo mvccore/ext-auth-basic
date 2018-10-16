@@ -159,7 +159,7 @@ trait PropsGettersSetters
 	 */
 	protected $signInRoute = [
 		'name'		=> 'auth_signin',
-		'match'		=> '#^/signin(?=/$|$)#',
+		'match'		=> '#^/signin/?$#',
 		'reverse'	=> '/signin',
 		'method'	=> \MvcCore\IRequest::METHOD_POST
 	];
@@ -174,7 +174,7 @@ trait PropsGettersSetters
 	 */
 	protected $signOutRoute = [
 		'name'		=> 'auth_signout',
-		'match'		=> '#^/signout(?=/$|$)#',
+		'match'		=> '#^/signout/?$#',
 		'reverse'	=> '/signout',
 		'method'	=> \MvcCore\IRequest::METHOD_POST
 	];
