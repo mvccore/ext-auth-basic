@@ -487,13 +487,14 @@ trait PropsGettersSetters
 	 */
 	public function GetSignInForm () {
 		$routerClass = $this->application->GetRouterClass();
-		$route = $this->getInitializedRoute('SignIn');
+		$router = $routerClass::GetInstance();
+		$route = $this->getInitializedRoute('SignIn')->SetRouter($router);
 		$method = $route->GetMethod();
 		$this->form = new \MvcCore\Ext\Auths\Basics\SignInForm($this->application->GetController());
 		return $this->form
 			->SetCssClasses(str_replace('_', ' ', $this->form->GetId()))
 			->SetMethod($method !== NULL ? $method : \MvcCore\IRequest::METHOD_POST)
-			->SetAction($routerClass::GetInstance()->UrlByRoute($route))
+			->SetAction($router->UrlByRoute($route))
 			->SetSuccessUrl($this->signedInUrl)
 			->SetErrorUrl($this->signErrorUrl)
 			->SetTranslator($this->translator)
@@ -508,13 +509,14 @@ trait PropsGettersSetters
 	 */
 	public function GetSignOutForm () {
 		$routerClass = $this->application->GetRouterClass();
-		$route = $this->getInitializedRoute('SignOut');
+		$router = $routerClass::GetInstance();
+		$route = $this->getInitializedRoute('SignOut')->SetRouter($router);
 		$method = $route->GetMethod();
 		$this->form = new \MvcCore\Ext\Auths\Basics\SignOutForm($this->application->GetController());
 		return $this->form
 			->SetCssClasses(str_replace('_', ' ', $this->form->GetId()))
 			->SetMethod($method !== NULL ? $method : \MvcCore\IRequest::METHOD_POST)
-			->SetAction($routerClass::GetInstance()->UrlByRoute($route))
+			->SetAction($router->UrlByRoute($route))
 			->SetSuccessUrl($this->signedOutUrl)
 			->SetErrorUrl($this->signErrorUrl)
 			->SetTranslator($this->translator)
