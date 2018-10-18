@@ -129,11 +129,11 @@ trait Handling
 		$router = & $routerClass::GetInstance();
 		if ($this->IsAuthenticated()) {
 			$router->AddRoute(
-				$this->getInitializedRoute('SignOut'), TRUE
+				$this->getInitializedRoute('SignOut'), NULL, TRUE
 			);
 		} else {
 			$router->AddRoute(
-				$this->getInitializedRoute('SignIn'), TRUE
+				$this->getInitializedRoute('SignIn'), NULL, TRUE
 			);
 		}
 	}
