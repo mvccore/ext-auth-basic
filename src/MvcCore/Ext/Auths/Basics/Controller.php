@@ -22,8 +22,4 @@ class Controller
 				\MvcCore\IController
 {
 	use			\MvcCore\Ext\Auths\Basics\Controller\Base;
-
-	public function Init () {
-		parent::Init();
-	}
 }
