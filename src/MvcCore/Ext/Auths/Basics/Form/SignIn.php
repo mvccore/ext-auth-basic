@@ -58,7 +58,7 @@ trait SignIn
 	public function Submit (array & $rawRequestParams = []) {
 		parent::Submit($rawRequestParams);
 		$data = & $this->values;
-
+		
 		if ($this->result) {
 			// now sended values are safe strings,
 			// try to get use by username and compare password hashes:

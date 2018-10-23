@@ -75,7 +75,7 @@ trait Base
 	 */
 	public function PreDispatch () {
 		parent::PreDispatch();
-		
+
 		$successUrlValue = $this->successUrlField->GetValue();
 		if ($successUrlValue) {
 			$this->auth->SetSignedInUrl($successUrlValue);
