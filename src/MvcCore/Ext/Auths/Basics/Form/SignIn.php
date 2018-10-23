@@ -86,7 +86,6 @@ trait SignIn
 
 		if (isset($data['errorUrl']) && $data['errorUrl'])
 			$this->SetErrorUrl($data['errorUrl']);
-		
 		if (!$this->result)
 			sleep($this->auth->GetInvalidCredentialsTimeout());
 		return [

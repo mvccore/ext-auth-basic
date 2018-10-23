@@ -74,11 +74,13 @@ trait Base
 	 * @return \MvcCore\Ext\Form|\MvcCore\Ext\Forms\IForm
 	 */
 	public function PreDispatch () {
+		if ($this->dispatchState > 1) return $this;
 		parent::PreDispatch();
 
 		$successUrlValue = $this->successUrlField->GetValue();
 		if ($successUrlValue) {
-			$this->auth->SetSignedInUrl($successUrlValue);
+			$this->auth->SetSignedInUrl(rawurlencode($successUrlValue));
+			$this->successUrlField->SetValue(rawurlencode($successUrlValue));
 		} else {
 			$successUrlValue = $this->auth->GetSignedInUrl();
 			if (!$successUrlValue)
@@ -88,7 +90,8 @@ trait Base
 		
 		$errorUrlValue = $this->errorUrlField->GetValue();
 		if ($errorUrlValue) {
-			$this->auth->SetSignErrorUrl($errorUrlValue);
+			$this->auth->SetSignErrorUrl(rawurlencode($errorUrlValue));
+			$this->errorUrlField->SetValue(rawurlencode($errorUrlValue));
 		} else {
 			$errorUrlValue = $this->auth->GetSignErrorUrl();
 			if (!$errorUrlValue)
