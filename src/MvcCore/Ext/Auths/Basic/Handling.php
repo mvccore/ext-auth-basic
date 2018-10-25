@@ -47,18 +47,6 @@ trait Handling
 		self::$instance = & $this;
 		// set up possible configuration
 		if ($config) $this->SetConfiguration($config);
-		// initialize classes configuration
-		$baseClassName = '\\' . __CLASS__ . 's\\';
-		if ($this->controllerClass && substr($this->controllerClass, 0, 1) != '\\')
-			$this->controllerClass = $baseClassName . $this->controllerClass;
-		if ($this->signInFormClass && substr($this->signInFormClass, 0, 1) != '\\')
-			$this->signInFormClass = $baseClassName . $this->signInFormClass;
-		if ($this->signOutFormClass && substr($this->signOutFormClass, 0, 1) != '\\')
-			$this->signOutFormClass = $baseClassName . $this->signOutFormClass;
-		if ($this->userClass && substr($this->userClass, 0, 1) != '\\')
-			$this->userClass = $baseClassName . $this->userClass;
-		if ($this->roleClass && substr($this->roleClass, 0, 1) != '\\')
-			$this->roleClass = $baseClassName . $this->roleClass;
 		// set up application reference
 		$this->application = & \MvcCore\Application::GetInstance();
 		// set up tools class
@@ -151,7 +139,10 @@ trait Handling
 			return $rawRoute;
 		} else {
 			$routeClass = $this->application->GetRouteClass();
-			$routeInitData = ['controller' => $this->controllerClass, 'action' => $actionName];
+			$routeInitData = [
+				'controller'	=> $this->controllerClass, 
+				'action'		=> $actionName
+			];
 			$route = $routeClass::CreateInstance(
 				gettype($rawRoute) == 'array'
 					? array_merge($routeInitData, $rawRoute)

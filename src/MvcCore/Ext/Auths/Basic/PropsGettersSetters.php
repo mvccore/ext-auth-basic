@@ -74,52 +74,42 @@ trait PropsGettersSetters
 	 * Full class name to use for user instance.
 	 * Class name has to implement interface
 	 * `\MvcCore\Ext\Auths\Basics\IUser`.
-	 * Default value after auth module init is
-	 * configured to `\MvcCore\Ext\Auths\Basics\User`.
 	 * @var string
 	 */
-	protected $userClass = 'User';
+	protected $userClass = 'MvcCore\Ext\Auths\Basics\User';
 
 	/**
 	 * Full class name to use for user role class.
 	 * Class name has to implement interface
 	 * `\MvcCore\Ext\Auths\Basics\IRole`.
-	 * Default value after auth module init is
-	 * configured to `\MvcCore\Ext\Auths\Basics\Role`.
 	 * @var string
 	 */
-	protected $roleClass = 'Role';
+	protected $roleClass = 'MvcCore\Ext\Auths\Basics\Role';
 
 	/**
 	 * Full class name to use for controller instance
 	 * to submit auth form(s). Class name has to implement interfaces:
 	 * - `\MvcCore\Ext\Auths\Basics\IController`
 	 * - `\MvcCore\IController`
-	 * Default value after auth module init is
-	 * configured to `\MvcCore\Ext\Auths\Basics\Controller`.
 	 * @var string
 	 */
-	protected $controllerClass = 'Controller';
+	protected $controllerClass = '//MvcCore\Ext\Auths\Basics\Controller';
 
 	/**
 	 * Full class name to use for sign in form instance.
 	 * Class name has to implement interface
 	 * `\MvcCore\Ext\Auths\Basics\IForm`.
-	 * Default value after auth module init is
-	 * configured to `\MvcCore\Ext\Auths\Basics\SignInForm`.
 	 * @var string
 	 */
-	protected $signInFormClass = 'SignInForm';
+	protected $signInFormClass = 'MvcCore\Ext\Auths\Basics\SignInForm';
 
 	/**
 	 * Full class name to use for sign out form instance.
 	 * Class name has to implement interface
 	 * `\MvcCore\Ext\Auths\Basics\IForm`.
-	 * Default value after auth module init is
-	 * configured to `\MvcCore\Ext\Auths\Basics\SignOutForm`.
 	 * @var string
 	 */
-	protected $signOutFormClass = 'SignOutForm';
+	protected $signOutFormClass = 'MvcCore\Ext\Auths\Basics\SignOutForm';
 
 	/**
 	 * Full url to redirect user, after sign in
@@ -573,7 +563,7 @@ trait PropsGettersSetters
 	 */
 	public function & SetUserClass ($userClass = '') {
 		$this->userClass = $this->checkClassImplementation(
-			$userClass, '\\MvcCore\\Ext\\Auths\\Basics\\IUser', TRUE
+			$userClass, 'MvcCore\Ext\Auths\Basics\IUser', TRUE
 		);
 		return $this;
 	}
@@ -589,7 +579,7 @@ trait PropsGettersSetters
 	 */
 	public function & SetRoleClass ($roleClass = '') {
 		$this->userClass = $this->checkClassImplementation(
-			$roleClass, '\\MvcCore\\Ext\\Auths\\Basics\\IRole', TRUE
+			$roleClass, 'MvcCore\Ext\Auths\Basics\IRole', TRUE
 		);
 		return $this;
 	}
@@ -605,12 +595,19 @@ trait PropsGettersSetters
 	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
 	 */
 	public function & SetControllerClass ($controllerClass = '') {
-		$controllerClass = $this->checkClassImplementation(
-			$controllerClass, '\\MvcCore\\Ext\\Auths\\Basics\\IController', FALSE
+		if (substr($controllerClass, 0, 2) == '//') {
+			$controllerClassToCheck = substr($controllerClass, 2);
+		} else {
+			$controllerClassToCheck = $controllerClass;
+		}
+		$controllerClassToCheck = $this->checkClassImplementation(
+			$controllerClassToCheck, 'MvcCore\Ext\Auths\Basics\IController', FALSE
 		);
-		$this->controllerClass = $this->checkClassImplementation(
-			$controllerClass, '\\MvcCore\\IController', TRUE
+		$controllerClassToCheck = $this->checkClassImplementation(
+			$controllerClassToCheck, 'MvcCore\IController', TRUE
 		);
+		if ($controllerClassToCheck) 
+			$this->controllerClass = $controllerClass;
 		return $this;
 	}
 
@@ -625,7 +622,7 @@ trait PropsGettersSetters
 	 */
 	public function & SetSignInFormClass ($signInFormClass = '') {
 		$this->signInFormClass = $this->checkClassImplementation(
-			$signInFormClass, '\\MvcCore\\Ext\\Auths\\Basics\\IForm', FALSE
+			$signInFormClass, 'MvcCore\Ext\Auths\Basics\IForm', FALSE
 		);
 		return $this;
 	}
@@ -641,7 +638,7 @@ trait PropsGettersSetters
 	 */
 	public function & SetSignOutFormClass ($signOutFormClass = '') {
 		$this->signOutFormClass = $this->checkClassImplementation(
-			$signOutFormClass, '\\MvcCore\\Ext\\Auths\\Basics\\IForm', FALSE
+			$signOutFormClass, 'MvcCore\Ext\Auths\Basics\IForm', FALSE
 		);
 		return $this;
 	}
@@ -817,7 +814,7 @@ trait PropsGettersSetters
 	public function & SetTableStructureForDbUsers ($tableName = NULL, $columnNames = NULL) {
 		$userClass = $this->userClass;
 		$toolClass = static::$toolClass;
-		if ($toolClass::CheckClassInterface($userClass, 'MvcCore\\Ext\\Auths\\Basics\\IDatabaseUser', TRUE, TRUE)) {
+		if ($toolClass::CheckClassInterface($userClass, 'MvcCore\Ext\Auths\Basics\IDatabaseUser', TRUE, TRUE)) {
 			$userClass::SetUsersTableStructure($tableName, $columnNames);
 		};
 		return $this;

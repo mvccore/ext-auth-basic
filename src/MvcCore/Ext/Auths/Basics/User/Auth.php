@@ -138,7 +138,7 @@ trait Auth
 	public static function & GetUserSessionNamespace () {
 		if (static::$userSessionNamespace === NULL) {
 			$sessionClass = \MvcCore\Application::GetInstance()->GetSessionClass();
-			static::$userSessionNamespace = $sessionClass::GetNamespace('\\MvcCore\\Ext\\Auths\\Basic');
+			static::$userSessionNamespace = $sessionClass::GetNamespace('MvcCore\Ext\Auths\Basic');
 			static::$userSessionNamespace->SetExpirationSeconds(
 				\MvcCore\Ext\Auths\Basic::GetInstance()->GetExpirationSeconds()
 			);
