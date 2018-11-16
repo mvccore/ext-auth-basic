@@ -19,7 +19,7 @@ namespace MvcCore\Ext\Auths;
  *   and automatically initialized user instance stored in custom session namespace.
  * - Possiblity to configure:
  *   - submit routes to sign in and sign out
- *   - submit success and submit error url addresses
+ *   - submit success and submit error URL addresses
  *   - form classes
  *   - forms submit's controller class
  *   - user instance class

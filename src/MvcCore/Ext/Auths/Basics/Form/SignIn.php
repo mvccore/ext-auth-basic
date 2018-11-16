@@ -22,7 +22,7 @@ trait SignIn
 {
 	/**
 	 * Initialize all form fields, initialize hidden field with
-	 * sourceUrl for cases when in request params is any source url param.
+	 * sourceUrl for cases when in request params is any source URL param.
 	 * To return there after form is submitted.
 	 * @return \MvcCore\Ext\Auths\Basics\SignInForm
 	 */

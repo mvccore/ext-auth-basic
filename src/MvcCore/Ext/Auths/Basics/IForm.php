@@ -39,7 +39,7 @@ interface IForm
 	public function & SetId ($id);
 
 	/**
-	 * Set form submitting url value.
+	 * Set form submitting URL value.
 	 * It could be relative or absolute, anything
 	 * to complete classic html form attribute `action`.
 	 * @param string|NULL $url
@@ -71,22 +71,22 @@ interface IForm
 	public function & SetCssClasses ($cssClasses);
 
 	/**
-	 * Set form success submit url string to redirect after, relative or absolute,
+	 * Set form success submit URL string to redirect after, relative or absolute,
 	 * to specify, where to redirect user after form has been submitted successfully.
 	 * It's required to use `\MvcCore\Ext\Form` like this, if you want to use method
 	 * `$form->SubmittedRedirect();`, at the end of custom `Submit()` method implementation,
-	 * you need to specify at least success and error url strings.
+	 * you need to specify at least success and error URL strings.
 	 * @param string|NULL $url
 	 * @return \MvcCore\Ext\Forms\IForm
 	 */
 	public function & SetSuccessUrl ($url = NULL);
 
 	/**
-	 * Set form error submit url string, relative or absolute, to specify,
+	 * Set form error submit URL string, relative or absolute, to specify,
 	 * where to redirect user after has not been submitted successfully.
 	 * It's not required to use `\MvcCore\Ext\Form` like this, but if you want to use method
 	 * `$form->SubmittedRedirect();` at the end of custom `Submit()` method implementation,
-	 * you need to specify at least success and error url strings.
+	 * you need to specify at least success and error URL strings.
 	 * @param string|NULL $url
 	 * @return \MvcCore\Ext\Forms\IForm
 	 */
@@ -160,7 +160,7 @@ interface IForm
 	/**
 	 * Call this function in custom `\MvcCore\Ext\Form::Submit();` method implementation
 	 * at the end of custom `Submit()` method to redirect user by configured success/error/prev/next
-	 * step url address into final place and store everything into session.
+	 * step URL address into final place and store everything into session.
 	 * You can also to redirect form after submit by yourself.
 	 * @return void
 	 */

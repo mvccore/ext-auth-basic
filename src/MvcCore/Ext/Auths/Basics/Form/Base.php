@@ -16,7 +16,7 @@ namespace MvcCore\Ext\Auths\Basics\Form;
 /**
  * Trait for class `\MvcCore\Ext\Auths\Basics\SignInForm` and `\MvcCore\Ext\Auths\Basics\SignOutForm`. Trait contains:
  * - Protected property `$auth` to use authentication module more flexible for fields init.
- * - method `initAuthFormPropsAndHiddenControls()` always called from `Init()` method to init hidden fields for success url and error url.
+ * - method `initAuthFormPropsAndHiddenControls()` always called from `Init()` method to init hidden fields for success URL and error url.
  */
 trait Base
 {
@@ -26,26 +26,26 @@ trait Base
 	protected $auth = NULL;
 
 	/**
-	 * Hidden input with success url value.
+	 * Hidden input with success URL value.
 	 * @var \MvcCore\Ext\Forms\Fields\Hidden
 	 */
 	protected $successUrlField = NULL;
 
 	/**
-	 * Hidden input with error url value.
+	 * Hidden input with error URL value.
 	 * @var \MvcCore\Ext\Forms\Fields\Hidden
 	 */
 	protected $errorUrlField = NULL;
 
 	/**
-	 * Hidden input with source url value.
+	 * Hidden input with source URL value.
 	 * @var \MvcCore\Ext\Forms\Fields\Hidden
 	 */
 	protected $sourceUrlField = NULL;
 
 	/**
-	 * Add success and error url which are used
-	 * to redirect user to success url or error url
+	 * Add success and error URL which are used
+	 * to redirect user to success URL or error URL
 	 * after form is submitted.
 	 * @return \MvcCore\Ext\Form|\MvcCore\Ext\Forms\IForm
 	 */

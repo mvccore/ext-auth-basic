@@ -85,7 +85,7 @@ interface IAuth
 	public function GetSignOutFormClass ();
 
 	/**
-	 * Get full url to redirect user, after sign in
+	 * Get full URL to redirect user, after sign in
 	 * POST request was successful.
 	 * If `NULL` (by default), user will be redirected
 	 * to the same url, where was sign in form rendered.
@@ -94,7 +94,7 @@ interface IAuth
 	public function GetSignedInUrl ();
 
 	/**
-	 * Get full url to redirect user, after sign out
+	 * Get full URL to redirect user, after sign out
 	 * POST request was successful.
 	 * If `NULL` (by default), user will be redirected
 	 * to the same url, where was sign out form rendered.
@@ -103,7 +103,7 @@ interface IAuth
 	public function GetSignedOutUrl ();
 
 	/**
-	 * Get full url to redirect user, after sign in POST
+	 * Get full URL to redirect user, after sign in POST
 	 * request or sign out POST request was not successful,
 	 * for example wrong credentials.
 	 * If `NULL` (by default), user will be redirected
@@ -154,7 +154,7 @@ interface IAuth
 	/**
 	 * Get authenticated user model instance reference
 	 * or `NULL` if user has no username record in session namespace.
-	 * If user has not yet been initialized, load the user internaly by
+	 * If user has not yet been initialized, load the user internally by
 	 * `{$configuredUserClass}::SetUpUserBySession();` to try to load
 	 * user by username record in session namespace.
 	 * @return \MvcCore\Ext\Auths\Basics\IUser|NULL
@@ -164,7 +164,7 @@ interface IAuth
 	/**
 	 * Return `TRUE` if user is authenticated/signed in,
 	 * `TRUE` if user has any username record in session namespace.
-	 * If user has not yet been initialized, load the user internaly by
+	 * If user has not yet been initialized, load the user internally by
 	 * `$auth->GetUser();` to try to load user by username record in session namespace.
 	 * @return bool
 	 */
@@ -278,7 +278,7 @@ interface IAuth
 	public function & SetSignOutFormClass ($signOutFormClass = '');
 
 	/**
-	 * Set full url to redirect user, after sign in
+	 * Set full URL to redirect user, after sign in
 	 * POST request was successful.
 	 * If `NULL` (by default), user will be redirected
 	 * to the same url, where was sign in form rendered.
@@ -288,7 +288,7 @@ interface IAuth
 	public function & SetSignedInUrl ($signedInUrl = NULL);
 
 	/**
-	 * Set full url to redirect user, after sign out
+	 * Set full URL to redirect user, after sign out
 	 * POST request was successful.
 	 * If `NULL` (by default), user will be redirected
 	 * to the same url, where was sign out form rendered.
@@ -298,7 +298,7 @@ interface IAuth
 	public function & SetSignedOutUrl ($signedOutUrl = NULL);
 
 	/**
-	 * Set full url to redirect user, after sign in POST
+	 * Set full URL to redirect user, after sign in POST
 	 * request or sign out POST request was not successful,
 	 * for example wrong credentials.
 	 * If `NULL` (by default), user will be redirected
@@ -352,7 +352,7 @@ interface IAuth
 	public function & SetTranslator (callable $translator = NULL);
 
 	/**
-	 * Set user instance manualy. If you use this method
+	 * Set user instance manually. If you use this method
 	 * no authentication by `{$configuredUserClass}::SetUpUserBySession();`
 	 * is used and authentication state is always positive.
 	 * @param \MvcCore\Ext\Auths\Basics\IUser|NULL $user

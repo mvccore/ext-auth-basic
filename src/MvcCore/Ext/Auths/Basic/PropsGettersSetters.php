@@ -112,7 +112,7 @@ trait PropsGettersSetters
 	protected $signOutFormClass = 'MvcCore\Ext\Auths\Basics\SignOutForm';
 
 	/**
-	 * Full url to redirect user, after sign in
+	 * Full URL to redirect user, after sign in
 	 * POST request was successful.
 	 * If `NULL` (by default), user will be redirected
 	 * to the same url, where was sign in form rendered.
@@ -121,7 +121,7 @@ trait PropsGettersSetters
 	protected $signedInUrl = NULL;
 
 	/**
-	 * Full url to redirect user, after sign out
+	 * Full URL to redirect user, after sign out
 	 * POST request was successful.
 	 * If `NULL` (by default), user will be redirected
 	 * to the same url, where was sign out form rendered.
@@ -130,7 +130,7 @@ trait PropsGettersSetters
 	protected $signedOutUrl = NULL;
 
 	/**
-	 * Full url to redirect user, after sign in POST
+	 * Full URL to redirect user, after sign in POST
 	 * request or sign out POST request was not successful,
 	 * for example wrong credentials.
 	 * If `NULL` (by default), user will be redirected
@@ -231,7 +231,7 @@ trait PropsGettersSetters
 	/**
 	 * This is only internal semaphore to call
 	 * `\MvcCore\Ext\Auths\Basics\User::SetUpUserBySession()`
-	 * only once (if result is `NULL`) in request predispatch state.
+	 * only once (if result is `NULL`) in request pre-dispatch state.
 	 * `TRUE`if method `\MvcCore\Ext\Auth::GetInstance()->GetUser()`
 	 * has been called already with any result and also `TRUE` if
 	 * method `\MvcCore\Ext\Auth::GetInstance()->SetUser($user)` has been
@@ -334,7 +334,7 @@ trait PropsGettersSetters
 	}
 
 	/**
-	 * Get full url to redirect user, after sign in
+	 * Get full URL to redirect user, after sign in
 	 * POST request was successful.
 	 * If `NULL` (by default), user will be redirected
 	 * to the same url, where was sign in form rendered.
@@ -345,7 +345,7 @@ trait PropsGettersSetters
 	}
 
 	/**
-	 * Get full url to redirect user, after sign out
+	 * Get full URL to redirect user, after sign out
 	 * POST request was successful.
 	 * If `NULL` (by default), user will be redirected
 	 * to the same url, where was sign out form rendered.
@@ -356,7 +356,7 @@ trait PropsGettersSetters
 	}
 
 	/**
-	 * Get full url to redirect user, after sign in POST
+	 * Get full URL to redirect user, after sign in POST
 	 * request or sign out POST request was not successful,
 	 * for example wrong credentials.
 	 * If `NULL` (by default), user will be redirected
@@ -419,7 +419,7 @@ trait PropsGettersSetters
 	/**
 	 * Get authenticated user model instance reference
 	 * or `NULL` if user has no username record in session namespace.
-	 * If user has not yet been initialized, load the user internaly by
+	 * If user has not yet been initialized, load the user internally by
 	 * `{$configuredUserClass}::SetUpUserBySession();` to try to load
 	 * user by username record in session namespace.
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser|NULL
@@ -437,7 +437,7 @@ trait PropsGettersSetters
 	/**
 	 * Return `TRUE` if user is authenticated/signed in,
 	 * `TRUE` if user has any username record in session namespace.
-	 * If user has not yet been initialized, load the user internaly by
+	 * If user has not yet been initialized, load the user internally by
 	 * `$auth->GetUser();` to try to load user by username record in session namespace.
 	 * @return bool
 	 */
@@ -644,7 +644,7 @@ trait PropsGettersSetters
 	}
 
 	/**
-	 * Set full url to redirect user, after sign in
+	 * Set full URL to redirect user, after sign in
 	 * POST request was successful.
 	 * If `NULL` (by default), user will be redirected
 	 * to the same url, where was sign in form rendered.
@@ -657,7 +657,7 @@ trait PropsGettersSetters
 	}
 
 	/**
-	 * Set full url to redirect user, after sign out
+	 * Set full URL to redirect user, after sign out
 	 * POST request was successful.
 	 * If `NULL` (by default), user will be redirected
 	 * to the same url, where was sign out form rendered.
@@ -670,7 +670,7 @@ trait PropsGettersSetters
 	}
 
 	/**
-	 * Set full url to redirect user, after sign in POST
+	 * Set full URL to redirect user, after sign in POST
 	 * request or sign out POST request was not successful,
 	 * for example wrong credentials.
 	 * If `NULL` (by default), user will be redirected
@@ -756,7 +756,7 @@ trait PropsGettersSetters
 	}
 
 	/**
-	 * Set user instance manualy. If you use this method
+	 * Set user instance manually. If you use this method
 	 * no authentication by `{$configuredUserClass}::SetUpUserBySession();`
 	 * is used and authentication state is always positive.
 	 * @param \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser|NULL $user
