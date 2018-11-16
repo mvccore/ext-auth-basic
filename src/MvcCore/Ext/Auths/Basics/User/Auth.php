@@ -57,8 +57,8 @@ trait Auth
 	 * hashed submitted password and user password hash from application users
 	 * list. If password hashes are the same, set username and authenticated boolean
 	 * into user session namespace. Then user is logged in.
-	 * @param string $userName Submitted and cleaned username. Characters `' " ` < > \ = ^ | & ~` are automaticly encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
-	 * @param string $password Submitted and cleaned password. Characters `' " ` < > \ = ^ | & ~` are automaticly encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
+	 * @param string $userName Submitted and cleaned username. Characters `' " ` < > \ = ^ | & ~` are automatically encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
+	 * @param string $password Submitted and cleaned password. Characters `' " ` < > \ = ^ | & ~` are automatically encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser|NULL
 	 */
 	public static function LogIn ($userName = '', $password = '') {
@@ -131,7 +131,7 @@ trait Auth
 	 * MvcCore session namespace instance
 	 * to get/clear username record from session
 	 * to load user for authentication.
-	 * Session is automaticly started if necessary
+	 * Session is automatically started if necessary
 	 * by `\MvcCore\Session::GetNamespace();`.
 	 * @return \MvcCore\Session|\MvcCore\ISession
 	 */

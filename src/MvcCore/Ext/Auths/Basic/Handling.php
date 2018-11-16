@@ -64,7 +64,7 @@ trait Handling
 
 	/**
 	 * Process necessary operations before request is routed by core router:
-	 * - Everytime try to load user by stored session username from any previous request(s).
+	 * - Every time try to load user by stored session username from any previous request(s).
 	 * - If request could target any authentication route or request is post:
 	 *   - Set up signin form success url, signout form success url and error
 	 *	 url for both (sign in and sign out) forms, all urls as current request url by default.

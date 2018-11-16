@@ -38,8 +38,8 @@ trait Base
 	/**
 	 * Password hash, usually `NULL`. It exists only for authentication moment.
 	 * From moment, when is user instance loaded with password hash by session username to
-	 * moment, when is compared hashed sended password and stored password hash.
-	 * After password hashes comparation, password hash is unseted.
+	 * moment, when is compared hashed sent password and stored password hash.
+	 * After password hashes comparison, password hash is unseted.
 	 * @var string|NULL
 	 */
 	protected $passwordHash = NULL;
@@ -91,8 +91,8 @@ trait Base
 	/**
 	 * Password hash, usually `NULL`. It exists only for authentication moment.
 	 * From moment, when is user instance loaded with password hash by session username to
-	 * moment, when is compared hashed sended password and stored password hash.
-	 * After password hashes comparation, password hash is unseted.
+	 * moment, when is compared hashed sent password and stored password hash.
+	 * After password hashes comparison, password hash is unseted.
 	 * @var string|NULL
 	 */
 	public function GetPasswordHash () {
@@ -102,8 +102,8 @@ trait Base
 	/**
 	 * Set password hash, usually `NULL`. It exists only for authentication moment.
 	 * From moment, when is user instance loaded with password hash by session username to
-	 * moment, when is compared hashed sended password and stored password hash.
-	 * After password hashes comparation, password hash is unseted.
+	 * moment, when is compared hashed sent password and stored password hash.
+	 * After password hashes comparison, password hash is unseted.
 	 * @param string|NULL $passwordHash
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
 	 */

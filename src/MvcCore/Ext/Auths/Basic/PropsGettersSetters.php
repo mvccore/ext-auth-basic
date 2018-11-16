@@ -245,7 +245,7 @@ trait PropsGettersSetters
 	 * sign in or sign out route into router in pre route request state.
 	 * If any configured route is for different http method than `POST`,
 	 * than this property is set to `TRUE`. If both configured routes
-	 * use only `POST` method, this property is automaticly `FALSE` to
+	 * use only `POST` method, this property is automatically `FALSE` to
 	 * not add routes for all requests, only for `POST` requests.
 	 * Default value is `FALSE` because both default routes use `POST` methods.
 	 * @var bool
@@ -822,7 +822,7 @@ trait PropsGettersSetters
 
 	/**
 	 * Check if given class name implements given interface
-	 * and optionaly if test class implements static interface methods.
+	 * and optionally if test class implements static interface methods.
 	 * If not, thrown an `\InvalidArgumentException` every time.
 	 * @param string $testClassName Full test class name.
 	 * @param string $interfaceName Full interface class name.

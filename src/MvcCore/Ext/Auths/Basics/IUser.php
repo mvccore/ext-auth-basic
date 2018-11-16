@@ -107,8 +107,8 @@ interface IUser
 	/**
 	 * Password hash, usually `NULL`. It exists only for authentication moment.
 	 * From moment, when is user instance loaded with password hash by session username to
-	 * moment, when is compared hashed sended password and stored password hash.
-	 * After password hashes comparation, password hash is unseted.
+	 * moment, when is compared hashed sent password and stored password hash.
+	 * After password hashes comparison, password hash is unseted.
 	 * @var string|NULL
 	 */
 	public function GetPasswordHash ();
@@ -116,8 +116,8 @@ interface IUser
 	/**
 	 * Set password hash, usually `NULL`. It exists only for authentication moment.
 	 * From moment, when is user instance loaded with password hash by session username to
-	 * moment, when is compared hashed sended password and stored password hash.
-	 * After password hashes comparation, password hash is unseted.
+	 * moment, when is compared hashed sent password and stored password hash.
+	 * After password hashes comparison, password hash is unseted.
 	 * @param string|NULL $passwordHash
 	 * @return \MvcCore\Ext\Auths\Basics\IUser
 	 */
@@ -142,8 +142,8 @@ interface IUser
 	 * hashed submitted password and user password hash from application users
 	 * list. If password hashes are the same, set username and authenticated boolean
 	 * into user session namespace. Then user is logged in.
-	 * @param string $userName Submitted and cleaned username. Characters `' " ` < > \ = ^ | & ~` are automaticly encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
-	 * @param string $password Submitted and cleaned password. Characters `' " ` < > \ = ^ | & ~` are automaticly encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
+	 * @param string $userName Submitted and cleaned username. Characters `' " ` < > \ = ^ | & ~` are automatically encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
+	 * @param string $password Submitted and cleaned password. Characters `' " ` < > \ = ^ | & ~` are automatically encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
 	 * @return \MvcCore\Ext\Auths\Basics\IUser|NULL
 	 */
 	public static function LogIn ($userName = '', $password = '');
@@ -173,7 +173,7 @@ interface IUser
 	 * MvcCore session namespace instance
 	 * to get/clear username record from session
 	 * to load user for authentication.
-	 * Session is automaticly started if necessary
+	 * Session is automatically started if necessary
 	 * by `\MvcCore\Session::GetNamespace();`.
 	 * @return \MvcCore\ISession
 	 */
@@ -290,7 +290,7 @@ interface IUser
 	/**
 	 * Get user model instance from database or any other users list
 	 * resource by submitted and cleaned `$userName` field value.
-	 * @param string $userName Submitted and cleaned username. Characters `' " ` < > \ = ^ | & ~` are automaticly encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
+	 * @param string $userName Submitted and cleaned username. Characters `' " ` < > \ = ^ | & ~` are automatically encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
 	 * @return \MvcCore\Ext\Auths\Basics\IUser
 	 */
 	public static function & GetByUserName ($userName);

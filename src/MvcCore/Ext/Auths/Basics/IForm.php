@@ -106,14 +106,14 @@ interface IForm
 
 	/**
 	 * Render whole `<form>` with all content into HTML string to display it.
-	 * - If form is not initialized, there is automaticly
+	 * - If form is not initialized, there is automatically
 	 *   called `$form->Init();` method.
 	 * - If form is not pre-dispatched for rendering, there is
-	 *   automaticly called `$form->Predispatch();` method.
+	 *   automatically called `$form->Predispatch();` method.
 	 * - Create new form view instance and set up the view with local
 	 *   context variables.
-	 * - Render form naturaly or by custom template.
-	 * - Clean session errors, because errors shoud be rendered
+	 * - Render form naturally or by custom template.
+	 * - Clean session errors, because errors should be rendered
 	 *   only once, only when it's used and it's now - in this rendering process.
 	 * @return string
 	 */
@@ -142,7 +142,7 @@ interface IForm
 	 * - Check max. post size by php configuration if form is posted.
 	 * - Check cross site request forgery tokens with session tokens.
 	 * - Process all field values and their validators and call `$form->AddError()` where necessary.
-	 *	 `AddError()` method automaticly switch `$form->Result` property to zero - `0`, it means error submit result.
+	 *	 `AddError()` method automatically switch `$form->Result` property to zero - `0`, it means error submit result.
 	 * Return array with form result, safe values from validators and errors array.
 	 * @param array $rawRequestParams optional
 	 * @return array Array to list: `array($form->Result, $form->Data, $form->Errors);`
@@ -174,14 +174,14 @@ interface IForm
 
 	/**
 	 * Render whole `<form>` with all content into HTML string to display it.
-	 * - If form is not initialized, there is automaticly
+	 * - If form is not initialized, there is automatically
 	 *   called `$form->Init();` method.
 	 * - If form is not pre-dispatched for rendering, there is
-	 *   automaticly called `$form->Predispatch();` method.
+	 *   automatically called `$form->Predispatch();` method.
 	 * - Create new form view instance and set up the view with local
 	 *   context variables.
-	 * - Render form naturaly or by custom template.
-	 * - Clean session errors, because errors shoud be rendered
+	 * - Render form naturally or by custom template.
+	 * - Clean session errors, because errors should be rendered
 	 *   only once, only when it's used and it's now - in this rendering process.
 	 * @return string
 	 */

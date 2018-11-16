@@ -29,7 +29,7 @@ class Role
 	use \MvcCore\Ext\Auths\Basics\Role\Base;
 
 	/**
-	 * Do not automaticly initialize protected properties
+	 * Do not automatically initialize protected properties
 	 * `$user->db`, `$user->config` and `$user->resource`.
 	 * @var bool
 	 */

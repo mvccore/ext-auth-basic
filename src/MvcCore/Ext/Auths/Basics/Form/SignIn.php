@@ -60,7 +60,7 @@ trait SignIn
 		$data = & $this->values;
 		
 		if ($this->result) {
-			// now sended values are safe strings,
+			// now sent values are safe strings,
 			// try to get use by username and compare password hashes:
 			$userClass = $this->auth->GetUserClass();
 			$user = $userClass::LogIn(

@@ -33,7 +33,7 @@ trait Base
 			// to ban danger user for some time or anything else...
 
 		}
-		if ($result) $form->ClearSession(); // to remove all submited data from session
+		if ($result) $form->ClearSession(); // to remove all submitted data from session
 		$form->SubmittedRedirect();
 	}
 
@@ -47,7 +47,7 @@ trait Base
 		/** @var $form \MvcCore\Ext\Auths\Basics\SignOutForm */
 		$form = \MvcCore\Ext\Auths\Basic::GetInstance()->GetSignOutForm();
 		list ($result,) = $form->Submit();
-		if ($result) $form->ClearSession(); // to remove all submited data from session
+		if ($result) $form->ClearSession(); // to remove all submitted data from session
 		$form->SubmittedRedirect();
 	}
 }
