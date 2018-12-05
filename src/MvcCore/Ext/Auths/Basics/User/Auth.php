@@ -110,20 +110,26 @@ trait Auth
 			if ($configuredSalt !== NULL) {
 				$options['salt'] = $configuredSalt;
 			} else {
+				$selfClass = version_compare(PHP_VERSION, '5.5', '>') ? self::class : __CLASS__;
 				throw new \InvalidArgumentException(
-					'['.__CLASS__.'] No option `salt` given by second argument `$options`'
+					'['.$selfClass.'] No option `salt` given by second argument `$options`'
 					." or no salt configured by `\MvcCore\Ext\Auth::GetInstance()->SetPasswordHashSalt('...')`."
 				);
 			}
 		}
-		if (isset($options['cost']) && ($options['cost'] < 4 || $options['cost'] > 31))
+		if (isset($options['cost']) && ($options['cost'] < 4 || $options['cost'] > 31)) {
+			$selfClass = version_compare(PHP_VERSION, '5.5', '>') ? self::class : __CLASS__;
 			throw new \InvalidArgumentException(
-				'['.__CLASS__.'] `cost` option has to be from `4` to `31`, `' . $options['cost'] . '` given.'
+				'['.$selfClass.'] `cost` option has to be from `4` to `31`, `' . $options['cost'] . '` given.'
 			);
+		}
 		$result = @password_hash($password, PASSWORD_BCRYPT, $options);
-		if (!$result || strlen($result) < 60) throw new \RuntimeException(
-			'['.__CLASS__.'] Hash computed by `password_hash()` is invalid. Try a little bit longer salt.'
-		);
+		if (!$result || strlen($result) < 60) {
+			$selfClass = version_compare(PHP_VERSION, '5.5', '>') ? self::class : __CLASS__;
+			throw new \RuntimeException(
+				'['.$selfClass.'] Hash computed by `password_hash()` is invalid. Try a little bit longer salt.'
+			);
+		}
 		return $result;
 	}
 

@@ -43,11 +43,12 @@ class User
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
 	 */
 	public static function & GetByUserName ($userName) {
+		$selfClass = version_compare(PHP_VERSION, '5.5', '>') ? self::class : __CLASS__;
 		throw new \RuntimeException(
-			'['.__CLASS__.'] Method is not implemented. '
+			'['.$selfClass.'] Method is not implemented. '
 			.'Use class `\MvcCore\Ext\Auths\Basics\Users\Database` or '
 			.'`\MvcCore\Ext\Auths\Basics\Users\SystemConfig` instead or extend '
-			.'class `'.__CLASS__.'` and implement method `GetByUserName($userName)` by your own.'
+			.'class `'.$selfClass.'` and implement method `GetByUserName($userName)` by your own.'
 		);
 	}
 }

@@ -149,8 +149,9 @@ trait Roles
 		} else if ($roleOrRoleName instanceof \MvcCore\Ext\Auths\Basics\IRole) {
 			return $roleOrRoleName->GetName();
 		} else {
+			$selfClass = version_compare(PHP_VERSION, '5.5', '>') ? self::class : __CLASS__;
 			throw new \InvalidArgumentException(
-				'['.__CLASS__."] Given argument `$roleOrRoleName` doesn't "
+				'['.$selfClass."] Given argument `$roleOrRoleName` doesn't "
 				."implement interface `\MvcCore\Ext\Auths\Basics\IRole` "
 				."or it's not string with role name."
 			);

@@ -812,8 +812,9 @@ trait PropsGettersSetters
 			if (method_exists($this, $setter)) {
 				$this->$setter($value);
 			} else if ($throwExceptionIfPropertyIsMissing) {
+				$selfClass = version_compare(PHP_VERSION, '5.5', '>') ? self::class : __CLASS__;
 				throw new \InvalidArgumentException (
-					'['.__CLASS__.'] Property `'.$key.'` has no setter method `'.$setter.'` in class `'.get_class($this).'`.'
+					'['.$selfClass.'] Property `'.$key.'` has no setter method `'.$setter.'` in class `'.get_class($this).'`.'
 				);
 			}
 		}
