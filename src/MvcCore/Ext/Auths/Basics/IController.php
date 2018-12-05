@@ -3,7 +3,7 @@
 namespace MvcCore\Ext\Auths\Basics;
 
 /**
- * Responsibility - handle configured signin form and signout form submit requests.
+ * Responsibility - handle configured sign-in form and sign-out form submit requests.
  */
 interface IController
 {

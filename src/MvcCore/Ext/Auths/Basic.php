@@ -17,7 +17,7 @@ namespace MvcCore\Ext\Auths;
  * Responsibility - managing login/logout forms, authentication requests and user instance.
  * - Basic extensible authentication module with sign in and sign out forms
  *   and automatically initialized user instance stored in custom session namespace.
- * - Possiblity to configure:
+ * - Possibility to configure:
  *   - submit routes to sign in and sign out
  *   - submit success and submit error URL addresses
  *   - form classes

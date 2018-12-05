@@ -17,7 +17,7 @@ namespace MvcCore\Ext\Auths\Basics\Form;
  * Trait for class `\MvcCore\Ext\Auths\Basics\SignOutForm`. Trait contains:
  * - Protected property `$user` to display user full name in sign out form.
  * - `Init()` method to initialize all necessary sign in form fields.
- * - `Submit()` method to handle signin form submit request (`POST` by default).
+ * - `Submit()` method to handle sign-in form submit request (`POST` by default).
  * - `Render()` method to render sign out form without template by default.
  */
 trait SignOut
@@ -28,6 +28,7 @@ trait SignOut
 	 * @return \MvcCore\Ext\Auths\Basics\SignOutForm
 	 */
 	public function Init () {
+		/** @var $this \MvcCore\Ext\Auths\Basics\SignOutForm */
 		parent::Init();
 
 		$this
@@ -44,8 +45,8 @@ trait SignOut
 	}
 
 	/**
-	 * Sign out submit - if everything is ok, unser user unique name from session
-	 * for next requests to hanve not authenticated user anymore.
+	 * Sign out submit - if everything is OK, unset user unique name from session
+	 * for next requests to have not authenticated user anymore.
 	 * @param array $rawRequestParams
 	 * @return array
 	 */

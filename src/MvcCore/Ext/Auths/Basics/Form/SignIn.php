@@ -16,7 +16,7 @@ namespace MvcCore\Ext\Auths\Basics\Form;
 /**
  * Trait for class `\MvcCore\Ext\Auths\Basics\SignInForm`. Trait contains:
  * - `Init()` method to initialize all necessary sign in form fields.
- * - `Submit()` method to handle signin form submit request (`POST` by default).
+ * - `Submit()` method to handle sign-in form submit request (`POST` by default).
  */
 trait SignIn
 {
@@ -27,6 +27,7 @@ trait SignIn
 	 * @return \MvcCore\Ext\Auths\Basics\SignInForm
 	 */
 	public function Init () {
+		/** @var $this \MvcCore\Ext\Auths\Basics\SignInForm */
 		parent::Init();
 		$this
 			->initAuthFormPropsAndHiddenControls()

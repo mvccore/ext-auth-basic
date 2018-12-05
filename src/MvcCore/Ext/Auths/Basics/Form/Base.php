@@ -50,6 +50,7 @@ trait Base
 	 * @return \MvcCore\Ext\Form|\MvcCore\Ext\Forms\IForm
 	 */
 	protected function initAuthFormPropsAndHiddenControls () {
+		/** @var $this \MvcCore\Ext\Forms\IForm */
 		$this->auth = \MvcCore\Ext\Auths\Basic::GetInstance();
 		$this->successUrlField = new \MvcCore\Ext\Forms\Fields\Hidden([
 			'name'			=> 'successUrl',
@@ -74,6 +75,7 @@ trait Base
 	 * @return \MvcCore\Ext\Form|\MvcCore\Ext\Forms\IForm
 	 */
 	public function PreDispatch () {
+		/** @var $this \MvcCore\Ext\Forms\IForm */
 		if ($this->dispatchState > 1) return $this;
 		parent::PreDispatch();
 

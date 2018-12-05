@@ -15,7 +15,7 @@ namespace MvcCore\Ext\Auths\Basics\UserAndRole;
 
 /**
  * Trait for `\MvcCore\Ext\Auths\Basics\User` and `\MvcCore\Ext\Auths\Basics\Role` class. Trait contains:
- * - Instance property `$permissions` with their public getters and setters to manupulate with permitions.
+ * - Instance property `$permissions` with their public getters and setters to manipulate with permissions.
  */
 trait Permissions
 {
@@ -44,6 +44,7 @@ trait Permissions
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser|\MvcCore\Ext\Auths\Basics\Role|\MvcCore\Ext\Auths\Basics\IRole
 	 */
 	public function & SetPermission ($permissionName, $allow = TRUE) {
+		/** @var $this \MvcCore\Ext\Auths\Basics\IUser|\MvcCore\Ext\Auths\Basics\IRole */
 		if (!in_array($permissionName, $this->permissions) && $allow) {
 			$this->permissions[] = $permissionName;
 		} else if (in_array($permissionName, $this->permissions) && !$allow) {
@@ -63,10 +64,11 @@ trait Permissions
 
 	/**
 	 * Set array of strings describing what is allowed to do for user or role.
-	 * @param string|\string[] $permissions Permitions string, separated by comma character or array of strings.
+	 * @param string|\string[] $permissions The permissions string, separated by comma character or array of strings.
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser|\MvcCore\Ext\Auths\Basics\Role|\MvcCore\Ext\Auths\Basics\IRole
 	 */
 	public function & SetPermissions ($permissions) {
+		/** @var $this \MvcCore\Ext\Auths\Basics\IUser|\MvcCore\Ext\Auths\Basics\IRole */
 		if (is_string($permissions)) {
 			$this->permissions = explode(',', $permissions);
 		} else if (is_array($permissions)) {

@@ -43,6 +43,7 @@ trait Base
 	 * @return \MvcCore\Ext\Auths\Basics\Role|\MvcCore\Ext\Auths\Basics\IRole
 	 */
 	public function & SetName ($name) {
+		/** @var $this \MvcCore\Ext\Auths\Basics\IRole */
 		$this->name = $name;
 		return $this;
 	}

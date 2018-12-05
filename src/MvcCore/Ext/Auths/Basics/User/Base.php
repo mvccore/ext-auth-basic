@@ -22,7 +22,7 @@ trait Base
 	/**
 	 * Unique user name to log in. It could be email,
 	 * unique user name or anything uniquelse.
-	 * Example: `"admin" | "john" | "tomflidr@gmail.com"`
+	 * Example: `"admin" | "john" | "tom@gmail.com"`
 	 * @var string
 	 */
 	protected $userName = NULL;
@@ -30,7 +30,7 @@ trait Base
 	/**
 	 * User full name string to display in application
 	 * for authenticated user at sign out button.
-	 * Example: `"Administrator" | "John" | "Tom Flidr"`
+	 * Example: `"Administrator" | "John" | "Tom"`
 	 * @var string
 	 */
 	protected $fullName = NULL;
@@ -39,7 +39,7 @@ trait Base
 	 * Password hash, usually `NULL`. It exists only for authentication moment.
 	 * From moment, when is user instance loaded with password hash by session username to
 	 * moment, when is compared hashed sent password and stored password hash.
-	 * After password hashes comparison, password hash is unseted.
+	 * After password hashes comparison, password hash is un-setted.
 	 * @var string|NULL
 	 */
 	protected $passwordHash = NULL;
@@ -47,7 +47,7 @@ trait Base
 	/**
 	 * Unique user name to log in. It could be email,
 	 * unique user name or anything uniquelse.
-	 * Example: `"admin" | "john" | "tomflidr@gmail.com"`
+	 * Example: `"admin" | "john" | "tom@gmail.com"`
 	 * @var string
 	 */
 	public function GetUserName () {
@@ -57,11 +57,12 @@ trait Base
 	/**
 	 * Set unique user name to log in. It could be email,
 	 * unique user name or anything uniquelse.
-	 * Example: `"admin" | "john" | "tomflidr@gmail.com"`
+	 * Example: `"admin" | "john" | "tom@gmail.com"`
 	 * @param string $userName
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
 	 */
 	public function & SetUserName ($userName) {
+		/** @var $this \MvcCore\Ext\Auths\Basics\IUser */
 		$this->userName = $userName;
 		return $this;
 	}
@@ -69,7 +70,7 @@ trait Base
 	/**
 	 * User full name string to display in application
 	 * for authenticated user at sign out button.
-	 * Example: `"Administrator" | "John" | "Tom Flidr"`
+	 * Example: `"Administrator" | "John" | "Tom"`
 	 * @var string
 	 */
 	public function GetFullName () {
@@ -79,11 +80,12 @@ trait Base
 	/**
 	 * Set user full name string to display in application
 	 * for authenticated user at sign out button.
-	 * Example: `"Administrator" | "John" | "Tom Flidr"`
+	 * Example: `"Administrator" | "John" | "Tom"`
 	 * @param string $fullName
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
 	 */
 	public function & SetFullName ($fullName) {
+		/** @var $this \MvcCore\Ext\Auths\Basics\IUser */
 		$this->fullName = $fullName;
 		return $this;
 	}
@@ -92,7 +94,7 @@ trait Base
 	 * Password hash, usually `NULL`. It exists only for authentication moment.
 	 * From moment, when is user instance loaded with password hash by session username to
 	 * moment, when is compared hashed sent password and stored password hash.
-	 * After password hashes comparison, password hash is unseted.
+	 * After password hashes comparison, password hash is un-setted.
 	 * @var string|NULL
 	 */
 	public function GetPasswordHash () {
@@ -103,11 +105,12 @@ trait Base
 	 * Set password hash, usually `NULL`. It exists only for authentication moment.
 	 * From moment, when is user instance loaded with password hash by session username to
 	 * moment, when is compared hashed sent password and stored password hash.
-	 * After password hashes comparison, password hash is unseted.
+	 * After password hashes comparison, password hash is un-setted.
 	 * @param string|NULL $passwordHash
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
 	 */
 	public function & SetPasswordHash ($passwordHash) {
+		/** @var $this \MvcCore\Ext\Auths\Basics\IUser */
 		$this->passwordHash = $passwordHash;
 		return $this;
 	}

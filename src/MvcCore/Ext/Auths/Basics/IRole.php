@@ -83,7 +83,7 @@ interface IRole
 
 	/**
 	 * Set array of strings describing what is allowed to do for user or role.
-	 * @param string|\string[] $permissions Permitions string, separated by comma character or array of strings.
+	 * @param string|\string[] $permissions The permissions string, separated by comma character or array of strings.
 	 * @return \MvcCore\Ext\Auths\Basics\IRole
 	 */
 	public function & SetPermissions ($permissions);

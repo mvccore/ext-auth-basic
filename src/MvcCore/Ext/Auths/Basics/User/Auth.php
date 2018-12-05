@@ -101,7 +101,7 @@ trait Auth
 	 * by custom salt in second agument `$options['salt'] = 'abcdefg';`.
 	 * @see http://php.net/manual/en/function.password-hash.php
 	 * @param string $password
-	 * @param array $options Options for `password_hash()`.
+	 * @param array $options An options for `password_hash()`.
 	 * @return string
 	 */
 	public static function EncodePasswordToHash ($password = '', $options = []) {

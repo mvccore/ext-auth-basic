@@ -18,7 +18,7 @@ namespace MvcCore\Ext\Auths\Basic;
  * - Static `GetInstance()` method to return singleton instance.
  * - Constructor to init default config props and to assign pre-route and pre-dispatch application handlers.
  * - Protected methods to handle:
- *   - Pre-route handler - to init signin/signout form URL addresses and routes if necessary.
+ *   - Pre-route handler - to init sign-in/sign-out form URL addresses and routes if necessary.
  *   - Pre-dispatch handler - to assign user instance to prepared controller to dispatch if possible.
  */
 trait Handling
@@ -31,9 +31,14 @@ trait Handling
 	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
 	 */
 	public static function & GetInstance ($configuration = []) {
-		if (self::$instance === NULL)
-			self::$instance = new static($configuration);
-		return self::$instance;
+		/** @var $result \MvcCore\Ext\Auths\Basics\IAuth */
+		if (self::$instance === NULL) {
+			$result = new static($configuration);
+			self::$instance = & $result;
+		} else {
+			$result = & self::$instance;
+		}
+		return $result;
 	}
 
 	/**
@@ -66,8 +71,8 @@ trait Handling
 	 * Process necessary operations before request is routed by core router:
 	 * - Every time try to load user by stored session username from any previous request(s).
 	 * - If request could target any authentication route or request is post:
-	 *   - Set up signin form success url, signout form success URL and error
-	 *	 URL for both (sign in and sign out) forms, all urls as current request URL by default.
+	 *   - Set up sign-in form success url, sign-out form success URL and error
+	 *	 URL for both (sign in and sign out) forms, all URLs as current request URL by default.
 	 *	 If any URL is configured already, nothing is changed.
 	 *   - Set up sign in or sign out route into router, only route which
 	 *	 is currently necessary by authenticated/not authenticated user.

@@ -15,7 +15,7 @@ namespace MvcCore\Ext\Auths\Basics\User;
 
 /**
  * Trait for `\MvcCore\Ext\Auths\Basics\User` class. Trait contains:
- * - Instance property `$admin` and `$roles` with their public getters and setters to manupulate with user roles.
+ * - Instance property `$admin` and `$roles` with their public getters and setters to manipulate with user roles.
  * - Method `IsAllowed()` to get allowed permissions from user instance or from user roles.
  */
 trait Roles
@@ -55,6 +55,7 @@ trait Roles
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
 	 */
 	public function & SetAdmin ($admin = TRUE) {
+		/** @var $this \MvcCore\Ext\Auths\Basics\IUser */
 		$this->admin = (bool) $admin;
 		return $this;
 	}
@@ -73,6 +74,7 @@ trait Roles
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
 	 */
 	public function & SetRoles ($rolesOrRolesNames = []) {
+		/** @var $this \MvcCore\Ext\Auths\Basics\IUser */
 		$this->roles = [];
 		foreach ($rolesOrRolesNames as $roleOrRoleName)
 			$this->roles[] = static::getRoleName($roleOrRoleName);
@@ -86,6 +88,7 @@ trait Roles
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
 	 */
 	public function & AddRole ($roleOrRoleName) {
+		/** @var $this \MvcCore\Ext\Auths\Basics\IUser */
 		$roleName = static::getRoleName($roleOrRoleName);
 		if (!in_array($roleName, $this->roles))
 			$this->roles[] = $roleName;
@@ -110,6 +113,7 @@ trait Roles
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
 	 */
 	public function & RemoveRole ($roleOrRoleName) {
+		/** @var $this \MvcCore\Ext\Auths\Basics\IUser */
 		$roleName = static::getRoleName($roleOrRoleName);
 		$position = array_search($roleName, $this->roles);
 		if ($position !== FALSE) array_splice($this->roles, $position, 1);

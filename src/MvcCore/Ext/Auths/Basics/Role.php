@@ -17,7 +17,7 @@ namespace MvcCore\Ext\Auths\Basics;
  * Responsibility - base role model class.
  * This class is necessary to extend and implement method
  * `GetByName()` or more. It's also necessary to implement
- * loading users with roles and their permitions to be able
+ * loading users with roles and their permissions to be able
  * to check user roles and permissions.
  */
 class Role

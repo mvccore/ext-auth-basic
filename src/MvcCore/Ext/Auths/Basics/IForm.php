@@ -14,7 +14,7 @@
 namespace MvcCore\Ext\Auths\Basics;
 
 /**
- * Responsibility - base authentication signin/signout form class specification.
+ * Responsibility - base authentication sign-in/sign-out form class specification.
  */
 interface IForm
 {
@@ -95,7 +95,7 @@ interface IForm
 	/**
 	 * Set translator to translate field labels, options, placeholders and error messages.
 	 * Translator has to be `callable` (it could be `closure function` or `array`
-	 * with `classname/instance` and `method name` string). First argument
+	 * with `class_name/instance` and `method name` string). First argument
 	 * of `callable` has to be a translation key and second argument
 	 * has to be language string (`en`, `de` ...) to translate the key into.
 	 * Result of `callable` object has to be a string - translated key for called language.
@@ -109,7 +109,7 @@ interface IForm
 	 * - If form is not initialized, there is automatically
 	 *   called `$form->Init();` method.
 	 * - If form is not pre-dispatched for rendering, there is
-	 *   automatically called `$form->Predispatch();` method.
+	 *   automatically called `$form->PreDispatch();` method.
 	 * - Create new form view instance and set up the view with local
 	 *   context variables.
 	 * - Render form naturally or by custom template.
@@ -139,7 +139,7 @@ interface IForm
 	 * If no params passed as first argument, all params from object
 	 * `\MvcCore\Application::GetInstance()->GetRequest()` are used.
 	 * - If fields are not initialized - initialize them by calling `$form->Init();`.
-	 * - Check max. post size by php configuration if form is posted.
+	 * - Check maximum post size by php configuration if form is posted.
 	 * - Check cross site request forgery tokens with session tokens.
 	 * - Process all field values and their validators and call `$form->AddError()` where necessary.
 	 *	 `AddError()` method automatically switch `$form->Result` property to zero - `0`, it means error submit result.
@@ -177,7 +177,7 @@ interface IForm
 	 * - If form is not initialized, there is automatically
 	 *   called `$form->Init();` method.
 	 * - If form is not pre-dispatched for rendering, there is
-	 *   automatically called `$form->Predispatch();` method.
+	 *   automatically called `$form->PreDispatch();` method.
 	 * - Create new form view instance and set up the view with local
 	 *   context variables.
 	 * - Render form naturally or by custom template.

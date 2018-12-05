@@ -98,7 +98,7 @@ interface IUser
 	/**
 	 * Set user full name string to display in application
 	 * for authenticated user at sign out button.
-	 * Example: `"Administrator" | "John" | "Tom Flidr"`
+	 * Example: `"Administrator" | "John" | "Tom"`
 	 * @param string $fullName
 	 * @return \MvcCore\Ext\Auths\Basics\IUser
 	 */
@@ -108,7 +108,7 @@ interface IUser
 	 * Password hash, usually `NULL`. It exists only for authentication moment.
 	 * From moment, when is user instance loaded with password hash by session username to
 	 * moment, when is compared hashed sent password and stored password hash.
-	 * After password hashes comparison, password hash is unseted.
+	 * After password hashes comparison, password hash is un-setted.
 	 * @var string|NULL
 	 */
 	public function GetPasswordHash ();
@@ -117,7 +117,7 @@ interface IUser
 	 * Set password hash, usually `NULL`. It exists only for authentication moment.
 	 * From moment, when is user instance loaded with password hash by session username to
 	 * moment, when is compared hashed sent password and stored password hash.
-	 * After password hashes comparison, password hash is unseted.
+	 * After password hashes comparison, password hash is un-setted.
 	 * @param string|NULL $passwordHash
 	 * @return \MvcCore\Ext\Auths\Basics\IUser
 	 */
@@ -161,10 +161,10 @@ interface IUser
 	/**
 	 * Get password hash by `password_hash()` with salt
 	 * by `\MvcCore\Ext\Auths\Basic` extension configuration or
-	 * by custom salt in second agument `$options['salt'] = 'abcdefg';`.
+	 * by custom salt in second argument `$options['salt'] = 'abcdefg';`.
 	 * @see http://php.net/manual/en/function.password-hash.php
 	 * @param string $password
-	 * @param array $options Options for `password_hash()`.
+	 * @param array $options An options for `password_hash()`.
 	 * @return string
 	 */
 	public static function EncodePasswordToHash ($password = '', $options = []);
@@ -279,7 +279,7 @@ interface IUser
 
 	/**
 	 * Set array of strings describing what is allowed to do for user or role.
-	 * @param string|\string[] $permissions Permitions string, separated by comma character or array of strings.
+	 * @param string|\string[] $permissions The permissions string, separated by comma character or array of strings.
 	 * @return \MvcCore\Ext\Auths\Basics\IUser
 	 */
 	public function & SetPermissions ($permissions);
