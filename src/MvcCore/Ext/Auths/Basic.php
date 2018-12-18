@@ -29,6 +29,13 @@ namespace MvcCore\Ext\Auths;
  */
 class Basic implements \MvcCore\Ext\Auths\Basics\IAuth
 {
+	/**
+	 * MvcCore Extension - Auth - version:
+	 * Comparison by PHP function version_compare();
+	 * @see http://php.net/manual/en/function.version-compare.php
+	 */
+	const VERSION = '5.0.0-alpha';
+
 	use \MvcCore\Ext\Auths\Basic\PropsGettersSetters;
 	use \MvcCore\Ext\Auths\Basic\Handling;
 }

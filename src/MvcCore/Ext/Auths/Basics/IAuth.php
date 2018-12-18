@@ -5,13 +5,6 @@ namespace MvcCore\Ext\Auths\Basics;
 interface IAuth
 {
 	/**
-	 * MvcCore Extension - Auth - version:
-	 * Comparison by PHP function version_compare();
-	 * @see http://php.net/manual/en/function.version-compare.php
-	 */
-	const VERSION = '5.0.0-alpha';
-
-	/**
 	 * Return singleton instance. If instance exists, return existing instance,
 	 * if not, create new basic authentication module instance, store it and return it.
 	 * @param array $configuration Optional configuration passed into method
