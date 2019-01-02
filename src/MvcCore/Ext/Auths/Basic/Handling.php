@@ -143,11 +143,15 @@ trait Handling
 		if ($rawRoute instanceof \MvcCore\IRoute) {
 			return $rawRoute;
 		} else {
-			$routeClass = $this->application->GetRouteClass();
+			$routerClass = $this->application->GetRouterClass();
+			$router = & $routerClass::GetInstance();
+			$ctrlParamName = $router::URL_PARAM_CONTROLLER;
+			$actionParamName = $router::URL_PARAM_ACTION;
 			$routeInitData = [
-				'controller'	=> $this->controllerClass, 
-				'action'		=> $actionName
+				$ctrlParamName		=> $this->controllerClass, 
+				$actionParamName	=> $actionName
 			];
+			$routeClass = $this->application->GetRouteClass();
 			$route = $routeClass::CreateInstance(
 				gettype($rawRoute) == 'array'
 					? array_merge($routeInitData, $rawRoute)
