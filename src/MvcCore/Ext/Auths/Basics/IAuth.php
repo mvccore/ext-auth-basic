@@ -184,7 +184,7 @@ interface IAuth
 	 * created form instance is stored in `$auth->form` property.
 	 * @return \MvcCore\Ext\Auths\Basics\IForm
 	 */
-	public function GetSignInForm ();
+	public function & GetSignInForm ();
 
 	/**
 	 * Return completed sign out form instance.
@@ -192,7 +192,7 @@ interface IAuth
 	 * created form instance is stored in `$auth->form` property.
 	 * @return \MvcCore\Ext\Auths\Basics\IForm
 	 */
-	public function GetSignOutForm ();
+	public function & GetSignOutForm ();
 
 	/**
 	 * Return `\stdClass` object with values with all protected configuration properties.

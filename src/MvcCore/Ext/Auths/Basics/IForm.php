@@ -125,7 +125,7 @@ interface IForm
 	 * @param \MvcCore\Ext\Forms\IField[] $fields,... Any `\MvcCore\Ext\Forms\IField` fully configured instance to add into form.
 	 * @return \MvcCore\Ext\Forms\IForm
 	 */
-	public function & AddFields (/* ...$fields */);
+	public function & AddFields ($fields);
 
 	/**
 	 * Add fully configured form field instance.

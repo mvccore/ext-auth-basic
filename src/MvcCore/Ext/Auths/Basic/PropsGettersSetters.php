@@ -459,58 +459,62 @@ trait PropsGettersSetters
 	 * @var \MvcCore\Ext\Auths\Basics\IForm|\MvcCore\Ext\Auths\Basics\SignInForm|\MvcCore\Ext\Auths\Basics\SignOutForm
 	 */
 	public function & GetForm () {
-		if ($this->form === NULL) {
-			if ($this->IsAuthenticated()) {
-				$this->form = $this->GetSignOutForm();
-			} else {
-				$this->form = $this->GetSignInForm();
-			}
+		if ($this->IsAuthenticated()) {
+			$form = $this->GetSignOutForm();
+		} else {
+			$form = $this->GetSignInForm();
 		}
-		return $this->form;
+		return $form;
 	}
 
 	/**
 	 * Return completed sign in form instance.
 	 * Form instance completion is processed only once,
 	 * created form instance is stored in `$auth->form` property.
-	 * @return \MvcCore\Ext\Auths\Basics\SignInForm|\MvcCore\Ext\Auths\Basics\IForm
+	 * @return \MvcCore\Ext\Auths\Basics\SignInForm|\MvcCore\Ext\Auths\Basics\IForm|\MvcCore\Ext\Forms\IForm
 	 */
-	public function GetSignInForm () {
+	public function & GetSignInForm () {
+		if ($this->form !== NULL) return $this->form;
 		$routerClass = $this->application->GetRouterClass();
 		$router = $routerClass::GetInstance();
 		$route = $this->getInitializedRoute('SignIn')->SetRouter($router);
 		$method = $route->GetMethod();
 		$this->form = new \MvcCore\Ext\Auths\Basics\SignInForm($this->application->GetController());
-		return $this->form
+		$this->form
 			->SetCssClasses(str_replace('_', ' ', $this->form->GetId()))
 			->SetMethod($method !== NULL ? $method : \MvcCore\IRequest::METHOD_POST)
 			->SetAction($router->UrlByRoute($route))
 			->SetSuccessUrl($this->signedInUrl)
-			->SetErrorUrl($this->signErrorUrl)
-			->SetTranslator($this->translator)
-			->Init();
+			->SetErrorUrl($this->signErrorUrl);
+		if ($this->translator)
+			$this->form->SetTranslator($this->translator);
+		$this->form->Init();
+		return $this->form;
 	}
 
 	/**
 	 * Return completed sign out form instance.
 	 * Form instance completion is processed only once,
 	 * created form instance is stored in `$auth->form` property.
-	 * @return \MvcCore\Ext\Auths\Basics\SignOutForm|\MvcCore\Ext\Auths\Basics\IForm
+	 * @return \MvcCore\Ext\Auths\Basics\SignOutForm|\MvcCore\Ext\Auths\Basics\IForm|\MvcCore\Ext\Forms\IForm
 	 */
-	public function GetSignOutForm () {
+	public function & GetSignOutForm () {
+		if ($this->form !== NULL) return $this->form;
 		$routerClass = $this->application->GetRouterClass();
 		$router = $routerClass::GetInstance();
 		$route = $this->getInitializedRoute('SignOut')->SetRouter($router);
 		$method = $route->GetMethod();
 		$this->form = new \MvcCore\Ext\Auths\Basics\SignOutForm($this->application->GetController());
-		return $this->form
+		$this->form
 			->SetCssClasses(str_replace('_', ' ', $this->form->GetId()))
 			->SetMethod($method !== NULL ? $method : \MvcCore\IRequest::METHOD_POST)
 			->SetAction($router->UrlByRoute($route))
 			->SetSuccessUrl($this->signedOutUrl)
-			->SetErrorUrl($this->signErrorUrl)
-			->SetTranslator($this->translator)
-			->Init();
+			->SetErrorUrl($this->signErrorUrl);
+		if ($this->translator)
+			$this->form->SetTranslator($this->translator);
+		$this->form->Init();
+		return $this->form;
 	}
 
 	/**
