@@ -84,7 +84,6 @@ trait SignIn
 				? $data['successUrl'] 
 				: ''));
 		if ($successUrl) $this->SetSuccessUrl($successUrl);
-
 		if (isset($data['errorUrl']) && $data['errorUrl'])
 			$this->SetErrorUrl($data['errorUrl']);
 		if (!$this->result)
