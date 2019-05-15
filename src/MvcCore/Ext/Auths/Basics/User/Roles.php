@@ -128,12 +128,14 @@ trait Roles
 	public function IsAllowed ($permissionName) {
 		// check direct user permitions
 		if ($this->GetPermission($permissionName)) return TRUE;
-		// check permitions on user roles
+		/*
+		// check permitions on user roles if permitions are not loaded on request start
 		$roleClass = \MvcCore\Ext\Auths\Basic::GetInstance()->GetRoleClass();
 		foreach ($this->GetRoles() as $roleName) {
 			$role = $roleClass::GetByName($roleName);
 			if ($role->GetPermission($permissionName)) return TRUE;
 		}
+		*/
 		return FALSE;
 	}
 
