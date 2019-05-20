@@ -39,7 +39,9 @@ trait SignIn
 			->AddField(new \MvcCore\Ext\Forms\Fields\Password([
 				'name'			=> 'password',
 				'placeHolder'	=> 'Password',
-				'validators'	=> ['SafeString'],
+				// do not use 'SafeString' here - it converts special chars in 
+				// password string into entities:
+				'validators'	=> [], 
 			]))
 			->AddField(new \MvcCore\Ext\Forms\Fields\SubmitButton([
 				'name'			=> 'send',
