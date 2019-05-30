@@ -120,15 +120,25 @@ trait Handling
 	protected function preRouteHandlerSetUpRouter () {
 		$routerClass = $this->application->GetRouterClass();
 		$router = & $routerClass::GetInstance();
-		if ($this->IsAuthenticated()) {
+		/**
+		 * There is necessary all the time to add both POST routes.
+		 * Because there could be possible strange POST request to SignIn route,
+		 * when user is authenticates already (for example in another browser tab),
+		 * or there could be possible strange POST request to SignOut route,
+		 * after user session has been expired and there is submitted sign out form.
+		 */
+		/*if ($this->IsAuthenticated()) {
 			$router->AddRoute(
 				$this->getInitializedRoute('SignOut'), NULL, TRUE
 			);
-		} else {
+		} else {*/
 			$router->AddRoute(
 				$this->getInitializedRoute('SignIn'), NULL, TRUE
 			);
-		}
+			$router->AddRoute(
+				$this->getInitializedRoute('SignOut'), NULL, TRUE
+			);
+		//}
 	}
 
 	/**
