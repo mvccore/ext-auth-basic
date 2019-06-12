@@ -90,7 +90,7 @@ trait Roles
 	public function & AddRole ($roleOrRoleName) {
 		/** @var $this \MvcCore\Ext\Auths\Basics\IUser */
 		$roleName = static::getRoleName($roleOrRoleName);
-		if (!in_array($roleName, $this->roles))
+		if (!in_array($roleName, $this->roles, TRUE))
 			$this->roles[] = $roleName;
 		return $this;
 	}
@@ -103,7 +103,7 @@ trait Roles
 	 */
 	public function HasRole ($roleOrRoleName) {
 		$roleName = static::getRoleName($roleOrRoleName);
-		return in_array($roleName, $this->roles);
+		return in_array($roleName, $this->roles, TRUE);
 	}
 
 	/**

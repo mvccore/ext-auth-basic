@@ -31,8 +31,8 @@ trait Permissions
 	 * @return bool
 	 */
 	public function GetPermission ($permissionName) {
-		if ($this->admin) return TRUE;
-		if (in_array($permissionName, $this->permissions)) return TRUE;
+		if (property_exists($this, 'admin') && $this->admin) return TRUE;
+		if (in_array($permissionName, $this->permissions, TRUE)) return TRUE;
 		return FALSE;
 	}
 
@@ -45,9 +45,9 @@ trait Permissions
 	 */
 	public function & SetPermission ($permissionName, $allow = TRUE) {
 		/** @var $this \MvcCore\Ext\Auths\Basics\IUser|\MvcCore\Ext\Auths\Basics\IRole */
-		if (!in_array($permissionName, $this->permissions) && $allow) {
+		if (!in_array($permissionName, $this->permissions, TRUE) && $allow) {
 			$this->permissions[] = $permissionName;
-		} else if (in_array($permissionName, $this->permissions) && !$allow) {
+		} else if (in_array($permissionName, $this->permissions, TRUE) && !$allow) {
 			$position = array_search($permissionName, $this->permissions);
 			if ($position !== FALSE) array_splice($this->permissions, $position, 1);
 		}
