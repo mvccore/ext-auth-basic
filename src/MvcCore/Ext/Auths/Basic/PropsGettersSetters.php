@@ -479,7 +479,9 @@ trait PropsGettersSetters
 		$router = $routerClass::GetInstance();
 		$route = $this->getInitializedRoute('SignIn')->SetRouter($router);
 		$method = $route->GetMethod();
-		$this->form = new \MvcCore\Ext\Auths\Basics\SignInForm($this->application->GetController());
+		$appCtrl = & $this->application->GetController();
+		$formClassType = new \ReflectionClass($this->signInFormClass);
+		$this->form = $formClassType->newInstanceArgs([& $appCtrl]);
 		$this->form
 			->SetCssClasses(str_replace('_', ' ', $this->form->GetId()))
 			->SetMethod($method !== NULL ? $method : \MvcCore\IRequest::METHOD_POST)
@@ -504,7 +506,9 @@ trait PropsGettersSetters
 		$router = $routerClass::GetInstance();
 		$route = $this->getInitializedRoute('SignOut')->SetRouter($router);
 		$method = $route->GetMethod();
-		$this->form = new \MvcCore\Ext\Auths\Basics\SignOutForm($this->application->GetController());
+		$appCtrl = & $this->application->GetController();
+		$formClassType = new \ReflectionClass($this->signOutFormClass);
+		$this->form = $formClassType->newInstanceArgs([& $appCtrl]);
 		$this->form
 			->SetCssClasses(str_replace('_', ' ', $this->form->GetId()))
 			->SetMethod($method !== NULL ? $method : \MvcCore\IRequest::METHOD_POST)
