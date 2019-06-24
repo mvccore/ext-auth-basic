@@ -70,14 +70,11 @@ trait SignIn
 				isset($data['username']) ? $data['username'] : '', 
 				isset($data['password']) ? $data['password'] : ''
 			);
-			if ($user !== NULL) {
-				$user->SetPasswordHash(NULL);
-			} else {
+			if ($user === NULL) 
 				$this->AddError(
 					'User name or password is incorrect.',
 					['username', 'password']
 				);
-			}
 		}
 
 		$successUrl = (isset($data['sourceUrl']) 

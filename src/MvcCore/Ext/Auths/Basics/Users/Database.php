@@ -82,10 +82,11 @@ class Database
 			":user_name"	=> $userName,
 			":active"		=> 1,
 		]);
+		/** @var $user \MvcCore\Ext\Auths\Basics\User */
 		$user = NULL;
 		$data = $select->fetch(\PDO::FETCH_ASSOC);
 		if ($data) {
-			$user = (new static())->SetUp($data, TRUE, TRUE, FALSE);
+			$user = (new static())->SetUp($data, \MvcCore\Model::KEYS_CONVERSION_UNDERSCORES_TO_CAMELCASE, TRUE);
 			return $user;
 		}
 		return $user;

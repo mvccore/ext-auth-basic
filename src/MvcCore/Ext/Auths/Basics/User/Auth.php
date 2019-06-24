@@ -71,6 +71,9 @@ trait Auth
 				$authenticatedStr = \MvcCore\Ext\Auths\Basics\IUser::SESSION_AUTHENTICATED_KEY;
 				$userSessionNamespace->$userNameStr = $user->userName;
 				$userSessionNamespace->$authenticatedStr = TRUE;
+				$user->passwordHash = NULL;
+				if (is_array($user->initialValues) && isset($user->initialValues['passwordHash']))
+					unset($user->initialValues['passwordHash']);
 				return $user;
 			}
 		}
