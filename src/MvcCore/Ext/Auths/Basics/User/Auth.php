@@ -45,7 +45,11 @@ trait Auth
 			isset($userSessionNamespace->{$authenticatedStr}) &&
 			$userSessionNamespace->{$authenticatedStr}
 		) {
-			return static::GetByUserName($userSessionNamespace->{$userNameStr});
+			$user = static::GetByUserName($userSessionNamespace->{$userNameStr});
+			$user->passwordHash = NULL;
+			if (is_array($user->initialValues) && array_key_exists('passwordHash', $user->initialValues))
+				$user->initialValues['passwordHash'] = NULL;
+			return $user;
 		}
 		return NULL;
 	}
@@ -72,8 +76,8 @@ trait Auth
 				$userSessionNamespace->$userNameStr = $user->userName;
 				$userSessionNamespace->$authenticatedStr = TRUE;
 				$user->passwordHash = NULL;
-				if (is_array($user->initialValues) && isset($user->initialValues['passwordHash']))
-					unset($user->initialValues['passwordHash']);
+				if (is_array($user->initialValues) && array_key_exists('passwordHash', $user->initialValues))
+					$user->initialValues['passwordHash'] = NULL;
 				return $user;
 			}
 		}
