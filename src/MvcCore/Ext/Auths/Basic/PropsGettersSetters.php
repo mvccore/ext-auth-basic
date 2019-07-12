@@ -483,7 +483,7 @@ trait PropsGettersSetters
 		$formClassType = new \ReflectionClass($this->signInFormClass);
 		$this->form = $formClassType->newInstanceArgs([& $appCtrl]);
 		$this->form
-			->SetCssClasses(str_replace('_', ' ', $this->form->GetId()))
+			->AddCssClasses(str_replace('_', ' ', $this->form->GetId()))
 			->SetMethod($method !== NULL ? $method : \MvcCore\IRequest::METHOD_POST)
 			->SetAction($router->UrlByRoute($route))
 			->SetSuccessUrl($this->signedInUrl)
@@ -510,7 +510,7 @@ trait PropsGettersSetters
 		$formClassType = new \ReflectionClass($this->signOutFormClass);
 		$this->form = $formClassType->newInstanceArgs([& $appCtrl]);
 		$this->form
-			->SetCssClasses(str_replace('_', ' ', $this->form->GetId()))
+			->AddCssClasses(str_replace('_', ' ', $this->form->GetId()))
 			->SetMethod($method !== NULL ? $method : \MvcCore\IRequest::METHOD_POST)
 			->SetAction($router->UrlByRoute($route))
 			->SetSuccessUrl($this->signedOutUrl)

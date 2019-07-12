@@ -70,11 +70,15 @@ trait SignIn
 				isset($data['username']) ? $data['username'] : '', 
 				isset($data['password']) ? $data['password'] : ''
 			);
-			if ($user === NULL) 
+			if ($user === NULL) {
+				$errorMsg = 'User name or password is incorrect.';
+				if ($this->translate)
+					$errorMsg = $this->Translate('User name or password is incorrect.');
 				$this->AddError(
-					'User name or password is incorrect.',
+					$errorMsg,
 					['username', 'password']
 				);
+			}
 		}
 
 		$successUrl = (isset($data['sourceUrl']) 
