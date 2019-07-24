@@ -91,6 +91,7 @@ trait SignIn
 			$this->SetErrorUrl($data['errorUrl']);
 		if (!$this->result)
 			sleep($this->auth->GetInvalidCredentialsTimeout());
+
 		return [
 			$this->result,
 			$this->values,
