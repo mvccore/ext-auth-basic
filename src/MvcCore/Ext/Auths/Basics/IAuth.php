@@ -11,7 +11,7 @@ interface IAuth
 	 *							 `\MvcCore\Ext\Auths\Basic::__construct($configuration)`.
 	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
-	public static function & GetInstance ($configuration = []);
+	public static function GetInstance ($configuration = []);
 
 	/**
 	 * Get expiration time (in seconds) how long to remember the user in session.
@@ -111,14 +111,14 @@ interface IAuth
 	 * Default configured route for sign in request is `/signin` by POST.
 	 * @return \MvcCore\Route|\MvcCore\IRoute
 	 */
-	public function & GetSignInRoute ();
+	public function GetSignInRoute ();
 
 	/**
 	 * Get route to submit sign out form into.
 	 * Default configured route for sign in request is `/signout` by POST.
 	 * @return \MvcCore\Route|\MvcCore\IRoute
 	 */
-	public function & GetSignOutRoute ();
+	public function GetSignOutRoute ();
 
 	/**
 	 * Get configured salt for `passord_hash();` to generate password by `PASSWORD_BCRYPT`.
@@ -152,7 +152,7 @@ interface IAuth
 	 * user by username record in session namespace.
 	 * @return \MvcCore\Ext\Auths\Basics\IUser|NULL
 	 */
-	public function & GetUser ();
+	public function GetUser ();
 
 	/**
 	 * Return `TRUE` if user is authenticated/signed in,
@@ -176,7 +176,7 @@ interface IAuth
 	 * - `\MvcCore\Ext\Auths\Basic::GetInstance()->GetSignOutForm();` for authenticated users.
 	 * @var \MvcCore\Ext\Auths\Basics\IForm
 	 */
-	public function & GetForm ();
+	public function GetForm ();
 
 	/**
 	 * Return completed sign in form instance.
@@ -184,7 +184,7 @@ interface IAuth
 	 * created form instance is stored in `$auth->form` property.
 	 * @return \MvcCore\Ext\Auths\Basics\IForm
 	 */
-	public function & GetSignInForm ();
+	public function GetSignInForm ();
 
 	/**
 	 * Return completed sign out form instance.
@@ -192,7 +192,7 @@ interface IAuth
 	 * created form instance is stored in `$auth->form` property.
 	 * @return \MvcCore\Ext\Auths\Basics\IForm
 	 */
-	public function & GetSignOutForm ();
+	public function GetSignOutForm ();
 
 	/**
 	 * Return `\stdClass` object with values with all protected configuration properties.
@@ -212,7 +212,7 @@ interface IAuth
 	 * @param int $expirationSeconds
 	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
-	public function & SetExpirationSeconds ($expirationSeconds = 600);
+	public function SetExpirationSeconds ($expirationSeconds = 600);
 
 	/**
 	 * Set full class name to use for user instance.
@@ -223,7 +223,7 @@ interface IAuth
 	 * @param string $userClass User full class name implementing `\MvcCore\Ext\Auths\Basics\IUser`.
 	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
-	public function & SetUserClass ($userClass = '');
+	public function SetUserClass ($userClass = '');
 
 	/**
 	 * Set full class name to use for user role class.
@@ -234,7 +234,7 @@ interface IAuth
 	 * @param string $roleClass Role full class name implementing `\MvcCore\Ext\Auths\Basics\IRole`.
 	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
-	public function & SetRoleClass ($roleClass = '');
+	public function SetRoleClass ($roleClass = '');
 
 	/**
 	 * Set full class name to use for controller instance
@@ -246,7 +246,7 @@ interface IAuth
 	 * @param string $controllerClass Controller full class name implementing `\MvcCore\Ext\Auths\Basics\IController`.
 	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
-	public function & SetControllerClass ($controllerClass = '');
+	public function SetControllerClass ($controllerClass = '');
 
 	/**
 	 * Set full class name to use for sign in form instance.
@@ -257,7 +257,7 @@ interface IAuth
 	 * @param string $signInFormClass Form full class name implementing `\MvcCore\Ext\Auths\Basics\IForm`.
 	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
-	public function & SetSignInFormClass ($signInFormClass = '');
+	public function SetSignInFormClass ($signInFormClass = '');
 
 	/**
 	 * Set full class name to use for sign out form instance.
@@ -268,7 +268,7 @@ interface IAuth
 	 * @param string $signInFormClass Form full class name implementing `\MvcCore\Ext\Auths\Basics\IForm`.
 	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
-	public function & SetSignOutFormClass ($signOutFormClass = '');
+	public function SetSignOutFormClass ($signOutFormClass = '');
 
 	/**
 	 * Set full URL to redirect user, after sign in
@@ -278,7 +278,7 @@ interface IAuth
 	 * @param string|NULL $signedInUrl
 	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
-	public function & SetSignedInUrl ($signedInUrl = NULL);
+	public function SetSignedInUrl ($signedInUrl = NULL);
 
 	/**
 	 * Set full URL to redirect user, after sign out
@@ -288,7 +288,7 @@ interface IAuth
 	 * @param string|NULL $signedOutUrl
 	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
-	public function & SetSignedOutUrl ($signedOutUrl = NULL);
+	public function SetSignedOutUrl ($signedOutUrl = NULL);
 
 	/**
 	 * Set full URL to redirect user, after sign in POST
@@ -299,7 +299,7 @@ interface IAuth
 	 * @param string|NULL $signErrorUrl
 	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
-	public function & SetSignErrorUrl ($signErrorUrl = NULL);
+	public function SetSignErrorUrl ($signErrorUrl = NULL);
 
 	/**
 	 * Set route instance to submit sign in form into.
@@ -307,7 +307,7 @@ interface IAuth
 	 * @param string|array|\MvcCore\IRoute $signInRoute
 	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
-	public function & SetSignInRoute ($signInRoute = NULL);
+	public function SetSignInRoute ($signInRoute = NULL);
 
 	/**
 	 * Set route to submit sign out form into.
@@ -315,7 +315,7 @@ interface IAuth
 	 * @param string|array|\MvcCore\IRoute $signOutRoute
 	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
-	public function & SetSignOutRoute ($signOutRoute = NULL);
+	public function SetSignOutRoute ($signOutRoute = NULL);
 
 	/**
 	 * Set configured salt for `passord_hash();` to generate password by `PASSWORD_BCRYPT`.
@@ -324,7 +324,7 @@ interface IAuth
 	 * @param string $passwordHashSalt
 	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
-	public function & SetPasswordHashSalt ($passwordHashSalt = '');
+	public function SetPasswordHashSalt ($passwordHashSalt = '');
 
 	/**
 	 * Set timeout to `sleep();` PHP script before sending response to user,
@@ -333,7 +333,7 @@ interface IAuth
 	 * @param int $seconds
 	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
-	public function & SetInvalidCredentialsTimeout ($seconds = 3);
+	public function SetInvalidCredentialsTimeout ($seconds = 3);
 
 	/**
 	 * Set callable translator to set it into authentication form
@@ -342,7 +342,7 @@ interface IAuth
 	 * @param callable $translator
 	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
-	public function & SetTranslator (callable $translator = NULL);
+	public function SetTranslator (callable $translator = NULL);
 
 	/**
 	 * Set user instance manually. If you use this method
@@ -351,7 +351,7 @@ interface IAuth
 	 * @param \MvcCore\Ext\Auths\Basics\IUser|NULL $user
 	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
-	public function & SetUser (\MvcCore\Ext\Auths\Basics\IUser & $user = NULL);
+	public function SetUser (\MvcCore\Ext\Auths\Basics\IUser $user = NULL);
 
 	/**
 	 * Set sign in, sign out or any authentication form instance.
@@ -359,7 +359,7 @@ interface IAuth
 	 * @param \MvcCore\Ext\Auths\Basics\IForm $form
 	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
-	public function & SetForm (\MvcCore\Ext\Auths\Basics\IForm & $form);
+	public function SetForm (\MvcCore\Ext\Auths\Basics\IForm $form);
 
 	/**
 	 * Set up authorization module configuration.
@@ -370,7 +370,7 @@ interface IAuth
 	 * @throws \InvalidArgumentException
 	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
-	public function & SetConfiguration ($configuration = [], $throwExceptionIfPropertyIsMissing = TRUE);
+	public function SetConfiguration ($configuration = [], $throwExceptionIfPropertyIsMissing = TRUE);
 
 	/**
 	 * Optional alias method if you have user class configured
@@ -378,6 +378,7 @@ interface IAuth
 	 * Alias for `\MvcCore\Ext\Auths\Basics\Users\Database::SetUsersTableStructure($tableName, $columnNames);`.
 	 * @param string|NULL	$tableName Database table name.
 	 * @param string[]|NULL	$columnNames Keys are user class protected properties names in camel case, values are database columns names.
+	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
 	 */
-	public function & SetTableStructureForDbUsers ($tableName = NULL, $columnNames = NULL);
+	public function SetTableStructureForDbUsers ($tableName = NULL, $columnNames = NULL);
 }

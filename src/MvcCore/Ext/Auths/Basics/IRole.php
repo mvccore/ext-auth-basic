@@ -35,7 +35,7 @@ interface IRole
 	 * @param int|NULL $id
 	 * @return \MvcCore\Ext\Auths\Basics\IRole
 	 */
-	public function & SetId ($id);
+	public function SetId ($id);
 
 	/**
 	 * Get user active state boolean. `TRUE` for active, `FALSE` otherwise.
@@ -54,7 +54,7 @@ interface IRole
 	 * Set user active state boolean. `TRUE` for active, `FALSE` otherwise.
 	 * @return \MvcCore\Ext\Auths\Basics\IRole
 	 */
-	public function & SetActive ($active);
+	public function SetActive ($active);
 
 
 	// trait: \MvcCore\Ext\Auths\Basics\Traits\UserAndRole\Permissions
@@ -73,7 +73,7 @@ interface IRole
 	 * @param bool $allow `TRUE` by default.
 	 * @return \MvcCore\Ext\Auths\Basics\IRole
 	 */
-	public function & SetPermission ($permissionName, $allow = TRUE);
+	public function SetPermission ($permissionName, $allow = TRUE);
 
 	/**
 	 * Get array of strings describing what is allowed to do for user or role.
@@ -86,7 +86,7 @@ interface IRole
 	 * @param string|\string[] $permissions The permissions string, separated by comma character or array of strings.
 	 * @return \MvcCore\Ext\Auths\Basics\IRole
 	 */
-	public function & SetPermissions ($permissions);
+	public function SetPermissions ($permissions);
 
 
 	// trait: \MvcCore\Ext\Auths\Basics\Traits\Role
@@ -104,7 +104,7 @@ interface IRole
 	 * @param string $name
 	 * @return \MvcCore\Ext\Auths\Basics\IRole
 	 */
-	public function & SetName ($name);
+	public function SetName ($name);
 
 	/**
 	 * Get `TRUE` if given permission string is allowed for role. `FALSE` otherwise.

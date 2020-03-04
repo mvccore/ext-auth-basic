@@ -42,8 +42,8 @@ class User
 	 * @throws \RuntimeException
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
 	 */
-	public static function & GetByUserName ($userName) {
-		$selfClass = version_compare(PHP_VERSION, '5.5', '>') ? self::class : __CLASS__;
+	public static function GetByUserName ($userName) {
+		$selfClass = get_class();
 		throw new \RuntimeException(
 			'['.$selfClass.'] Method is not implemented. '
 			.'Use class `\MvcCore\Ext\Auths\Basics\Users\Database` or '

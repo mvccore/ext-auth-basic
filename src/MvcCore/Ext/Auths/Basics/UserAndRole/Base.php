@@ -50,7 +50,7 @@ trait Base
 	 * @param int|NULL $id
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser|\MvcCore\Ext\Auths\Basics\Role|\MvcCore\Ext\Auths\Basics\IRole
 	 */
-	public function & SetId ($id) {
+	public function SetId ($id) {
 		/** @var $this \MvcCore\Ext\Auths\Basics\IUser|\MvcCore\Ext\Auths\Basics\IRole */
 		$this->id = $id;
 		return $this;
@@ -77,7 +77,7 @@ trait Base
 	 * Set user active state boolean. `TRUE` for active, `FALSE` otherwise.
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser|\MvcCore\Ext\Auths\Basics\Role|\MvcCore\Ext\Auths\Basics\IRole
 	 */
-	public function & SetActive ($active) {
+	public function SetActive ($active) {
 		/** @var $this \MvcCore\Ext\Auths\Basics\IUser|\MvcCore\Ext\Auths\Basics\IRole */
 		$this->active = (bool) $active;
 		return $this;

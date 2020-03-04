@@ -30,13 +30,13 @@ trait Handling
 	 *							 `\MvcCore\Ext\Auths\Basic::__construct($configuration)`.
 	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
 	 */
-	public static function & GetInstance ($configuration = []) {
+	public static function GetInstance ($configuration = []) {
 		/** @var $result \MvcCore\Ext\Auths\Basics\IAuth */
 		if (self::$instance === NULL) {
 			$result = new static($configuration);
-			self::$instance = & $result;
+			self::$instance = $result;
 		} else {
-			$result = & self::$instance;
+			$result = self::$instance;
 		}
 		return $result;
 	}
@@ -49,11 +49,11 @@ trait Handling
 	 * to add authentication routes when necessary and user instance when necessary.
 	 */
 	public function __construct ($config = []) {
-		self::$instance = & $this;
+		self::$instance = $this;
 		// set up possible configuration
 		if ($config) $this->SetConfiguration($config);
 		// set up application reference
-		$this->application = & \MvcCore\Application::GetInstance();
+		$this->application = \MvcCore\Application::GetInstance();
 		// set up tools class
 		static::$toolClass = $this->application->GetToolClass();
 		$this->application
@@ -119,7 +119,7 @@ trait Handling
 	 */
 	protected function preRouteHandlerSetUpRouter () {
 		$routerClass = $this->application->GetRouterClass();
-		$router = & $routerClass::GetInstance();
+		$router = $routerClass::GetInstance();
 		/**
 		 * There is necessary all the time to add both POST routes.
 		 * Because there could be possible strange POST request to SignIn route,
@@ -149,12 +149,12 @@ trait Handling
 	 */
 	protected function getInitializedRoute ($actionName) {
 		$routeName = lcfirst($actionName) . 'Route';
-		$rawRoute = & $this->$routeName;
+		$rawRoute = $this->{$routeName};
 		if ($rawRoute instanceof \MvcCore\IRoute) {
 			return $rawRoute;
 		} else {
 			$routerClass = $this->application->GetRouterClass();
-			$router = & $routerClass::GetInstance();
+			$router = $routerClass::GetInstance();
 			$ctrlParamName = $router::URL_PARAM_CONTROLLER;
 			$actionParamName = $router::URL_PARAM_ACTION;
 			$routeInitData = [
@@ -167,7 +167,7 @@ trait Handling
 					? array_merge($routeInitData, $rawRoute)
 					: array_merge(['pattern' => $rawRoute], $routeInitData)
 			);
-			$this->$routeName = & $route;
+			$this->{$routeName} = $route;
 			return $route;
 		}
 	}

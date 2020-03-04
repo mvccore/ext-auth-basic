@@ -57,7 +57,7 @@ class Database
 	 * @param string $userName Submitted and cleaned username. Characters `' " ` < > \ = ^ | & ~` are automatically encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
 	 */
-	public static function & GetByUserName ($userName) {
+	public static function GetByUserName ($userName) {
 		$table = static::$usersTableStructure['table'];
 		$columns = (object) static::$usersTableStructure['columns'];
 		$sql = "
@@ -86,7 +86,9 @@ class Database
 		$user = NULL;
 		$data = $select->fetch(\PDO::FETCH_ASSOC);
 		if ($data) {
-			$user = (new static())->SetUp($data, \MvcCore\Model::KEYS_CONVERSION_UNDERSCORES_TO_CAMELCASE, TRUE);
+			$user = (new static())->SetUp(
+				$data, \MvcCore\Model::KEYS_CONVERSION_UNDERSCORES_TO_CAMELCASE, TRUE
+			);
 			return $user;
 		}
 		return $user;

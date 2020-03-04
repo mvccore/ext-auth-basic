@@ -46,7 +46,7 @@ interface IUser
 	 * @param int|NULL $id
 	 * @return \MvcCore\Ext\Auths\Basics\IUser
 	 */
-	public function & SetId ($id);
+	public function SetId ($id);
 
 	/**
 	 * Get user active state boolean. `TRUE` for active, `FALSE` otherwise.
@@ -65,7 +65,7 @@ interface IUser
 	 * Set user active state boolean. `TRUE` for active, `FALSE` otherwise.
 	 * @return \MvcCore\Ext\Auths\Basics\IUser
 	 */
-	public function & SetActive ($active);
+	public function SetActive ($active);
 
 
 	// trait: \MvcCore\Ext\Auths\Basics\Traits\User\Base
@@ -85,7 +85,7 @@ interface IUser
 	 * @param string $userName
 	 * @return \MvcCore\Ext\Auths\Basics\IUser
 	 */
-	public function & SetUserName ($userName);
+	public function SetUserName ($userName);
 
 	/**
 	 * User full name string to display in application
@@ -102,7 +102,7 @@ interface IUser
 	 * @param string $fullName
 	 * @return \MvcCore\Ext\Auths\Basics\IUser
 	 */
-	public function & SetFullName ($fullName);
+	public function SetFullName ($fullName);
 
 	/**
 	 * Password hash, usually `NULL`. It exists only for authentication moment.
@@ -121,7 +121,7 @@ interface IUser
 	 * @param string|NULL $passwordHash
 	 * @return \MvcCore\Ext\Auths\Basics\IUser
 	 */
-	public function & SetPasswordHash ($passwordHash);
+	public function SetPasswordHash ($passwordHash);
 
 
 	// trait: \MvcCore\Ext\Auths\Basics\Traits\User\Auth
@@ -177,14 +177,14 @@ interface IUser
 	 * by `\MvcCore\Session::GetNamespace();`.
 	 * @return \MvcCore\ISession
 	 */
-	public static function & GetUserSessionNamespace ();
+	public static function GetUserSessionNamespace ();
 
 	/**
 	 * Summary of SetUserSessionNamespace
 	 * @param \MvcCore\ISession $userSessionNamespace
 	 * @return \MvcCore\ISession
 	 */
-	public static function & SetUserSessionNamespace (\MvcCore\ISession & $userSessionNamespace);
+	public static function SetUserSessionNamespace (\MvcCore\ISession $userSessionNamespace);
 
 
 	// trait: \MvcCore\Ext\Auths\Basics\Traits\User\Roles
@@ -206,7 +206,7 @@ interface IUser
 	 * @param bool $admin `TRUE` by default.
 	 * @return \MvcCore\Ext\Auths\Basics\IUser
 	 */
-	public function & SetAdmin ($admin = TRUE);
+	public function SetAdmin ($admin = TRUE);
 
 	/**
 	 * Return array of user's roles names.
@@ -219,7 +219,7 @@ interface IUser
 	 * @param \string[]|\MvcCore\Ext\Auths\Basics\IRole[] $rolesOrRolesNames
 	 * @return \MvcCore\Ext\Auths\Basics\IUser
 	 */
-	public function & SetRoles ($rolesOrRolesNames = []);
+	public function SetRoles ($rolesOrRolesNames = []);
 
 	/**
 	 * Add user role or role name.
@@ -227,7 +227,7 @@ interface IUser
 	 * @throws \InvalidArgumentException
 	 * @return \MvcCore\Ext\Auths\Basics\IUser
 	 */
-	public function & AddRole ($roleOrRoleName);
+	public function AddRole ($roleOrRoleName);
 
 	/**
 	 * Get `TRUE` if user has already assigned role or role name.
@@ -243,7 +243,7 @@ interface IUser
 	 * @throws \InvalidArgumentException
 	 * @return \MvcCore\Ext\Auths\Basics\IUser
 	 */
-	public function & RemoveRole ($roleOrRoleName);
+	public function RemoveRole ($roleOrRoleName);
 
 	/**
 	 * Get `TRUE` if given permission string is allowed for user or user role. `FALSE` otherwise.
@@ -269,7 +269,7 @@ interface IUser
 	 * @param bool $allow `TRUE` by default.
 	 * @return \MvcCore\Ext\Auths\Basics\IUser
 	 */
-	public function & SetPermission ($permissionName, $allow = TRUE);
+	public function SetPermission ($permissionName, $allow = TRUE);
 
 	/**
 	 * Get array of strings describing what is allowed to do for user or role.
@@ -282,7 +282,7 @@ interface IUser
 	 * @param string|\string[] $permissions The permissions string, separated by comma character or array of strings.
 	 * @return \MvcCore\Ext\Auths\Basics\IUser
 	 */
-	public function & SetPermissions ($permissions);
+	public function SetPermissions ($permissions);
 
 
 	// class: \MvcCore\Ext\Auths\Basics\User
@@ -293,5 +293,5 @@ interface IUser
 	 * @param string $userName Submitted and cleaned username. Characters `' " ` < > \ = ^ | & ~` are automatically encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
 	 * @return \MvcCore\Ext\Auths\Basics\IUser
 	 */
-	public static function & GetByUserName ($userName);
+	public static function GetByUserName ($userName);
 }

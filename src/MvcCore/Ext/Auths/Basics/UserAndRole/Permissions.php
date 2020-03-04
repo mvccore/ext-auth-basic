@@ -43,7 +43,7 @@ trait Permissions
 	 * @param bool $allow `TRUE` by default.
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser|\MvcCore\Ext\Auths\Basics\Role|\MvcCore\Ext\Auths\Basics\IRole
 	 */
-	public function & SetPermission ($permissionName, $allow = TRUE) {
+	public function SetPermission ($permissionName, $allow = TRUE) {
 		/** @var $this \MvcCore\Ext\Auths\Basics\IUser|\MvcCore\Ext\Auths\Basics\IRole */
 		if (!in_array($permissionName, $this->permissions, TRUE) && $allow) {
 			$this->permissions[] = $permissionName;
@@ -67,7 +67,7 @@ trait Permissions
 	 * @param string|\string[] $permissions The permissions string, separated by comma character or array of strings.
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser|\MvcCore\Ext\Auths\Basics\Role|\MvcCore\Ext\Auths\Basics\IRole
 	 */
-	public function & SetPermissions ($permissions) {
+	public function SetPermissions ($permissions) {
 		/** @var $this \MvcCore\Ext\Auths\Basics\IUser|\MvcCore\Ext\Auths\Basics\IRole */
 		if (is_string($permissions)) {
 			$this->permissions = explode(',', $permissions);

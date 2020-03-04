@@ -61,7 +61,7 @@ trait Base
 	 * @param string $userName
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
 	 */
-	public function & SetUserName ($userName) {
+	public function SetUserName ($userName) {
 		/** @var $this \MvcCore\Ext\Auths\Basics\IUser */
 		$this->userName = $userName;
 		return $this;
@@ -84,7 +84,7 @@ trait Base
 	 * @param string $fullName
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
 	 */
-	public function & SetFullName ($fullName) {
+	public function SetFullName ($fullName) {
 		/** @var $this \MvcCore\Ext\Auths\Basics\IUser */
 		$this->fullName = $fullName;
 		return $this;
@@ -109,7 +109,7 @@ trait Base
 	 * @param string|NULL $passwordHash
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
 	 */
-	public function & SetPasswordHash ($passwordHash) {
+	public function SetPasswordHash ($passwordHash) {
 		/** @var $this \MvcCore\Ext\Auths\Basics\IUser */
 		$this->passwordHash = $passwordHash;
 		return $this;

@@ -42,7 +42,7 @@ class Role
 	 * @return \MvcCore\Ext\Auths\Basics\Role|\MvcCore\Ext\Auths\Basics\IRole
 	 */
 	public function GetByName ($roleName) {
-		$selfClass = version_compare(PHP_VERSION, '5.5', '>') ? self::class : __CLASS__;
+		$selfClass = get_class();
 		throw new \RuntimeException(
 			'['.$selfClass.'] Method is not implemented. '
 			.'Extend class `'.$selfClass.'` and implement method `GetByName ($roleName)` by your own.'

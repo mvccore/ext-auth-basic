@@ -24,11 +24,11 @@ class SystemConfig extends \MvcCore\Ext\Auths\Basics\User
 	 * @param string $userName Submitted and cleaned username. Characters `' " ` < > \ = ^ | & ~` are automatically encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
 	 */
-	public static function & GetByUserName ($userName) {
+	public static function GetByUserName ($userName) {
 		$result = NULL;
 		$configClass = \MvcCore\Application::GetInstance()->GetConfigClass();
 		$allSysConfigCredentials = $configClass::GetSystem()->users;
-		foreach ($allSysConfigCredentials as $key => & $sysConfigCredentials) {
+		foreach ($allSysConfigCredentials as $key => $sysConfigCredentials) {
 			if ($sysConfigCredentials->userName === $userName) {
 				$result = (new static())
 					->SetId($key)

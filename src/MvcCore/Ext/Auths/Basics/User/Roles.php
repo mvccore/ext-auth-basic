@@ -54,7 +54,7 @@ trait Roles
 	 * @param bool $admin `TRUE` by default.
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
 	 */
-	public function & SetAdmin ($admin = TRUE) {
+	public function SetAdmin ($admin = TRUE) {
 		/** @var $this \MvcCore\Ext\Auths\Basics\IUser */
 		$this->admin = (bool) $admin;
 		return $this;
@@ -73,7 +73,7 @@ trait Roles
 	 * @param \string[]|\MvcCore\Ext\Auths\Basics\Role[]|\MvcCore\Ext\Auths\Basics\IRole[] $rolesOrRolesNames
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
 	 */
-	public function & SetRoles ($rolesOrRolesNames = []) {
+	public function SetRoles ($rolesOrRolesNames = []) {
 		/** @var $this \MvcCore\Ext\Auths\Basics\IUser */
 		$this->roles = [];
 		foreach ($rolesOrRolesNames as $roleOrRoleName)
@@ -87,7 +87,7 @@ trait Roles
 	 * @throws \InvalidArgumentException
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
 	 */
-	public function & AddRole ($roleOrRoleName) {
+	public function AddRole ($roleOrRoleName) {
 		/** @var $this \MvcCore\Ext\Auths\Basics\IUser */
 		$roleName = static::getRoleName($roleOrRoleName);
 		if (!in_array($roleName, $this->roles, TRUE))
@@ -112,7 +112,7 @@ trait Roles
 	 * @throws \InvalidArgumentException
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
 	 */
-	public function & RemoveRole ($roleOrRoleName) {
+	public function RemoveRole ($roleOrRoleName) {
 		/** @var $this \MvcCore\Ext\Auths\Basics\IUser */
 		$roleName = static::getRoleName($roleOrRoleName);
 		$position = array_search($roleName, $this->roles);
@@ -151,9 +151,8 @@ trait Roles
 		} else if ($roleOrRoleName instanceof \MvcCore\Ext\Auths\Basics\IRole) {
 			return $roleOrRoleName->GetName();
 		} else {
-			$selfClass = version_compare(PHP_VERSION, '5.5', '>') ? self::class : __CLASS__;
 			throw new \InvalidArgumentException(
-				'['.$selfClass."] Given argument `$roleOrRoleName` doesn't "
+				'['.get_class()."] Given argument `{$roleOrRoleName}` doesn't "
 				."implement interface `\MvcCore\Ext\Auths\Basics\IRole` "
 				."or it's not string with role name."
 			);

@@ -69,8 +69,8 @@ trait Auth
 		$user = static::GetByUserName($userName);
 		if ($user) {
 			$hashedPassword = static::EncodePasswordToHash($password);
-			if (hash_equals($user->passwordHash, $hashedPassword)) {
-				$userSessionNamespace = & static::GetUserSessionNamespace();
+			if (static::hashEquals($user->passwordHash, $hashedPassword)) {
+				$userSessionNamespace = static::GetUserSessionNamespace();
 				$userNameStr = \MvcCore\Ext\Auths\Basics\IUser::SESSION_USERNAME_KEY;
 				$authenticatedStr = \MvcCore\Ext\Auths\Basics\IUser::SESSION_AUTHENTICATED_KEY;
 				$userSessionNamespace->$userNameStr = $user->userName;
@@ -93,7 +93,7 @@ trait Auth
 	 * @return void
 	 */
 	public static function LogOut ($destroyWholeSession = FALSE) {
-		$userSessionNamespace = & static::GetUserSessionNamespace();
+		$userSessionNamespace = static::GetUserSessionNamespace();
 		if ($destroyWholeSession) {
 			static::GetUserSessionNamespace()->Destroy();
 		} else {
@@ -117,26 +117,28 @@ trait Auth
 			if ($configuredSalt !== NULL) {
 				$options['salt'] = $configuredSalt;
 			} else {
-				$selfClass = version_compare(PHP_VERSION, '5.5', '>') ? self::class : __CLASS__;
 				throw new \InvalidArgumentException(
-					'['.$selfClass.'] No option `salt` given by second argument `$options`'
+					'['.get_class().'] No option `salt` given by second argument `$options`'
 					." or no salt configured by `\MvcCore\Ext\Auth::GetInstance()->SetPasswordHashSalt('...')`."
 				);
 			}
 		}
-		if (isset($options['cost']) && ($options['cost'] < 4 || $options['cost'] > 31)) {
-			$selfClass = version_compare(PHP_VERSION, '5.5', '>') ? self::class : __CLASS__;
+		if (isset($options['cost']) && ($options['cost'] < 4 || $options['cost'] > 31))
 			throw new \InvalidArgumentException(
-				'['.$selfClass.'] `cost` option has to be from `4` to `31`, `' . $options['cost'] . '` given.'
+				'['.get_class().'] `cost` option has to be from `4` to `31`, `' . $options['cost'] . '` given.'
 			);
+		if (\PHP_VERSION_ID >= 50500) {
+			$result = @password_hash($password, PASSWORD_BCRYPT, $options);
+		} else {
+			$cost = isset($options['cost']) ? $options['cost'] : 10; // PASSWORD_BCRYPT_DEFAULT_COST
+			$hashPrefix = sprintf("$2y$%02d$", $cost); // $2y$12$
+			$hash = $hashPrefix . $options['salt'] . '$';
+			$result = crypt($password, $hash);
 		}
-		$result = @password_hash($password, PASSWORD_BCRYPT, $options);
-		if (!$result || strlen($result) < 60) {
-			$selfClass = version_compare(PHP_VERSION, '5.5', '>') ? self::class : __CLASS__;
+		if (!$result || strlen($result) < 60)
 			throw new \RuntimeException(
-				'['.$selfClass.'] Hash computed by `password_hash()` is invalid. Try a little bit longer salt.'
+				'['.get_class().'] Hash computed by `password_hash()` is invalid. Try a little bit longer salt.'
 			);
-		}
 		return $result;
 	}
 
@@ -148,7 +150,7 @@ trait Auth
 	 * by `\MvcCore\Session::GetNamespace();`.
 	 * @return \MvcCore\Session|\MvcCore\ISession
 	 */
-	public static function & GetUserSessionNamespace () {
+	public static function GetUserSessionNamespace () {
 		if (static::$userSessionNamespace === NULL) {
 			$sessionClass = \MvcCore\Application::GetInstance()->GetSessionClass();
 			static::$userSessionNamespace = $sessionClass::GetNamespace('MvcCore\Ext\Auths\Basic');
@@ -164,8 +166,30 @@ trait Auth
 	 * @param \MvcCore\Session|\MvcCore\ISession $userSessionNamespace
 	 * @return \MvcCore\Session|\MvcCore\ISession
 	 */
-	public static function & SetUserSessionNamespace (\MvcCore\ISession & $userSessionNamespace) {
+	public static function SetUserSessionNamespace (\MvcCore\ISession $userSessionNamespace) {
 		static::$userSessionNamespace = $userSessionNamespace;
 		return $userSessionNamespace;
+	}
+
+	/**
+	 * Backward compatible hash equals for PHP 5.4.
+	 * @param string $hash1
+	 * @param string $hash2
+	 * @return bool
+	 */
+	protected static function hashEquals ($hash1, $hash2) {
+		if (function_exists('hash_equals')) {
+			return hash_equals($hash1, $hash2);
+		} else {
+			if (strlen($hash1) != strlen($hash2)) {
+				return FALSE;
+			} else {
+				$res = $hash1 ^ $hash2;
+				$ret = 0;
+				for ($i = strlen($res) - 1; $i >= 0; $i--)
+					$ret |= ord($res[$i]);
+				return !$ret;
+			}
+		}
 	}
 }

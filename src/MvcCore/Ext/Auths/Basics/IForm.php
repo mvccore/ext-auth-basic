@@ -36,7 +36,7 @@ interface IForm
 	 * @param string $id
 	 * @return \MvcCore\Ext\Forms\IForm
 	 */
-	public function & SetId ($id);
+	public function SetId ($id);
 
 	/**
 	 * Set form submitting URL value.
@@ -45,7 +45,7 @@ interface IForm
 	 * @param string|NULL $url
 	 * @return \MvcCore\Ext\Forms\IForm
 	 */
-	public function & SetAction ($url = NULL);
+	public function SetAction ($url = NULL);
 
 	/**
 	 * Set form http submitting method.`POST` by default. 
@@ -57,7 +57,7 @@ interface IForm
 	 * @param string $method
 	 * @return \MvcCore\Ext\Forms\IForm
 	 */
-	public function & SetMethod ($method = \MvcCore\Ext\Forms\IForm::METHOD_POST);
+	public function SetMethod ($method = \MvcCore\Ext\Forms\IForm::METHOD_POST);
 
 	/**
 	 * Set form HTML element css classes strings.
@@ -68,7 +68,7 @@ interface IForm
 	 * @param string|\string[] $cssClasses
 	 * @return \MvcCore\Ext\Forms\IForm
 	 */
-	public function & SetCssClasses ($cssClasses);
+	public function SetCssClasses ($cssClasses);
 
 	/**
 	 * Set form success submit URL string to redirect after, relative or absolute,
@@ -79,7 +79,7 @@ interface IForm
 	 * @param string|NULL $url
 	 * @return \MvcCore\Ext\Forms\IForm
 	 */
-	public function & SetSuccessUrl ($url = NULL);
+	public function SetSuccessUrl ($url = NULL);
 
 	/**
 	 * Set form error submit URL string, relative or absolute, to specify,
@@ -90,7 +90,7 @@ interface IForm
 	 * @param string|NULL $url
 	 * @return \MvcCore\Ext\Forms\IForm
 	 */
-	public function & SetErrorUrl ($url = NULL);
+	public function SetErrorUrl ($url = NULL);
 
 	/**
 	 * Set translator to translate field labels, options, placeholders and error messages.
@@ -102,7 +102,7 @@ interface IForm
 	 * @param callable|NULL $handler
 	 * @return \MvcCore\Ext\Forms\IForm
 	 */
-	public function & SetTranslator (callable $translator = NULL);
+	public function SetTranslator (callable $translator = NULL);
 
 	/**
 	 * Render whole `<form>` with all content into HTML string to display it.
@@ -125,14 +125,14 @@ interface IForm
 	 * @param \MvcCore\Ext\Forms\IField[] $fields,... Any `\MvcCore\Ext\Forms\IField` fully configured instance to add into form.
 	 * @return \MvcCore\Ext\Forms\IForm
 	 */
-	public function & AddFields ($fields);
+	public function AddFields ($fields);
 
 	/**
 	 * Add fully configured form field instance.
 	 * @param \MvcCore\Ext\Forms\IField $field
 	 * @return \MvcCore\Ext\Forms\IForm
 	 */
-	public function & AddField (\MvcCore\Ext\Forms\IField $field);
+	public function AddField (\MvcCore\Ext\Forms\IField $field);
 
 	/**
 	 * Process standard low level submit process.
@@ -155,7 +155,7 @@ interface IForm
 	 * clear form CSRF tokens clear CRSF tokens in form session namespace.
 	 * @return \MvcCore\Ext\Forms\IForm
 	 */
-	public function & ClearSession ();
+	public function ClearSession ();
 
 	/**
 	 * Call this function in custom `\MvcCore\Ext\Form::Submit();` method implementation
