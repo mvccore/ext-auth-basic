@@ -522,18 +522,22 @@ trait PropsGettersSetters
 	}
 
 	/**
-	 * Return `\stdClass` object with values with all protected configuration properties.
-	 * @return \stdClass|array
+	 * Return `array` with all protected configuration properties.
+	 * @return array
 	 */
-	public function & GetConfiguration () {
+	public function GetConfiguration () {
 		$result = [];
 		$type = new \ReflectionClass($this);
 		/** @var $props \ReflectionProperty[] */
-		$props = $type->getProperties(\ReflectionProperty::IS_PUBLIC | \ReflectionProperty::IS_PROTECTED);
+		$props = $type->getProperties(
+			\ReflectionProperty::IS_PUBLIC |
+			\ReflectionProperty::IS_PROTECTED
+		);
 		foreach ($props as $prop) {
+			if ($prop->isStatic()) continue;
 			$name = $prop->getName();
-			if (!in_array($name, static::$nonConfigurationProperties))
-				$result[$name] = $prop->getValue();
+			if (!in_array($name, static::$nonConfigurationProperties, TRUE))
+				$result[$name] = $prop->getValue($this);
 		}
 		return $result;
 	}
@@ -618,7 +622,7 @@ trait PropsGettersSetters
 		$controllerClassToCheck = $this->checkClassImplementation(
 			$controllerClassToCheck, 'MvcCore\IController', TRUE
 		);
-		if ($controllerClassToCheck) 
+		if ($controllerClassToCheck)
 			$this->controllerClass = $controllerClass;
 		return $this;
 	}

@@ -195,10 +195,10 @@ interface IAuth
 	public function GetSignOutForm ();
 
 	/**
-	 * Return `\stdClass` object with values with all protected configuration properties.
-	 * @return \stdClass
+	 * Return `array` with all protected configuration properties.
+	 * @return array
 	 */
-	public function & GetConfiguration ();
+	public function GetConfiguration ();
 
 	/**
 	 * Set expiration time (in seconds) how long to remember the user in session.
