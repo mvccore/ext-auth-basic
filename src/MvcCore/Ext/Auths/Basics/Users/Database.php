@@ -73,7 +73,7 @@ class Database
 				u.$columns->userName = :user_name AND
 				u.$columns->active = :active
 		";
-		$db = static::getDb();
+		$db = static::GetConnection();
 		if (!$select = $db->prepare($sql))
 			throw new \RuntimeException(
 				implode(' ', $db->errorInfo()) . ': ' . $sql, intval($db->errorCode())
