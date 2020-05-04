@@ -14,17 +14,30 @@ interface IAuth
 	public static function GetInstance ($configuration = []);
 
 	/**
-	 * Get expiration time (in seconds) how long to remember the user in session.
+	 * Get expiration time (in seconds) how long to remember the user name in session.
 	 * You can use zero (`0`) to browser close moment, but some browsers can
-	 * restore previous session after next browser application start. Or any
-	 * colleague in your project could use session for storing any information
+	 * restore previous session after next browser application start. Or anybody
+	 * else in your project could use session for storing any information
+	 * for some longer time in your application and session cookie could then
+	 * exists much longer then browser close moment only.
+	 * So better is not to use a zero value.
+	 * Default value is 1 month (30 days, 2592000 seconds).
+	 * @return int
+	 */
+	public function GetExpirationIdentity ();
+
+	/**
+	 * Get expiration time (in seconds) how long to remember the authorization in session.
+	 * You can use zero (`0`) to browser close moment, but some browsers can
+	 * restore previous session after next browser application start. Or anybody
+	 * else in your project could use session for storing any information
 	 * for some longer time in your application and session cookie could then
 	 * exists much longer then browser close moment only.
 	 * So better is not to use a zero value.
 	 * Default value is 10 minutes (600 seconds).
 	 * @return int
 	 */
-	public function GetExpirationSeconds ();
+	public function GetExpirationAuthorization ();
 
 	/**
 	 * Get full class name to use for user instance.
@@ -201,18 +214,32 @@ interface IAuth
 	public function GetConfiguration ();
 
 	/**
-	 * Set expiration time (in seconds) how long to remember the user in session.
+	 * Set expiration time (in seconds) how long to remember the user name in session.
 	 * You can use zero (`0`) to browser close moment, but some browsers can
-	 * restore previous session after next browser application start. Or any
-	 * colleague in your project could use session for storing any information
+	 * restore previous session after next browser application start. Or anybody
+	 * else in your project could use session for storing any information
+	 * for some longer time in your application and session cookie could then
+	 * exists much longer then browser close moment only.
+	 * So better is not to use a zero value.
+	 * Default value is 1 month (30 days, 2592000 seconds).
+	 * @param int $identityExpirationSeconds
+	 * @return \MvcCore\Ext\Auths\Basics\IAuth
+	 */
+	public function SetExpirationIdentity ($identityExpirationSeconds = 2592000);
+
+
+	/**
+	 * Set expiration time (in seconds) how long to remember the authorization in session.
+	 * You can use zero (`0`) to browser close moment, but some browsers can
+	 * restore previous session after next browser application start. Or anybody
+	 * else in your project could use session for storing any information
 	 * for some longer time in your application and session cookie could then
 	 * exists much longer then browser close moment only.
 	 * So better is not to use a zero value.
 	 * Default value is 10 minutes (600 seconds).
-	 * @param int $expirationSeconds
 	 * @return \MvcCore\Ext\Auths\Basics\IAuth
 	 */
-	public function SetExpirationSeconds ($expirationSeconds = 600);
+	public function SetExpirationAuthorization ($authorizationExpirationSeconds = 600);
 
 	/**
 	 * Set full class name to use for user instance.

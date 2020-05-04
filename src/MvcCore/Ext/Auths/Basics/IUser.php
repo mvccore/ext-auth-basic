@@ -26,7 +26,7 @@ interface IUser
 	/**
 	 * User session namespace key to get authenticated boolean.
 	 */
-	const SESSION_AUTHENTICATED_KEY = 'authenticated';
+	const SESSION_AUTHORIZED_KEY = 'authorized';
 
 
 	// trait: \MvcCore\Ext\Auths\Basics\Traits\UserAndRole\Base
@@ -177,14 +177,31 @@ interface IUser
 	 * by `\MvcCore\Session::GetNamespace();`.
 	 * @return \MvcCore\ISession
 	 */
-	public static function GetUserSessionNamespace ();
+	public static function GetSessionIdentity ();
 
 	/**
-	 * Summary of SetUserSessionNamespace
-	 * @param \MvcCore\ISession $userSessionNamespace
+	 * Set identity session namespace.
+	 * @param \MvcCore\ISession $sessionIdentity
 	 * @return \MvcCore\ISession
 	 */
-	public static function SetUserSessionNamespace (\MvcCore\ISession $userSessionNamespace);
+	public static function SetSessionIdentity (\MvcCore\ISession $sessionIdentity);
+
+	/**
+	 * MvcCore session namespace instance
+	 * to get/clear username record from session
+	 * to load user for authentication.
+	 * Session is automatically started if necessary
+	 * by `\MvcCore\Session::GetNamespace();`.
+	 * @return \MvcCore\Session|\MvcCore\ISession
+	 */
+	public static function GetSessionAuthorization ();
+
+	/**
+	 * Set authorization session namespace.
+	 * @param \MvcCore\Session|\MvcCore\ISession $sessionAuthorization
+	 * @return \MvcCore\Session|\MvcCore\ISession
+	 */
+	public static function SetSessionAuthorization (\MvcCore\ISession $sessionAuthorization);
 
 
 	// trait: \MvcCore\Ext\Auths\Basics\Traits\User\Roles

@@ -15,7 +15,8 @@ namespace MvcCore\Ext\Auths\Basics\User;
 
 /**
  * Trait for `\MvcCore\Ext\Auths\Basics\User` class. Trait contains:
- * - Static property `$userSessionNamespace` with their public setter and getter with expiration settings.
+ * - Static property `$sessionIdentity` with their public setter and getter with expiration settings.
+ * - Static property `$sessionAuthorization` with their public setter and getter with expiration settings.
  * - Static methods `LogIn()` and `LogOut()` to authenticate or remove user from session namespace.
  * - Static method `EncodePasswordToHash()` to hash password with custom or configured salt and other options.
  */
@@ -27,7 +28,21 @@ trait Auth
 	 * to load user for authentication.
 	 * @var \MvcCore\Session|\MvcCore\ISession
 	 */
-	protected static $userSessionNamespace = NULL;
+	protected static $sessionIdentity = NULL;
+
+	/**
+	 * MvcCore session namespace instance
+	 * to get/set authentication boolean record
+	 * about authenticated/not authenticated user.
+	 * @var \MvcCore\Session|\MvcCore\ISession
+	 */
+	protected static $sessionAuthorization = NULL;
+
+	/**
+	 * MvcCore cached session class string.
+	 * @var string
+	 */
+	private static $_sessionClass = NULL;
 
 	/**
 	 * Try to get user model instance from application users list
@@ -37,15 +52,16 @@ trait Auth
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser|NULL
 	 */
 	public static function SetUpUserBySession () {
-		$userSessionNamespace = static::GetUserSessionNamespace();
+		$sessionIdentity = static::GetSessionIdentity();
+		$sessionAuthorization = static::GetSessionAuthorization();
 		$userNameStr = \MvcCore\Ext\Auths\Basics\IUser::SESSION_USERNAME_KEY;
-		$authenticatedStr = \MvcCore\Ext\Auths\Basics\IUser::SESSION_AUTHENTICATED_KEY;
+		$authorizedStr = \MvcCore\Ext\Auths\Basics\IUser::SESSION_AUTHORIZED_KEY;
 		if (
-			isset($userSessionNamespace->{$userNameStr}) &&
-			isset($userSessionNamespace->{$authenticatedStr}) &&
-			$userSessionNamespace->{$authenticatedStr}
+			isset($sessionIdentity->{$userNameStr}) &&
+			isset($sessionAuthorization->{$authorizedStr}) &&
+			$sessionAuthorization->{$authorizedStr}
 		) {
-			$user = static::GetByUserName($userSessionNamespace->{$userNameStr});
+			$user = static::GetByUserName($sessionIdentity->{$userNameStr});
 			$user->passwordHash = NULL;
 			if (is_array($user->initialValues) && array_key_exists('passwordHash', $user->initialValues))
 				$user->initialValues['passwordHash'] = NULL;
@@ -70,11 +86,12 @@ trait Auth
 		if ($user) {
 			$hashedPassword = static::EncodePasswordToHash($password);
 			if (static::hashEquals($user->passwordHash, $hashedPassword)) {
-				$userSessionNamespace = static::GetUserSessionNamespace();
+				$sessionIdentity = static::GetSessionIdentity();
+				$sessionAuthorization = static::GetSessionAuthorization();
 				$userNameStr = \MvcCore\Ext\Auths\Basics\IUser::SESSION_USERNAME_KEY;
-				$authenticatedStr = \MvcCore\Ext\Auths\Basics\IUser::SESSION_AUTHENTICATED_KEY;
-				$userSessionNamespace->$userNameStr = $user->userName;
-				$userSessionNamespace->$authenticatedStr = TRUE;
+				$authorizedStr = \MvcCore\Ext\Auths\Basics\IUser::SESSION_AUTHORIZED_KEY;
+				$sessionIdentity->{$userNameStr} = $user->userName;
+				$sessionAuthorization->{$authorizedStr} = TRUE;
 				$user->passwordHash = NULL;
 				if (is_array($user->initialValues) && array_key_exists('passwordHash', $user->initialValues))
 					$user->initialValues['passwordHash'] = NULL;
@@ -93,12 +110,14 @@ trait Auth
 	 * @return void
 	 */
 	public static function LogOut ($destroyWholeSession = FALSE) {
-		$userSessionNamespace = static::GetUserSessionNamespace();
+		$sessionIdentity = static::GetSessionIdentity();
+		$sessionAuthorization = static::GetSessionAuthorization();
 		if ($destroyWholeSession) {
-			static::GetUserSessionNamespace()->Destroy();
+			$sessionIdentity->Destroy();
+			$sessionAuthorization->Destroy();
 		} else {
-			$authenticatedStr = \MvcCore\Ext\Auths\Basics\IUser::SESSION_AUTHENTICATED_KEY;
-			$userSessionNamespace->$authenticatedStr = FALSE;
+			$authorizedStr = \MvcCore\Ext\Auths\Basics\IUser::SESSION_AUTHORIZED_KEY;
+			$sessionAuthorization->{$authorizedStr} = FALSE;
 		}
 	}
 
@@ -150,25 +169,56 @@ trait Auth
 	 * by `\MvcCore\Session::GetNamespace();`.
 	 * @return \MvcCore\Session|\MvcCore\ISession
 	 */
-	public static function GetUserSessionNamespace () {
-		if (static::$userSessionNamespace === NULL) {
-			$sessionClass = \MvcCore\Application::GetInstance()->GetSessionClass();
-			static::$userSessionNamespace = $sessionClass::GetNamespace('MvcCore\Ext\Auths\Basic');
-			static::$userSessionNamespace->SetExpirationSeconds(
-				\MvcCore\Ext\Auths\Basic::GetInstance()->GetExpirationSeconds()
+	public static function GetSessionIdentity () {
+		if (static::$sessionIdentity === NULL) {
+			$sessionClass = self::$_sessionClass ?: (
+				self::$_sessionClass = \MvcCore\Application::GetInstance()->GetSessionClass()
+			);
+			static::$sessionIdentity = $sessionClass::GetNamespace('MvcCore\Ext\Auths\Identity');
+			static::$sessionIdentity->SetExpirationSeconds(
+				\MvcCore\Ext\Auths\Basic::GetInstance()->GetExpirationIdentity()
 			);
 		}
-		return static::$userSessionNamespace;
+		return static::$sessionIdentity;
 	}
 
 	/**
-	 * Summary of SetUserSessionNamespace
-	 * @param \MvcCore\Session|\MvcCore\ISession $userSessionNamespace
+	 * Set identity session namespace.
+	 * @param \MvcCore\Session|\MvcCore\ISession $sessionIdentity
 	 * @return \MvcCore\Session|\MvcCore\ISession
 	 */
-	public static function SetUserSessionNamespace (\MvcCore\ISession $userSessionNamespace) {
-		static::$userSessionNamespace = $userSessionNamespace;
-		return $userSessionNamespace;
+	public static function SetSessionIdentity (\MvcCore\ISession $sessionIdentity) {
+		return static::$sessionIdentity = $sessionIdentity;
+	}
+
+	/**
+	 * MvcCore session namespace instance
+	 * to get/clear username record from session
+	 * to load user for authentication.
+	 * Session is automatically started if necessary
+	 * by `\MvcCore\Session::GetNamespace();`.
+	 * @return \MvcCore\Session|\MvcCore\ISession
+	 */
+	public static function GetSessionAuthorization () {
+		if (static::$sessionAuthorization === NULL) {
+			$sessionClass = self::$_sessionClass ?: (
+				self::$_sessionClass = \MvcCore\Application::GetInstance()->GetSessionClass()
+			);
+			static::$sessionAuthorization = $sessionClass::GetNamespace('MvcCore\Ext\Auths\Authorization');
+			static::$sessionAuthorization->SetExpirationSeconds(
+				\MvcCore\Ext\Auths\Basic::GetInstance()->GetExpirationAuthorization()
+			);
+		}
+		return static::$sessionAuthorization;
+	}
+
+	/**
+	 * Set authorization session namespace.
+	 * @param \MvcCore\Session|\MvcCore\ISession $sessionAuthorization
+	 * @return \MvcCore\Session|\MvcCore\ISession
+	 */
+	public static function SetSessionAuthorization (\MvcCore\ISession $sessionAuthorization) {
+		return static::$sessionAuthorization = $sessionAuthorization;
 	}
 
 	/**
