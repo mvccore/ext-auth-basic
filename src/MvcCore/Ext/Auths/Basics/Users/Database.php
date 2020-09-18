@@ -60,19 +60,19 @@ class Database
 	public static function GetByUserName ($userName) {
 		$table = static::$usersTableStructure['table'];
 		$columns = (object) static::$usersTableStructure['columns'];
-		$sql = "
-			SELECT
-				u.$columns->id AS id,
-				u.$columns->active AS active,
-				u.$columns->userName AS userName,
-				u.$columns->passwordHash AS passwordHash,
-				u.$columns->fullName AS fullName
-			FROM
-				$table u
-			WHERE
-				u.$columns->userName = :user_name AND
-				u.$columns->active = :active
-		";
+		$sql = implode("\n", [
+			"SELECT											",
+			"	u.{$columns->id} AS id,						",
+			"	u.{$columns->active} AS active,				",
+			"	u.{$columns->userName} AS userName,			",
+			"	u.{$columns->passwordHash} AS passwordHash,	",
+			"	u.{$columns->fullName} AS fullName			",
+			"FROM											",
+			"	{$table} u									",
+			"WHERE											",
+			"	u.{$columns->userName} = :user_name AND		",
+			"	u.{$columns->active} = :active				",
+		]);
 		$db = static::GetConnection();
 		if (!$select = $db->prepare($sql))
 			throw new \RuntimeException(
@@ -87,7 +87,7 @@ class Database
 		$data = $select->fetch(\PDO::FETCH_ASSOC);
 		if ($data) {
 			$user = (new static())->SetUp(
-				$data, \MvcCore\Model::KEYS_CONVERSION_UNDERSCORES_TO_CAMELCASE, TRUE
+				$data, \MvcCore\IModel::KEYS_CONVERSION_UNDERSCORES_TO_CAMELCASE, TRUE
 			);
 			return $user;
 		}
