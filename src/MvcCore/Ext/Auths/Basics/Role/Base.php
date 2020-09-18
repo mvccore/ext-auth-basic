@@ -33,6 +33,7 @@ trait Base
 	 * @return string
 	 */
 	public function GetName () {
+		/** @var $this \MvcCore\Ext\Auths\Basics\Role */
 		return $this->name;
 	}
 
@@ -43,17 +44,8 @@ trait Base
 	 * @return \MvcCore\Ext\Auths\Basics\Role|\MvcCore\Ext\Auths\Basics\IRole
 	 */
 	public function SetName ($name) {
-		/** @var $this \MvcCore\Ext\Auths\Basics\IRole */
+		/** @var $this \MvcCore\Ext\Auths\Basics\Role */
 		$this->name = $name;
 		return $this;
-	}
-
-	/**
-	 * Get `TRUE` if given permission string is allowed for role. `FALSE` otherwise.
-	 * @param string $permissionName
-	 * @return bool
-	 */
-	public function IsAllowed ($permissionName) {
-		return $this->GetPermission($permissionName);
 	}
 }

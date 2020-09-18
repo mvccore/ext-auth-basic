@@ -40,6 +40,7 @@ trait Base
 	 * @return int|NULL
 	 */
 	public function GetId () {
+		/** @var $this \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role */
 		return $this->id;
 	}
 
@@ -51,7 +52,7 @@ trait Base
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser|\MvcCore\Ext\Auths\Basics\Role|\MvcCore\Ext\Auths\Basics\IRole
 	 */
 	public function SetId ($id) {
-		/** @var $this \MvcCore\Ext\Auths\Basics\IUser|\MvcCore\Ext\Auths\Basics\IRole */
+		/** @var $this \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role */
 		$this->id = $id;
 		return $this;
 	}
@@ -62,6 +63,7 @@ trait Base
 	 * @return bool
 	 */
 	public function IsActive () {
+		/** @var $this \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role */
 		return $this->active;
 	}
 
@@ -70,6 +72,7 @@ trait Base
 	 * @return bool
 	 */
 	public function GetActive () {
+		/** @var $this \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role */
 		return $this->active;
 	}
 
@@ -78,7 +81,7 @@ trait Base
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser|\MvcCore\Ext\Auths\Basics\Role|\MvcCore\Ext\Auths\Basics\IRole
 	 */
 	public function SetActive ($active) {
-		/** @var $this \MvcCore\Ext\Auths\Basics\IUser|\MvcCore\Ext\Auths\Basics\IRole */
+		/** @var $this \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role */
 		$this->active = (bool) $active;
 		return $this;
 	}

@@ -51,6 +51,7 @@ trait SignOut
 	 * @return array
 	 */
 	public function Submit (array & $rawRequestParams = []) {
+		/** @var $this \MvcCore\Ext\Auths\Basics\SignOutForm */
 		parent::Submit($rawRequestParams);
 		$data = & $this->values;
 		if ($this->result === \MvcCore\Ext\Form::RESULT_SUCCESS) {
@@ -69,6 +70,7 @@ trait SignOut
 	 * @return string
 	 */
 	public function & Render ($controllerDashedName = NULL, $actionDashedName = NULL) {
+		/** @var $this \MvcCore\Ext\Auths\Basics\SignOutForm */
 		$this->PreDispatch();
 		$result = $this->RenderBegin();
 		if ($this->user)

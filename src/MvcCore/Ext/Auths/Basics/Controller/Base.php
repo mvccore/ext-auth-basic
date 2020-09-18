@@ -25,7 +25,7 @@ trait Base
 	 * @return void
 	 */
 	public function SignInAction () {
-		/** @var $form \MvcCore\Ext\Auths\Basics\SignInForm */
+		/** @var $this \MvcCore\Ext\Auths\Basics\Controller */
 		$form = \MvcCore\Ext\Auths\Basic::GetInstance()->GetSignInForm();
 		list ($result,) = $form->Submit();
 		if ($result !== \MvcCore\Ext\Form::RESULT_SUCCESS) {
@@ -44,7 +44,7 @@ trait Base
 	 * @return void
 	 */
 	public function SignOutAction () {
-		/** @var $form \MvcCore\Ext\Auths\Basics\SignOutForm */
+		/** @var $this \MvcCore\Ext\Auths\Basics\Controller */
 		$form = \MvcCore\Ext\Auths\Basic::GetInstance()->GetSignOutForm();
 		list ($result,) = $form->Submit();
 		if ($result) $form->ClearSession(); // to remove all submitted data from session

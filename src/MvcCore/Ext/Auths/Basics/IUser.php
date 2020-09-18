@@ -263,11 +263,11 @@ interface IUser
 	public function RemoveRole ($roleOrRoleName);
 
 	/**
-	 * Get `TRUE` if given permission string is allowed for user or user role. `FALSE` otherwise.
-	 * @param string $permissionName
+	 * Get `TRUE` if given permission string(s) is/are all allowed for user or user role. `FALSE` otherwise.
+	 * @param string|\string[] $permissionNameOrNames
 	 * @return bool
 	 */
-	public function IsAllowed ($permissionName);
+	public function IsAllowed ($permissionNameOrNames);
 
 
 	// trait: \MvcCore\Ext\Auths\Basics\Traits\UserAndRole\Permissions

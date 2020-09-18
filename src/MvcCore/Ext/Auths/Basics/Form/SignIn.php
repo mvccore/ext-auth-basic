@@ -59,6 +59,7 @@ trait SignIn
 	 * @return array
 	 */
 	public function Submit (array & $rawRequestParams = []) {
+		/** @var $this \MvcCore\Ext\Auths\Basics\SignInForm */
 		parent::Submit($rawRequestParams);
 		$data = & $this->values;
 		

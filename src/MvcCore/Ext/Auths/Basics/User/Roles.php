@@ -38,6 +38,7 @@ trait Roles
 	 * @return bool
 	 */
 	public function IsAdmin() {
+		/** @var $this \MvcCore\Ext\Auths\Basics\User */
 		return $this->admin;
 	}
 
@@ -46,6 +47,7 @@ trait Roles
 	 * @return bool
 	 */
 	public function GetAdmin() {
+		/** @var $this \MvcCore\Ext\Auths\Basics\User */
 		return $this->admin;
 	}
 
@@ -55,7 +57,7 @@ trait Roles
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
 	 */
 	public function SetAdmin ($admin = TRUE) {
-		/** @var $this \MvcCore\Ext\Auths\Basics\IUser */
+		/** @var $this \MvcCore\Ext\Auths\Basics\User */
 		$this->admin = (bool) $admin;
 		return $this;
 	}
@@ -65,6 +67,7 @@ trait Roles
 	 * @return \string[]
 	 */
 	public function & GetRoles () {
+		/** @var $this \MvcCore\Ext\Auths\Basics\User */
 		return $this->roles;
 	}
 
@@ -74,7 +77,7 @@ trait Roles
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
 	 */
 	public function SetRoles ($rolesOrRolesNames = []) {
-		/** @var $this \MvcCore\Ext\Auths\Basics\IUser */
+		/** @var $this \MvcCore\Ext\Auths\Basics\User */
 		$this->roles = [];
 		foreach ($rolesOrRolesNames as $roleOrRoleName)
 			$this->roles[] = static::getRoleName($roleOrRoleName);
@@ -88,7 +91,7 @@ trait Roles
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
 	 */
 	public function AddRole ($roleOrRoleName) {
-		/** @var $this \MvcCore\Ext\Auths\Basics\IUser */
+		/** @var $this \MvcCore\Ext\Auths\Basics\User */
 		$roleName = static::getRoleName($roleOrRoleName);
 		if (!in_array($roleName, $this->roles, TRUE))
 			$this->roles[] = $roleName;
@@ -102,6 +105,7 @@ trait Roles
 	 * @return bool
 	 */
 	public function HasRole ($roleOrRoleName) {
+		/** @var $this \MvcCore\Ext\Auths\Basics\User */
 		$roleName = static::getRoleName($roleOrRoleName);
 		return in_array($roleName, $this->roles, TRUE);
 	}
@@ -113,30 +117,11 @@ trait Roles
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
 	 */
 	public function RemoveRole ($roleOrRoleName) {
-		/** @var $this \MvcCore\Ext\Auths\Basics\IUser */
+		/** @var $this \MvcCore\Ext\Auths\Basics\User */
 		$roleName = static::getRoleName($roleOrRoleName);
 		$position = array_search($roleName, $this->roles);
 		if ($position !== FALSE) array_splice($this->roles, $position, 1);
 		return $this;
-	}
-
-	/**
-	 * Get `TRUE` if given permission string is allowed for user or user role. `FALSE` otherwise.
-	 * @param string $permissionName
-	 * @return bool
-	 */
-	public function IsAllowed ($permissionName) {
-		// check direct user permitions
-		if ($this->GetPermission($permissionName)) return TRUE;
-		/*
-		// check permitions on user roles if permitions are not loaded on request start
-		$roleClass = \MvcCore\Ext\Auths\Basic::GetInstance()->GetRoleClass();
-		foreach ($this->GetRoles() as $roleName) {
-			$role = $roleClass::GetByName($roleName);
-			if ($role->GetPermission($permissionName)) return TRUE;
-		}
-		*/
-		return FALSE;
 	}
 
 	/**
@@ -146,6 +131,7 @@ trait Roles
 	 * @return string
 	 */
 	protected static function getRoleName ($roleOrRoleName) {
+		/** @var $this \MvcCore\Ext\Auths\Basics\User */
 		if (is_string($roleOrRoleName)) {
 			return $roleOrRoleName;
 		} else if ($roleOrRoleName instanceof \MvcCore\Ext\Auths\Basics\IRole) {
