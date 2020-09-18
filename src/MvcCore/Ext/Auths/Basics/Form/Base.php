@@ -76,7 +76,8 @@ trait Base
 	 */
 	public function PreDispatch () {
 		/** @var $this \MvcCore\Ext\Forms\IForm */
-		if ($this->dispatchState > 1) return $this;
+		if ($this->dispatchState > \MvcCore\IController::DISPATCH_STATE_INITIALIZED) 
+			return $this;
 		parent::PreDispatch();
 
 		$successUrlValue = $this->successUrlField->GetValue();
