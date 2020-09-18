@@ -24,6 +24,30 @@ trait Permissions
 	 * @var \string[]
 	 */
 	protected $permissions = [];
+	
+	/**
+	 * Get `TRUE` if given permission string(s) is/are all allowed for user or user role. `FALSE` otherwise.
+	 * @param string|\string[] $permissionNameOrNames
+	 * @return bool
+	 */
+	public function IsAllowed ($permissionNameOrNames) {
+		/** @var $this \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role */
+		if (property_exists($this, 'admin') && $this->admin) return TRUE;
+		$args = func_get_args();
+		if (count($args) === 1 && is_array($permissionNameOrNames)) {
+			$permissionNames = $permissionNameOrNames;
+		} else {
+			$permissionNames = $args;
+		}
+		$result = TRUE;
+		foreach ($permissionNames as $permissionName) {
+			if (!in_array($permissionName, $this->permissions, TRUE)) {
+				$result = FALSE;
+				break;
+			}
+		}
+		return $result;
+	}
 
 	/**
 	 * Get `TRUE` if given permission string is allowed for user or role. `FALSE` otherwise.
@@ -31,6 +55,7 @@ trait Permissions
 	 * @return bool
 	 */
 	public function GetPermission ($permissionName) {
+		/** @var $this \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role */
 		if (property_exists($this, 'admin') && $this->admin) return TRUE;
 		if (in_array($permissionName, $this->permissions, TRUE)) return TRUE;
 		return FALSE;
@@ -44,7 +69,7 @@ trait Permissions
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser|\MvcCore\Ext\Auths\Basics\Role|\MvcCore\Ext\Auths\Basics\IRole
 	 */
 	public function SetPermission ($permissionName, $allow = TRUE) {
-		/** @var $this \MvcCore\Ext\Auths\Basics\IUser|\MvcCore\Ext\Auths\Basics\IRole */
+		/** @var $this \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role */
 		if (!in_array($permissionName, $this->permissions, TRUE) && $allow) {
 			$this->permissions[] = $permissionName;
 		} else if (in_array($permissionName, $this->permissions, TRUE) && !$allow) {
@@ -59,6 +84,7 @@ trait Permissions
 	 * @return \string[]
 	 */
 	public function & GetPermissions() {
+		/** @var $this \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role */
 		return $this->permissions;
 	}
 
@@ -68,7 +94,7 @@ trait Permissions
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser|\MvcCore\Ext\Auths\Basics\Role|\MvcCore\Ext\Auths\Basics\IRole
 	 */
 	public function SetPermissions ($permissions) {
-		/** @var $this \MvcCore\Ext\Auths\Basics\IUser|\MvcCore\Ext\Auths\Basics\IRole */
+		/** @var $this \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role */
 		if (is_string($permissions)) {
 			$this->permissions = explode(',', $permissions);
 		} else if (is_array($permissions)) {
