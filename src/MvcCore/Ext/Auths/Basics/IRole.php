@@ -107,11 +107,13 @@ interface IRole
 	public function SetName ($name);
 
 	/**
-	 * Get `TRUE` if given permission string(s) is/are all allowed for user or user role. `FALSE` otherwise.
+	 * Get `TRUE` if given permission string(s) is/are (all or some) allowed for user or user role. 
+	 * `FALSE` otherwise. Permission name could contain asterisk char `*` in any place.
 	 * @param string|\string[] $permissionNameOrNames
+	 * @param bool $allPermissionsRequired `TRUE` by default.
 	 * @return bool
 	 */
-	public function IsAllowed ($permissionNameOrNames);
+	public function IsAllowed ($permissionNameOrNames, $allPermissionsRequired = TRUE);
 
 
 	// class: \MvcCore\Ext\Auths\Basics\Role

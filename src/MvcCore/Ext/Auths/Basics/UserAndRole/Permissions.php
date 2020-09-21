@@ -26,27 +26,37 @@ trait Permissions
 	protected $permissions = [];
 	
 	/**
-	 * Get `TRUE` if given permission string(s) is/are all allowed for user or user role. `FALSE` otherwise.
+	 * Get `TRUE` if given permission string(s) is/are (all or some) allowed for user or user role. 
+	 * `FALSE` otherwise. Permission name could contain asterisk char `*` in any place.
 	 * @param string|\string[] $permissionNameOrNames
+	 * @param bool $allPermissionsRequired `TRUE` by default.
 	 * @return bool
 	 */
-	public function IsAllowed ($permissionNameOrNames) {
+	public function IsAllowed ($permissionNameOrNames, $allPermissionsRequired = TRUE) {
 		/** @var $this \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role */
 		if (property_exists($this, 'admin') && $this->admin) return TRUE;
-		$args = func_get_args();
-		if (count($args) === 1 && is_array($permissionNameOrNames)) {
-			$permissionNames = $permissionNameOrNames;
-		} else {
-			$permissionNames = $args;
-		}
-		$result = TRUE;
+		$permissionNames = is_array($permissionNameOrNames)
+			? $permissionNameOrNames
+			: [$permissionNameOrNames];
+		$allMatchedPermissionsCount = 0;
 		foreach ($permissionNames as $permissionName) {
-			if (!in_array($permissionName, $this->permissions, TRUE)) {
-				$result = FALSE;
-				break;
+			$starCharPos = mb_strpos($permissionName, '*');
+			if ($starCharPos === FALSE) {
+				if (in_array($permissionName, $this->permissions, TRUE)) {
+					$allMatchedPermissionsCount++;
+					if (!$allMatchedPermissionsCount) break;
+				}
+			} else {
+				$regExpPattern = '#^' . str_replace('*', '.*', $permissionName) . '$#';
+				$matchedPermissions = preg_grep($regExpPattern, $this->permissions);
+				$matchedPermissionsCount = count($matchedPermissions);
+				if ($matchedPermissionsCount > 0) {
+					$allMatchedPermissionsCount += $matchedPermissionsCount;
+					if (!$allPermissionsRequired) break;
+				}
 			}
 		}
-		return $result;
+		return $allMatchedPermissionsCount >= count($permissionNames);
 	}
 
 	/**
