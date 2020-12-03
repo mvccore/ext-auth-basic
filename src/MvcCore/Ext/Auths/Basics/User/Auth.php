@@ -84,8 +84,13 @@ trait Auth
 	public static function LogIn ($userName = '', $password = '') {
 		$user = static::GetByUserName($userName);
 		if ($user) {
-			$hashedPassword = static::EncodePasswordToHash($password);
-			if (static::hashEquals($user->passwordHash, $hashedPassword)) {
+			if (\PHP_VERSION_ID >= 50500){
+				$authenticated = password_verify($password, $user->passwordHash);
+			} else {
+				$hashedPassword = static::EncodePasswordToHash($password);
+				$authenticated = static::hashEquals($user->passwordHash, $hashedPassword);
+			}
+			if ($authenticated) {
 				$sessionIdentity = static::GetSessionIdentity();
 				$sessionAuthorization = static::GetSessionAuthorization();
 				$userNameStr = \MvcCore\Ext\Auths\Basics\IUser::SESSION_USERNAME_KEY;
