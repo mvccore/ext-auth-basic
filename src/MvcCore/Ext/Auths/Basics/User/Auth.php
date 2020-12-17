@@ -152,6 +152,8 @@ trait Auth
 				'['.get_class().'] `cost` option has to be from `4` to `31`, `' . $options['cost'] . '` given.'
 			);
 		if (\PHP_VERSION_ID >= 50500) {
+			if (\PHP_VERSION_ID >= 80000 && isset($options['salt'])) 
+				unset($options['salt']);
 			$result = @password_hash($password, PASSWORD_BCRYPT, $options);
 		} else {
 			$cost = isset($options['cost']) ? $options['cost'] : 10; // PASSWORD_BCRYPT_DEFAULT_COST
