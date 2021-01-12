@@ -29,13 +29,6 @@ class User
 	use \MvcCore\Ext\Auths\Basics\User\Roles;
 
 	/**
-	 * Do not automatically initialize protected properties
-	 * `$user->db`, `$user->config` and `$user->resource`.
-	 * @var bool
-	 */
-	protected $autoInit = FALSE;
-
-	/**
 	 * Get user model instance from database or any other users list
 	 * resource by submitted and cleaned `$userName` field value.
 	 * @param string $userName Submitted and cleaned username. Characters `' " ` < > \ = ^ | & ~` are automatically encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.

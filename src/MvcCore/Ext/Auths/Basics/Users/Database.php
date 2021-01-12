@@ -55,7 +55,8 @@ class Database
 	 * Get user model instance from database or any other users list
 	 * resource by submitted and cleaned `$userName` field value.
 	 * @param string $userName Submitted and cleaned username. Characters `' " ` < > \ = ^ | & ~` are automatically encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
-	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
+	 * @throws \RuntimeException
+	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Model
 	 */
 	public static function GetByUserName ($userName) {
 		$table = static::$usersTableStructure['table'];
@@ -73,21 +74,32 @@ class Database
 			"	u.{$columns->userName} = :user_name AND		",
 			"	u.{$columns->active} = :active				",
 		]);
-		$db = static::GetConnection();
-		if (!$select = $db->prepare($sql))
+		$conn = self::GetConnection();
+		if ($conn instanceof \PDO) {
+			$pdo = $conn;
+		} else if (method_exists($conn, 'GetProvider')) {
+			$pdo = $conn->GetProvider();
+		} else {
+			throw new \RuntimeException("Couldn't initialize `\PDO` connection.");
+		}
+		if (!$select = $pdo->prepare($sql))
 			throw new \RuntimeException(
-				implode(' ', $db->errorInfo()) . ': ' . $sql, intval($db->errorCode())
+				implode(' ', $pdo->errorInfo()) . ': ' . $sql, intval($pdo->errorCode())
 			);
 		$select->execute([
 			":user_name"	=> $userName,
 			":active"		=> 1,
 		]);
-		/** @var $user \MvcCore\Ext\Auths\Basics\User */
+		/** @var $user \MvcCore\Ext\Auths\Basics\User|\MvcCore\Model */
 		$user = NULL;
 		$data = $select->fetch(\PDO::FETCH_ASSOC);
 		if ($data) {
-			$user = (new static())->SetUp(
-				$data, \MvcCore\IModel::KEYS_CONVERSION_UNDERSCORES_TO_CAMELCASE, TRUE
+			$user = (new static())->SetValues(
+				$data, 
+				\MvcCore\IModel::PROPS_INHERIT |
+				\MvcCore\IModel::PROPS_PROTECTED |
+				\MvcCore\IModel::PROPS_CONVERT_UNDERSCORES_TO_CAMELCASE | 
+				\MvcCore\IModel::PROPS_INITIAL_VALUES
 			);
 			return $user;
 		}

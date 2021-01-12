@@ -26,7 +26,7 @@ trait Auth
 	 * MvcCore session namespace instance
 	 * to get/clear username record from session
 	 * to load user for authentication.
-	 * @var \MvcCore\Session|\MvcCore\ISession
+	 * @var \MvcCore\Session
 	 */
 	protected static $sessionIdentity = NULL;
 
@@ -34,7 +34,7 @@ trait Auth
 	 * MvcCore session namespace instance
 	 * to get/set authentication boolean record
 	 * about authenticated/not authenticated user.
-	 * @var \MvcCore\Session|\MvcCore\ISession
+	 * @var \MvcCore\Session
 	 */
 	protected static $sessionAuthorization = NULL;
 
@@ -49,7 +49,7 @@ trait Auth
 	 * (it could be database table or system config) by user session namespace
 	 * `userName` record if `authenticated` boolean in user session namespace is `TRUE`.
 	 * Or return `NULL` for no user by user session namespace records.
-	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser|NULL
+	 * @return \MvcCore\Ext\Auths\Basics\User|NULL
 	 */
 	public static function SetUpUserBySession () {
 		$sessionIdentity = static::GetSessionIdentity();
@@ -79,7 +79,7 @@ trait Auth
 	 * into user session namespace. Then user is logged in.
 	 * @param string $userName Submitted and cleaned username. Characters `' " ` < > \ = ^ | & ~` are automatically encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
 	 * @param string $password Submitted and cleaned password. Characters `' " ` < > \ = ^ | & ~` are automatically encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
-	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser|NULL
+	 * @return \MvcCore\Ext\Auths\Basics\User|NULL
 	 */
 	public static function LogIn ($userName = '', $password = '') {
 		$user = static::GetByUserName($userName);
@@ -174,7 +174,7 @@ trait Auth
 	 * to load user for authentication.
 	 * Session is automatically started if necessary
 	 * by `\MvcCore\Session::GetNamespace();`.
-	 * @return \MvcCore\Session|\MvcCore\ISession
+	 * @return \MvcCore\Session
 	 */
 	public static function GetSessionIdentity () {
 		if (static::$sessionIdentity === NULL) {
@@ -191,8 +191,8 @@ trait Auth
 
 	/**
 	 * Set identity session namespace.
-	 * @param \MvcCore\Session|\MvcCore\ISession $sessionIdentity
-	 * @return \MvcCore\Session|\MvcCore\ISession
+	 * @param \MvcCore\Session $sessionIdentity
+	 * @return \MvcCore\Session
 	 */
 	public static function SetSessionIdentity (\MvcCore\ISession $sessionIdentity) {
 		return static::$sessionIdentity = $sessionIdentity;
@@ -204,7 +204,7 @@ trait Auth
 	 * to load user for authentication.
 	 * Session is automatically started if necessary
 	 * by `\MvcCore\Session::GetNamespace();`.
-	 * @return \MvcCore\Session|\MvcCore\ISession
+	 * @return \MvcCore\Session
 	 */
 	public static function GetSessionAuthorization () {
 		if (static::$sessionAuthorization === NULL) {
@@ -221,8 +221,8 @@ trait Auth
 
 	/**
 	 * Set authorization session namespace.
-	 * @param \MvcCore\Session|\MvcCore\ISession $sessionAuthorization
-	 * @return \MvcCore\Session|\MvcCore\ISession
+	 * @param \MvcCore\Session $sessionAuthorization
+	 * @return \MvcCore\Session
 	 */
 	public static function SetSessionAuthorization (\MvcCore\ISession $sessionAuthorization) {
 		return static::$sessionAuthorization = $sessionAuthorization;

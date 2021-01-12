@@ -27,8 +27,8 @@ namespace MvcCore\Ext\Auths;
  *   - custom password hash salt
  *   - translator and more...
  */
-class Basic implements \MvcCore\Ext\Auths\Basics\IAuth
-{
+class Basic implements \MvcCore\Ext\Auths\Basics\IAuth {
+
 	/**
 	 * MvcCore Extension - Auth - version:
 	 * Comparison by PHP function version_compare();
