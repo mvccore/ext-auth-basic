@@ -13,16 +13,20 @@
 
 namespace MvcCore\Ext\Auths\Basics\UserAndRole;
 
+use \MvcCore\Ext\Database\Attributes as Attrs;
+
 /**
  * Trait for `\MvcCore\Ext\Auths\Basics\User` and `\MvcCore\Ext\Auths\Basics\Role` class. Trait contains:
  * - Instance property `$permissions` with their public getters and setters to manipulate with permissions.
  */
-trait Permissions
-{
+trait Permissions {
+
 	/**
 	 * Array of strings describing what is allowed to do for user or role.
+	 * @column permissions
 	 * @var \string[]
 	 */
+	#[Attrs\Column('permissions')]
 	protected $permissions = [];
 	
 	/**

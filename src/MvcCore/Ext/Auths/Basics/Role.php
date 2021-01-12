@@ -19,21 +19,16 @@ namespace MvcCore\Ext\Auths\Basics;
  * `GetByName()` or more. It's also necessary to implement
  * loading users with roles and their permissions to be able
  * to check user roles and permissions.
+ * @table roles
  */
-class Role
-	extends		\MvcCore\Model
-	implements	\MvcCore\Ext\Auths\Basics\IRole
-{
+#[Attrs\Table('roles')]
+class		Role
+extends		\MvcCore\Model
+implements	\MvcCore\Ext\Auths\Basics\IRole {
+
 	use \MvcCore\Ext\Auths\Basics\UserAndRole\Base;
 	use \MvcCore\Ext\Auths\Basics\UserAndRole\Permissions;
 	use \MvcCore\Ext\Auths\Basics\Role\Base;
-
-	/**
-	 * Do not automatically initialize protected properties
-	 * `$user->db`, `$user->config` and `$user->resource`.
-	 * @var bool
-	 */
-	protected $autoInit = FALSE;
 
 	/**
 	 * Get role instance from application roles list. It could be database or any other custom resource.

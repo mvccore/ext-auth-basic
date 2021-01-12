@@ -17,11 +17,13 @@ namespace MvcCore\Ext\Auths\Basics;
  * Responsibility - base user model class.
  * This class is necessary to extend and implement method
  * `GetByUserName()` at least to be able to login into your app.
+ * @table users
  */
-class User
-	extends		\MvcCore\Model
-	implements	\MvcCore\Ext\Auths\Basics\IUser
-{
+#[Attrs\Table('users')]
+class		User
+extends		\MvcCore\Model
+implements	\MvcCore\Ext\Auths\Basics\IUser {
+
 	use \MvcCore\Ext\Auths\Basics\User\Base;
 	use \MvcCore\Ext\Auths\Basics\UserAndRole\Base;
 	use \MvcCore\Ext\Auths\Basics\UserAndRole\Permissions;

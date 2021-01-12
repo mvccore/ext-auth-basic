@@ -13,26 +13,33 @@
 
 namespace MvcCore\Ext\Auths\Basics\User;
 
+use \MvcCore\Ext\Database\Attributes as Attrs;
+
 /**
  * Trait for `\MvcCore\Ext\Auths\Basics\User` class. Trait contains:
  * - Instance properties `$aserName`, `$fullName` and `$passwordHash` with their public getters and setters.
  */
-trait Base
-{
+trait Base {
+
 	/**
 	 * Unique user name to log in. It could be email,
 	 * unique user name or anything uniquelse.
 	 * Example: `"admin" | "john" | "tom@gmail.com"`
+	 * @column user_name
+	 * @keyUnique
 	 * @var string
 	 */
+	#[Attrs\Column('user_name'), Attrs\KeyUnique]
 	protected $userName = NULL;
 
 	/**
 	 * User full name string to display in application
 	 * for authenticated user at sign out button.
 	 * Example: `"Administrator" | "John" | "Tom"`
+	 * @column full_name
 	 * @var string
 	 */
+	#[Attrs\Column('full_name')]
 	protected $fullName = NULL;
 
 	/**
@@ -40,8 +47,10 @@ trait Base
 	 * From moment, when is user instance loaded with password hash by session username to
 	 * moment, when is compared hashed sent password and stored password hash.
 	 * After password hashes comparison, password hash is un-setted.
-	 * @var string|NULL
+	 * @column password_hash
+	 * @var string|NULL`
 	 */
+	#[Attrs\Column('password_hash')]
 	protected $passwordHash = NULL;
 
 	/**

@@ -13,24 +13,31 @@
 
 namespace MvcCore\Ext\Auths\Basics\UserAndRole;
 
+use \MvcCore\Ext\Database\Attributes as Attrs;
+
 /**
  * Trait for `\MvcCore\Ext\Auths\Basics\User` and `\MvcCore\Ext\Auths\Basics\Role` class. Trait contains:
  * - Instance properties `$id` and `$active` with their public getters and setters.
  */
-trait Base
-{
+trait Base {
+
 	/**
 	 * User or role unique id, representing primary key in database
 	 * or sequence number in system config.
 	 * Example: `0 | 1 | 2...`
+	 * @column id
+	 * @keyPrimary
 	 * @var int|NULL
 	 */
+	#[Attrs\Column('id'), Attrs\KeyPrimary]
 	protected $id = NULL;
 
 	/**
 	 * User or role active state boolean.
+	 * @column active
 	 * @var bool
 	 */
+	#[Attrs\Column('active')]
 	protected $active = TRUE;
 
 	/**
