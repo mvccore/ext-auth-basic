@@ -47,7 +47,7 @@ trait Base
 	 * Add success and error URL which are used
 	 * to redirect user to success URL or error URL
 	 * after form is submitted.
-	 * @return \MvcCore\Ext\Form|\MvcCore\Ext\Forms\IForm
+	 * @return \MvcCore\Ext\Form
 	 */
 	protected function initAuthFormPropsAndHiddenControls () {
 		/** @var $this \MvcCore\Ext\Forms\Form */
@@ -72,13 +72,18 @@ trait Base
 
 	/**
 	 * Prepare form for rendering.
-	 * @return \MvcCore\Ext\Form|\MvcCore\Ext\Forms\IForm
+	 * @param bool $submit
+	 * @return \MvcCore\Ext\Form
 	 */
-	public function PreDispatch () {
+	public function PreDispatch ($submit = FALSE) {
 		/** @var $this \MvcCore\Ext\Forms\Form */
 		if ($this->dispatchState > \MvcCore\IController::DISPATCH_STATE_INITIALIZED) 
 			return $this;
-		parent::PreDispatch();
+		parent::PreDispatch($submit);
+		if ($submit) {
+			$this->dispatchState = \MvcCore\IController::DISPATCH_STATE_PRE_DISPATCHED;
+			return $this;
+		}
 
 		$successUrlValue = $this->successUrlField->GetValue();
 		if ($successUrlValue) {

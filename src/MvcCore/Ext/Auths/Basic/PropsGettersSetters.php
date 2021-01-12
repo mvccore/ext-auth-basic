@@ -517,7 +517,7 @@ trait PropsGettersSetters
 	 * Return completed sign in form instance.
 	 * Form instance completion is processed only once,
 	 * created form instance is stored in `$auth->form` property.
-	 * @return \MvcCore\Ext\Auths\Basics\SignInForm|\MvcCore\Ext\Auths\Basics\IForm|\MvcCore\Ext\Forms\IForm
+	 * @return \MvcCore\Ext\Auths\Basics\SignInForm|\MvcCore\Ext\Auths\Basics\IForm|\MvcCore\Ext\IForm
 	 */
 	public function GetSignInForm () {
 		/** @var $this \MvcCore\Ext\Auths\Basic */
@@ -545,7 +545,7 @@ trait PropsGettersSetters
 	 * Return completed sign out form instance.
 	 * Form instance completion is processed only once,
 	 * created form instance is stored in `$auth->form` property.
-	 * @return \MvcCore\Ext\Auths\Basics\SignOutForm|\MvcCore\Ext\Auths\Basics\IForm|\MvcCore\Ext\Forms\IForm
+	 * @return \MvcCore\Ext\Auths\Basics\SignOutForm|\MvcCore\Ext\Auths\Basics\IForm|\MvcCore\Ext\IForm
 	 */
 	public function GetSignOutForm () {
 		/** @var $this \MvcCore\Ext\Auths\Basic */

@@ -24,11 +24,12 @@ trait SignIn
 	 * Initialize all form fields, initialize hidden field with
 	 * sourceUrl for cases when in request params is any source URL param.
 	 * To return there after form is submitted.
+	 * @param bool $submit
 	 * @return \MvcCore\Ext\Auths\Basics\SignInForm
 	 */
-	public function Init () {
+	public function Init ($submit = FALSE) {
 		/** @var $this \MvcCore\Ext\Auths\Basics\SignInForm */
-		parent::Init();
+		parent::Init($submit);
 		$this
 			->initAuthFormPropsAndHiddenControls()
 			->AddField(new \MvcCore\Ext\Forms\Fields\Text([

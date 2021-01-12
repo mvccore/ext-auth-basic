@@ -25,11 +25,12 @@ trait SignOut
 	/**
 	 * Initialize sign out button and user into
 	 * template for any custom template rendering.
+	 * @param bool $submit
 	 * @return \MvcCore\Ext\Auths\Basics\SignOutForm
 	 */
-	public function Init () {
+	public function Init ($submit = FALSE) {
 		/** @var $this \MvcCore\Ext\Auths\Basics\SignOutForm */
-		parent::Init();
+		parent::Init($submit);
 
 		$this
 			->initAuthFormPropsAndHiddenControls()
