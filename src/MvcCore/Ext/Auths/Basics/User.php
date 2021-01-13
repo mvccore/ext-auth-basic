@@ -26,18 +26,14 @@ class		User
 extends		\MvcCore\Model
 implements	\MvcCore\Ext\Auths\Basics\IUser {
 
-	use \MvcCore\Ext\Auths\Basics\User\Base;
-	use \MvcCore\Ext\Auths\Basics\UserAndRole\Base;
-	use \MvcCore\Ext\Auths\Basics\UserAndRole\Permissions;
-	use \MvcCore\Ext\Auths\Basics\User\Auth;
-	use \MvcCore\Ext\Auths\Basics\User\Roles;
+	use \MvcCore\Ext\Auths\Basics\User\Features;
 
 	/**
 	 * Get user model instance from database or any other users list
 	 * resource by submitted and cleaned `$userName` field value.
 	 * @param string $userName Submitted and cleaned username. Characters `' " ` < > \ = ^ | & ~` are automatically encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
 	 * @throws \RuntimeException
-	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
+	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public static function GetByUserName ($userName) {
 		$selfClass = get_class();

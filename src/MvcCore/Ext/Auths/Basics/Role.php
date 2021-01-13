@@ -28,15 +28,13 @@ class		Role
 extends		\MvcCore\Model
 implements	\MvcCore\Ext\Auths\Basics\IRole {
 
-	use \MvcCore\Ext\Auths\Basics\UserAndRole\Base;
-	use \MvcCore\Ext\Auths\Basics\UserAndRole\Permissions;
-	use \MvcCore\Ext\Auths\Basics\Role\Base;
+	use \MvcCore\Ext\Auths\Basics\Role\Features;
 
 	/**
 	 * Get role instance from application roles list. It could be database or any other custom resource.
 	 * @param string $name Role unique name.
 	 * @throws \RuntimeException
-	 * @return \MvcCore\Ext\Auths\Basics\Role|\MvcCore\Ext\Auths\Basics\IRole
+	 * @return \MvcCore\Ext\Auths\Basics\Role
 	 */
 	public function GetByName ($roleName) {
 		$selfClass = get_class();
