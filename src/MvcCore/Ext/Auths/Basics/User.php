@@ -13,6 +13,8 @@
 
 namespace MvcCore\Ext\Auths\Basics;
 
+use \MvcCore\Ext\Models\Db\Attrs;
+
 /**
  * Responsibility - base user model class.
  * This class is necessary to extend and implement method

@@ -16,7 +16,7 @@ namespace MvcCore\Ext\Auths\Basics\Users;
 /**
  * Responsibility - simply and only load user instance from configurable database table structure.
  */
-class Database
+class		Database
 extends		\MvcCore\Ext\Auths\Basics\User
 implements	\MvcCore\Ext\Auths\Basics\IDatabaseUser {
 

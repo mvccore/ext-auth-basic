@@ -13,7 +13,7 @@
 
 namespace MvcCore\Ext\Auths\Basics\User;
 
-use \MvcCore\Ext\Database\Attributes as Attrs;
+use \MvcCore\Ext\Models\Db\Attrs;
 
 /**
  * Trait for `\MvcCore\Ext\Auths\Basics\User` class. Trait contains:
