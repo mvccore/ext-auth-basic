@@ -5,8 +5,8 @@ namespace MvcCore\Ext\Auths\Basics;
 /**
  * Responsibility - handle configured sign-in form and sign-out form submit requests.
  */
-interface IController
-{
+interface IController {
+
 	/**
 	 * Authentication form submit action to sign in.
 	 * Routed by configured route by:

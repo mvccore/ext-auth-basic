@@ -7,8 +7,8 @@
  * For the full copyright and license information, please view
  * the LICENSE.md file that are distributed with this source code.
  *
- * @copyright	Copyright (c) 2016 Tom Flídr (https://github.com/mvccore/mvccore)
- * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
+ * @copyright	Copyright (c) 2016 Tom Flidr (https://github.com/mvccore)
+ * @license		https://mvccore.github.io/docs/mvccore/5.0.0/LICENCE.md
  */
 
 namespace MvcCore\Ext\Auths\Basics\User;
@@ -60,7 +60,7 @@ trait Roles {
 	/**
 	 * Set user to Administrator. Administrator has always allowed everything.
 	 * @param bool $admin `TRUE` by default.
-	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
+	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetAdmin ($admin = TRUE) {
 		/** @var $this \MvcCore\Ext\Auths\Basics\User */
@@ -79,8 +79,8 @@ trait Roles {
 
 	/**
 	 * Set new user's roles or roles names.
-	 * @param \string[]|\MvcCore\Ext\Auths\Basics\Role[]|\MvcCore\Ext\Auths\Basics\IRole[] $rolesOrRolesNames
-	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
+	 * @param \string[]|\MvcCore\Ext\Auths\Basics\Role[] $rolesOrRolesNames
+	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetRoles ($rolesOrRolesNames = []) {
 		/** @var $this \MvcCore\Ext\Auths\Basics\User */
@@ -92,9 +92,9 @@ trait Roles {
 
 	/**
 	 * Add user role or role name.
-	 * @param string|\MvcCore\Ext\Auths\Basics\Role|\MvcCore\Ext\Auths\Basics\IRole $roleOrRoleName
+	 * @param string|\MvcCore\Ext\Auths\Basics\Role $roleOrRoleName
 	 * @throws \InvalidArgumentException
-	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
+	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function AddRole ($roleOrRoleName) {
 		/** @var $this \MvcCore\Ext\Auths\Basics\User */
@@ -106,7 +106,7 @@ trait Roles {
 
 	/**
 	 * Get `TRUE` if user has already assigned role or role name.
-	 * @param string|\MvcCore\Ext\Auths\Basics\Role|\MvcCore\Ext\Auths\Basics\IRole $roleOrRoleName
+	 * @param string|\MvcCore\Ext\Auths\Basics\Role $roleOrRoleName
 	 * @throws \InvalidArgumentException
 	 * @return bool
 	 */
@@ -118,9 +118,9 @@ trait Roles {
 
 	/**
 	 * Remove user role or role name from user roles.
-	 * @param string|\MvcCore\Ext\Auths\Basics\Role|\MvcCore\Ext\Auths\Basics\IRole $roleOrRoleName
+	 * @param string|\MvcCore\Ext\Auths\Basics\Role $roleOrRoleName
 	 * @throws \InvalidArgumentException
-	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
+	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function RemoveRole ($roleOrRoleName) {
 		/** @var $this \MvcCore\Ext\Auths\Basics\User */
@@ -132,7 +132,7 @@ trait Roles {
 
 	/**
 	 * Get role name from given role instance or given role name.
-	 * @param string|\MvcCore\Ext\Auths\Basics\Role|\MvcCore\Ext\Auths\Basics\IRole $roleOrRoleName
+	 * @param string|\MvcCore\Ext\Auths\Basics\Role $roleOrRoleName
 	 * @throws \InvalidArgumentException
 	 * @return string
 	 */
@@ -145,7 +145,7 @@ trait Roles {
 		} else {
 			throw new \InvalidArgumentException(
 				'['.get_class()."] Given argument `{$roleOrRoleName}` doesn't "
-				."implement interface `\MvcCore\Ext\Auths\Basics\IRole` "
+				."implement interface `\\MvcCore\\Ext\\Auths\\Basics\\IRole` "
 				."or it's not string with role name."
 			);
 		}

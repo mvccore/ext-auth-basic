@@ -7,8 +7,8 @@
  * For the full copyright and license information, please view
  * the LICENSE.md file that are distributed with this source code.
  *
- * @copyright	Copyright (c) 2016 Tom Flídr (https://github.com/mvccore/mvccore)
- * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
+ * @copyright	Copyright (c) 2016 Tom Flidr (https://github.com/mvccore)
+ * @license		https://mvccore.github.io/docs/mvccore/5.0.0/LICENCE.md
  */
 
 namespace MvcCore\Ext\Auths\Basic;
@@ -22,15 +22,15 @@ namespace MvcCore\Ext\Auths\Basic;
  * - Setters for configurable properties with interface implementation checking for class name properties.
  * - Setters for non-configurable instance properties.
  */
-trait PropsGettersSetters
-{
+trait PropsGettersSetters {
+
 	/***********************************************************************************
 	 *								Static Properties								*
 	 ***********************************************************************************/
 
 	/**
 	 * Singleton instance of authentication extension module.
-	 * @var \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth|NULL
+	 * @var \MvcCore\Ext\Auths\Basic|NULL
 	 */
 	protected static $instance = NULL;
 
@@ -89,7 +89,7 @@ trait PropsGettersSetters
 	 * `\MvcCore\Ext\Auths\Basics\IUser`.
 	 * @var string
 	 */
-	protected $userClass = 'MvcCore\Ext\Auths\Basics\User';
+	protected $userClass = 'MvcCore\\Ext\\Auths\\Basics\\User';
 
 	/**
 	 * Full class name to use for user role class.
@@ -97,7 +97,7 @@ trait PropsGettersSetters
 	 * `\MvcCore\Ext\Auths\Basics\IRole`.
 	 * @var string
 	 */
-	protected $roleClass = 'MvcCore\Ext\Auths\Basics\Role';
+	protected $roleClass = 'MvcCore\\Ext\\Auths\\Basics\\Role';
 
 	/**
 	 * Full class name to use for controller instance
@@ -106,7 +106,7 @@ trait PropsGettersSetters
 	 * - `\MvcCore\IController`
 	 * @var string
 	 */
-	protected $controllerClass = '//MvcCore\Ext\Auths\Basics\Controller';
+	protected $controllerClass = '//MvcCore\\Ext\\Auths\\Basics\\Controller';
 
 	/**
 	 * Full class name to use for sign in form instance.
@@ -114,7 +114,7 @@ trait PropsGettersSetters
 	 * `\MvcCore\Ext\Auths\Basics\IForm`.
 	 * @var string
 	 */
-	protected $signInFormClass = 'MvcCore\Ext\Auths\Basics\SignInForm';
+	protected $signInFormClass = 'MvcCore\\Ext\\Auths\\Basics\\SignInForm';
 
 	/**
 	 * Full class name to use for sign out form instance.
@@ -122,7 +122,7 @@ trait PropsGettersSetters
 	 * `\MvcCore\Ext\Auths\Basics\IForm`.
 	 * @var string
 	 */
-	protected $signOutFormClass = 'MvcCore\Ext\Auths\Basics\SignOutForm';
+	protected $signOutFormClass = 'MvcCore\\Ext\\Auths\\Basics\\SignOutForm';
 
 	/**
 	 * Full URL to redirect user, after sign in
@@ -158,7 +158,7 @@ trait PropsGettersSetters
 	 * or as route configuration array or as route instance.
 	 * Default match/reverse pattern for route sign request is
 	 * `/signin` by POST.
-	 * @var string|array|\MvcCore\Route|\MvcCore\IRoute
+	 * @var string|array|\MvcCore\Route
 	 */
 	protected $signInRoute = [
 		'name'		=> 'auth_signin',
@@ -173,7 +173,7 @@ trait PropsGettersSetters
 	 * or as route configuration array or as route instance.
 	 * Default match/reverse pattern for route sign request is
 	 * `/signout` by POST.
-	 * @var string|array|\MvcCore\Route|\MvcCore\IRoute
+	 * @var string|array|\MvcCore\Route
 	 */
 	protected $signOutRoute = [
 		'name'		=> 'auth_signout',
@@ -222,13 +222,13 @@ trait PropsGettersSetters
 	 * MvcCore application instance reference from
 	 * `\MvcCore\Application::GetInstance()`, because
 	 * it's used many times in authentication class.
-	 * @var \MvcCore\Application|\MvcCore\IApplication
+	 * @var \MvcCore\Application
 	 */
 	protected $application = NULL;
 
 	/**
 	 * User model instance or `NULL` if user has no username record in session namespace.
-	 * @var \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser|NULL
+	 * @var \MvcCore\Ext\Auths\Basics\User|NULL
 	 */
 	protected $user = NULL;
 
@@ -237,7 +237,7 @@ trait PropsGettersSetters
 	 * other authentication form instance in extended classes.
 	 * If user is authenticated by username record in session namespace,
 	 * there is completed sign out form, if not authenticated, sign in form otherwise etc...
-	 * @var \MvcCore\Ext\Auths\Basics\IForm|\MvcCore\Ext\Auths\Basics\SignInForm|\MvcCore\Ext\Auths\Basics\SignOutForm
+	 * @var \MvcCore\Ext\Auths\Basics\SignInForm|\MvcCore\Ext\Auths\Basics\SignOutForm
 	 */
 	protected $form = NULL;
 
@@ -409,7 +409,7 @@ trait PropsGettersSetters
 	/**
 	 * Get route instance to submit sign in form into.
 	 * Default configured route for sign in request is `/signin` by POST.
-	 * @return \MvcCore\Route|\MvcCore\IRoute
+	 * @return \MvcCore\Route
 	 */
 	public function GetSignInRoute () {
 		/** @var $this \MvcCore\Ext\Auths\Basic */
@@ -419,7 +419,7 @@ trait PropsGettersSetters
 	/**
 	 * Get route to submit sign out form into.
 	 * Default configured route for sign in request is `/signout` by POST.
-	 * @return \MvcCore\Route|\MvcCore\IRoute
+	 * @return \MvcCore\Route
 	 */
 	public function GetSignOutRoute () {
 		/** @var $this \MvcCore\Ext\Auths\Basic */
@@ -465,7 +465,7 @@ trait PropsGettersSetters
 	 * If user has not yet been initialized, load the user internally by
 	 * `{$configuredUserClass}::SetUpUserBySession();` to try to load
 	 * user by username record in session namespace.
-	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser|NULL
+	 * @return \MvcCore\Ext\Auths\Basics\User|NULL
 	 */
 	public function GetUser () {
 		/** @var $this \MvcCore\Ext\Auths\Basic */
@@ -501,7 +501,7 @@ trait PropsGettersSetters
 	 * This method is only alias to call two other methods:
 	 * - `\MvcCore\Ext\Auths\Basic::GetInstance()->GetSignInForm();` for not authenticated users.
 	 * - `\MvcCore\Ext\Auths\Basic::GetInstance()->GetSignOutForm();` for authenticated users.
-	 * @var \MvcCore\Ext\Auths\Basics\IForm|\MvcCore\Ext\Auths\Basics\SignInForm|\MvcCore\Ext\Auths\Basics\SignOutForm
+	 * @var \MvcCore\Ext\Auths\Basics\SignInForm|\MvcCore\Ext\Auths\Basics\SignOutForm
 	 */
 	public function GetForm () {
 		/** @var $this \MvcCore\Ext\Auths\Basic */
@@ -517,7 +517,7 @@ trait PropsGettersSetters
 	 * Return completed sign in form instance.
 	 * Form instance completion is processed only once,
 	 * created form instance is stored in `$auth->form` property.
-	 * @return \MvcCore\Ext\Auths\Basics\SignInForm|\MvcCore\Ext\Auths\Basics\IForm|\MvcCore\Ext\IForm
+	 * @return \MvcCore\Ext\Auths\Basics\SignInForm
 	 */
 	public function GetSignInForm () {
 		/** @var $this \MvcCore\Ext\Auths\Basic */
@@ -545,7 +545,7 @@ trait PropsGettersSetters
 	 * Return completed sign out form instance.
 	 * Form instance completion is processed only once,
 	 * created form instance is stored in `$auth->form` property.
-	 * @return \MvcCore\Ext\Auths\Basics\SignOutForm|\MvcCore\Ext\Auths\Basics\IForm|\MvcCore\Ext\IForm
+	 * @return \MvcCore\Ext\Auths\Basics\SignOutForm
 	 */
 	public function GetSignOutForm () {
 		/** @var $this \MvcCore\Ext\Auths\Basic */
@@ -606,7 +606,7 @@ trait PropsGettersSetters
 	 * So better is not to use a zero value.
 	 * Default value is 1 month (30 days, 2592000 seconds).
 	 * @param int $expirationIdentity
-	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
+	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetExpirationIdentity ($identityExpirationSeconds = 2592000) {
 		/** @var $this \MvcCore\Ext\Auths\Basic */
@@ -623,7 +623,7 @@ trait PropsGettersSetters
 	 * exists much longer then browser close moment only.
 	 * So better is not to use a zero value.
 	 * Default value is 10 minutes (600 seconds).
-	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
+	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetExpirationAuthorization ($authorizationExpirationSeconds = 600) {
 		/** @var $this \MvcCore\Ext\Auths\Basic */
@@ -638,12 +638,12 @@ trait PropsGettersSetters
 	 * Default value after authentication module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\User`.
 	 * @param string $userClass User full class name implementing `\MvcCore\Ext\Auths\Basics\IUser`.
-	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
+	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetUserClass ($userClass = '') {
 		/** @var $this \MvcCore\Ext\Auths\Basic */
 		$this->userClass = $this->checkClassImplementation(
-			$userClass, 'MvcCore\Ext\Auths\Basics\IUser', TRUE
+			$userClass, 'MvcCore\\Ext\\Auths\\Basics\\IUser', TRUE
 		);
 		return $this;
 	}
@@ -655,12 +655,12 @@ trait PropsGettersSetters
 	 * Default value after authentication module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\Role`.
 	 * @param string $roleClass Role full class name implementing `\MvcCore\Ext\Auths\Basics\IRole`.
-	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
+	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetRoleClass ($roleClass = '') {
 		/** @var $this \MvcCore\Ext\Auths\Basic */
 		$this->userClass = $this->checkClassImplementation(
-			$roleClass, 'MvcCore\Ext\Auths\Basics\IRole', TRUE
+			$roleClass, 'MvcCore\\Ext\\Auths\\Basics\\IRole', TRUE
 		);
 		return $this;
 	}
@@ -673,7 +673,7 @@ trait PropsGettersSetters
 	 * Default value after authentication module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\Controller`.
 	 * @param string $controllerClass Controller full class name implementing `\MvcCore\Ext\Auths\Basics\IController`.
-	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
+	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetControllerClass ($controllerClass = '') {
 		/** @var $this \MvcCore\Ext\Auths\Basic */
@@ -683,10 +683,10 @@ trait PropsGettersSetters
 			$controllerClassToCheck = $controllerClass;
 		}
 		$controllerClassToCheck = $this->checkClassImplementation(
-			$controllerClassToCheck, 'MvcCore\Ext\Auths\Basics\IController', FALSE
+			$controllerClassToCheck, 'MvcCore\\Ext\\Auths\\Basics\\IController', FALSE
 		);
 		$controllerClassToCheck = $this->checkClassImplementation(
-			$controllerClassToCheck, 'MvcCore\IController', TRUE
+			$controllerClassToCheck, 'MvcCore\\IController', TRUE
 		);
 		if ($controllerClassToCheck)
 			$this->controllerClass = $controllerClass;
@@ -700,12 +700,12 @@ trait PropsGettersSetters
 	 * Default value after authentication module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\SignInForm`.
 	 * @param string $signInFormClass Form full class name implementing `\MvcCore\Ext\Auths\Basics\IForm`.
-	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
+	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetSignInFormClass ($signInFormClass = '') {
 		/** @var $this \MvcCore\Ext\Auths\Basic */
 		$this->signInFormClass = $this->checkClassImplementation(
-			$signInFormClass, 'MvcCore\Ext\Auths\Basics\IForm', FALSE
+			$signInFormClass, 'MvcCore\\Ext\\Auths\\Basics\\IForm', FALSE
 		);
 		return $this;
 	}
@@ -717,12 +717,12 @@ trait PropsGettersSetters
 	 * Default value after authentication module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\SignOutForm`.
 	 * @param string $signInFormClass Form full class name implementing `\MvcCore\Ext\Auths\Basics\IForm`.
-	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
+	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetSignOutFormClass ($signOutFormClass = '') {
 		/** @var $this \MvcCore\Ext\Auths\Basic */
 		$this->signOutFormClass = $this->checkClassImplementation(
-			$signOutFormClass, 'MvcCore\Ext\Auths\Basics\IForm', FALSE
+			$signOutFormClass, 'MvcCore\\Ext\\Auths\\Basics\\IForm', FALSE
 		);
 		return $this;
 	}
@@ -733,7 +733,7 @@ trait PropsGettersSetters
 	 * If `NULL` (by default), user will be redirected
 	 * to the same url, where was sign in form rendered.
 	 * @param string|NULL $signedInUrl
-	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
+	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetSignedInUrl ($signedInUrl = NULL) {
 		/** @var $this \MvcCore\Ext\Auths\Basic */
@@ -747,7 +747,7 @@ trait PropsGettersSetters
 	 * If `NULL` (by default), user will be redirected
 	 * to the same url, where was sign out form rendered.
 	 * @param string|NULL $signedOutUrl
-	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
+	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetSignedOutUrl ($signedOutUrl = NULL) {
 		/** @var $this \MvcCore\Ext\Auths\Basic */
@@ -762,7 +762,7 @@ trait PropsGettersSetters
 	 * If `NULL` (by default), user will be redirected
 	 * to the same url, where was sign in/out form rendered.
 	 * @param string|NULL $signErrorUrl
-	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
+	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetSignErrorUrl ($signErrorUrl = NULL) {
 		/** @var $this \MvcCore\Ext\Auths\Basic */
@@ -773,8 +773,8 @@ trait PropsGettersSetters
 	/**
 	 * Set route instance to submit sign in form into.
 	 * Default configured route for sign in request is `/signin` by POST.
-	 * @param string|array|\MvcCore\Route|\MvcCore\IRoute $signInRoute
-	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
+	 * @param string|array|\MvcCore\Route $signInRoute
+	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetSignInRoute ($signInRoute = NULL) {
 		/** @var $this \MvcCore\Ext\Auths\Basic */
@@ -792,8 +792,8 @@ trait PropsGettersSetters
 	/**
 	 * Set route to submit sign out form into.
 	 * Default configured route for sign in request is `/signout` by POST.
-	 * @param string|array|\MvcCore\Route|\MvcCore\IRoute $signOutRoute
-	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
+	 * @param string|array|\MvcCore\Route $signOutRoute
+	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetSignOutRoute ($signOutRoute = NULL) {
 		/** @var $this \MvcCore\Ext\Auths\Basic */
@@ -813,7 +813,7 @@ trait PropsGettersSetters
 	 * `NULL` by default. This option is the only one option required
 	 * to configure authentication module to use it properly.
 	 * @param string $passwordHashSalt
-	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
+	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetPasswordHashSalt ($passwordHashSalt = '') {
 		/** @var $this \MvcCore\Ext\Auths\Basic */
@@ -826,7 +826,7 @@ trait PropsGettersSetters
 	 * when user submitted invalid username or password.
 	 * Default value is `3` (3 seconds).
 	 * @param int $seconds
-	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
+	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetInvalidCredentialsTimeout ($seconds = 3) {
 		/** @var $this \MvcCore\Ext\Auths\Basic */
@@ -839,7 +839,7 @@ trait PropsGettersSetters
 	 * to translate form labels, placeholders or buttons.
 	 * Default value is `NULL` (forms without translations).
 	 * @param callable $translator
-	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
+	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetTranslator (callable $translator = NULL) {
 		/** @var $this \MvcCore\Ext\Auths\Basic */
@@ -851,8 +851,8 @@ trait PropsGettersSetters
 	 * Set user instance manually. If you use this method
 	 * no authentication by `{$configuredUserClass}::SetUpUserBySession();`
 	 * is used and authentication state is always positive.
-	 * @param \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser|NULL $user
-	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
+	 * @param \MvcCore\Ext\Auths\Basics\User|NULL $user
+	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetUser (\MvcCore\Ext\Auths\Basics\IUser $user = NULL) {
 		/** @var $this \MvcCore\Ext\Auths\Basic */
@@ -865,8 +865,8 @@ trait PropsGettersSetters
 	/**
 	 * Set sign in, sign out or any authentication form instance.
 	 * Use this method only if you need sometimes to complete different form to render.
-	 * @param \MvcCore\Ext\Auths\Basics\SignInForm|\MvcCore\Ext\Auths\Basics\SignOutForm|\MvcCore\Ext\Auths\Basics\IForm $form
-	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
+	 * @param \MvcCore\Ext\Auths\Basics\SignInForm|\MvcCore\Ext\Auths\Basics\SignOutForm $form
+	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetForm (\MvcCore\Ext\Auths\Basics\IForm $form) {
 		/** @var $this \MvcCore\Ext\Auths\Basic */
@@ -881,7 +881,7 @@ trait PropsGettersSetters
 	 * @param array $configuration Keys by protected properties names in camel case.
 	 * @param bool $throwExceptionIfPropertyIsMissing
 	 * @throws \InvalidArgumentException
-	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
+	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetConfiguration ($configuration = [], $throwExceptionIfPropertyIsMissing = TRUE) {
 		/** @var $this \MvcCore\Ext\Auths\Basic */
@@ -904,13 +904,13 @@ trait PropsGettersSetters
 	 * Alias for `\MvcCore\Ext\Auths\Basics\Users\Database::SetUsersTableStructure($tableName, $columnNames);`.
 	 * @param string|NULL	$tableName Database table name.
 	 * @param string[]|NULL	$columnNames Keys are user class protected properties names in camel case, values are database columns names.
-	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
+	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetTableStructureForDbUsers ($tableName = NULL, $columnNames = NULL) {
 		/** @var $this \MvcCore\Ext\Auths\Basic */
 		$userClass = $this->userClass;
 		$toolClass = static::$toolClass;
-		if ($toolClass::CheckClassInterface($userClass, 'MvcCore\Ext\Auths\Basics\IDatabaseUser', TRUE, TRUE)) {
+		if ($toolClass::CheckClassInterface($userClass, 'MvcCore\\Ext\\Auths\\Basics\\IDatabaseUser', TRUE, TRUE)) {
 			$userClass::SetUsersTableStructure($tableName, $columnNames);
 		};
 		return $this;

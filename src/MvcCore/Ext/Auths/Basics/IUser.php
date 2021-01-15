@@ -7,8 +7,8 @@
  * For the full copyright and license information, please view
  * the LICENSE.md file that are distributed with this source code.
  *
- * @copyright	Copyright (c) 2016 Tom Flídr (https://github.com/mvccore/mvccore)
- * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
+ * @copyright	Copyright (c) 2016 Tom Flidr (https://github.com/mvccore)
+ * @license		https://mvccore.github.io/docs/mvccore/5.0.0/LICENCE.md
  */
 
 namespace MvcCore\Ext\Auths\Basics;
@@ -16,8 +16,8 @@ namespace MvcCore\Ext\Auths\Basics;
 /**
  * Responsibility - base user model class.
  */
-interface IUser
-{
+interface IUser {
+
 	/**
 	 * User session namespace key to get username string.
 	 */
@@ -44,7 +44,7 @@ interface IUser
 	 * or sequence number in system config.
 	 * Example: `0 | 1 | 2...`
 	 * @param int|NULL $id
-	 * @return \MvcCore\Ext\Auths\Basics\IUser
+	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetId ($id);
 
@@ -63,7 +63,7 @@ interface IUser
 
 	/**
 	 * Set user active state boolean. `TRUE` for active, `FALSE` otherwise.
-	 * @return \MvcCore\Ext\Auths\Basics\IUser
+	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetActive ($active);
 
@@ -83,7 +83,7 @@ interface IUser
 	 * unique user name or anything uniquelse.
 	 * Example: `"admin" | "john" | "tomflidr@gmail.com"`
 	 * @param string $userName
-	 * @return \MvcCore\Ext\Auths\Basics\IUser
+	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetUserName ($userName);
 
@@ -100,7 +100,7 @@ interface IUser
 	 * for authenticated user at sign out button.
 	 * Example: `"Administrator" | "John" | "Tom"`
 	 * @param string $fullName
-	 * @return \MvcCore\Ext\Auths\Basics\IUser
+	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetFullName ($fullName);
 
@@ -119,7 +119,7 @@ interface IUser
 	 * moment, when is compared hashed sent password and stored password hash.
 	 * After password hashes comparison, password hash is un-setted.
 	 * @param string|NULL $passwordHash
-	 * @return \MvcCore\Ext\Auths\Basics\IUser
+	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetPasswordHash ($passwordHash);
 
@@ -131,7 +131,7 @@ interface IUser
 	 * (it could be database table or system config) by user session namespace
 	 * `userName` record if `authenticated` boolean in user session namespace is `TRUE`.
 	 * Or return `NULL` for no user by user session namespace records.
-	 * @return \MvcCore\Ext\Auths\Basics\IUser|NULL
+	 * @return \MvcCore\Ext\Auths\Basics\User|NULL
 	 */
 	public static function SetUpUserBySession ();
 
@@ -144,7 +144,7 @@ interface IUser
 	 * into user session namespace. Then user is logged in.
 	 * @param string $userName Submitted and cleaned username. Characters `' " ` < > \ = ^ | & ~` are automatically encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
 	 * @param string $password Submitted and cleaned password. Characters `' " ` < > \ = ^ | & ~` are automatically encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
-	 * @return \MvcCore\Ext\Auths\Basics\IUser|NULL
+	 * @return \MvcCore\Ext\Auths\Basics\User|NULL
 	 */
 	public static function LogIn ($userName = '', $password = '');
 
@@ -175,14 +175,14 @@ interface IUser
 	 * to load user for authentication.
 	 * Session is automatically started if necessary
 	 * by `\MvcCore\Session::GetNamespace();`.
-	 * @return \MvcCore\ISession
+	 * @return \MvcCore\Session
 	 */
 	public static function GetSessionIdentity ();
 
 	/**
 	 * Set identity session namespace.
-	 * @param \MvcCore\ISession $sessionIdentity
-	 * @return \MvcCore\ISession
+	 * @param \MvcCore\Session $sessionIdentity
+	 * @return \MvcCore\Session
 	 */
 	public static function SetSessionIdentity (\MvcCore\ISession $sessionIdentity);
 
@@ -192,14 +192,14 @@ interface IUser
 	 * to load user for authentication.
 	 * Session is automatically started if necessary
 	 * by `\MvcCore\Session::GetNamespace();`.
-	 * @return \MvcCore\Session|\MvcCore\ISession
+	 * @return \MvcCore\Session
 	 */
 	public static function GetSessionAuthorization ();
 
 	/**
 	 * Set authorization session namespace.
-	 * @param \MvcCore\Session|\MvcCore\ISession $sessionAuthorization
-	 * @return \MvcCore\Session|\MvcCore\ISession
+	 * @param \MvcCore\Session $sessionAuthorization
+	 * @return \MvcCore\Session
 	 */
 	public static function SetSessionAuthorization (\MvcCore\ISession $sessionAuthorization);
 
@@ -221,7 +221,7 @@ interface IUser
 	/**
 	 * Set user to Administrator. Administrator has always allowed everything.
 	 * @param bool $admin `TRUE` by default.
-	 * @return \MvcCore\Ext\Auths\Basics\IUser
+	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetAdmin ($admin = TRUE);
 
@@ -233,22 +233,22 @@ interface IUser
 
 	/**
 	 * Set new user's roles or roles names.
-	 * @param \string[]|\MvcCore\Ext\Auths\Basics\IRole[] $rolesOrRolesNames
-	 * @return \MvcCore\Ext\Auths\Basics\IUser
+	 * @param \string[]|\MvcCore\Ext\Auths\Basics\Role[] $rolesOrRolesNames
+	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetRoles ($rolesOrRolesNames = []);
 
 	/**
 	 * Add user role or role name.
-	 * @param string|\MvcCore\Ext\Auths\Basics\IRole $roleOrRoleName
+	 * @param string|\MvcCore\Ext\Auths\Basics\Role $roleOrRoleName
 	 * @throws \InvalidArgumentException
-	 * @return \MvcCore\Ext\Auths\Basics\IUser
+	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function AddRole ($roleOrRoleName);
 
 	/**
 	 * Get `TRUE` if user has already assigned role or role name.
-	 * @param string|\MvcCore\Ext\Auths\Basics\IRole $roleOrRoleName
+	 * @param string|\MvcCore\Ext\Auths\Basics\Role $roleOrRoleName
 	 * @throws \InvalidArgumentException
 	 * @return bool
 	 */
@@ -256,9 +256,9 @@ interface IUser
 
 	/**
 	 * Remove user role or role name from user roles.
-	 * @param string|\MvcCore\Ext\Auths\Basics\IRole $roleOrRoleName
+	 * @param string|\MvcCore\Ext\Auths\Basics\Role $roleOrRoleName
 	 * @throws \InvalidArgumentException
-	 * @return \MvcCore\Ext\Auths\Basics\IUser
+	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function RemoveRole ($roleOrRoleName);
 
@@ -286,7 +286,7 @@ interface IUser
 	 * or to disallow permission (with `$allow = FALSE`) for user or role.
 	 * @param string $permissionName Strings describing what is allowed/disallowed to do for user or role.
 	 * @param bool $allow `TRUE` by default.
-	 * @return \MvcCore\Ext\Auths\Basics\IUser
+	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetPermission ($permissionName, $allow = TRUE);
 
@@ -299,7 +299,7 @@ interface IUser
 	/**
 	 * Set array of strings describing what is allowed to do for user or role.
 	 * @param string|\string[] $permissions The permissions string, separated by comma character or array of strings.
-	 * @return \MvcCore\Ext\Auths\Basics\IUser
+	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetPermissions ($permissions);
 
@@ -310,7 +310,7 @@ interface IUser
 	 * Get user model instance from database or any other users list
 	 * resource by submitted and cleaned `$userName` field value.
 	 * @param string $userName Submitted and cleaned username. Characters `' " ` < > \ = ^ | & ~` are automatically encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
-	 * @return \MvcCore\Ext\Auths\Basics\IUser
+	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public static function GetByUserName ($userName);
 }

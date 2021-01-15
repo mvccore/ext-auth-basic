@@ -7,8 +7,8 @@
  * For the full copyright and license information, please view
  * the LICENSE.md file that are distributed with this source code.
  *
- * @copyright	Copyright (c) 2016 Tom Flídr (https://github.com/mvccore/mvccore)
- * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
+ * @copyright	Copyright (c) 2016 Tom Flidr (https://github.com/mvccore)
+ * @license		https://mvccore.github.io/docs/mvccore/5.0.0/LICENCE.md
  */
 
 namespace MvcCore\Ext\Auths\Basics\Form;
@@ -18,8 +18,8 @@ namespace MvcCore\Ext\Auths\Basics\Form;
  * - `Init()` method to initialize all necessary sign in form fields.
  * - `Submit()` method to handle sign-in form submit request (`POST` by default).
  */
-trait SignIn
-{
+trait SignIn {
+
 	/**
 	 * Initialize all form fields, initialize hidden field with
 	 * sourceUrl for cases when in request params is any source URL param.

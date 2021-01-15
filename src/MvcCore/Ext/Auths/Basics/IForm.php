@@ -7,8 +7,8 @@
  * For the full copyright and license information, please view
  * the LICENSE.md file that are distributed with this source code.
  *
- * @copyright	Copyright (c) 2016 Tom Flídr (https://github.com/mvccore/mvccore)
- * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
+ * @copyright	Copyright (c) 2016 Tom Flidr (https://github.com/mvccore)
+ * @license		https://mvccore.github.io/docs/mvccore/5.0.0/LICENCE.md
  */
 
 namespace MvcCore\Ext\Auths\Basics;
@@ -16,8 +16,8 @@ namespace MvcCore\Ext\Auths\Basics;
 /**
  * Responsibility - base authentication sign-in/sign-out form class specification.
  */
-interface IForm
-{
+interface IForm {
+
 	/**
 	 * Default html `<form>` element id for authentication sign in form.
 	 */
@@ -34,7 +34,7 @@ interface IForm
 	 * CSRF tokens, html form attribute id value and much more.
 	 * @requires
 	 * @param string $id
-	 * @return \MvcCore\Ext\IForm
+	 * @return \MvcCore\Ext\Form
 	 */
 	public function SetId ($id);
 
@@ -43,7 +43,7 @@ interface IForm
 	 * It could be relative or absolute, anything
 	 * to complete classic html form attribute `action`.
 	 * @param string|NULL $url
-	 * @return \MvcCore\Ext\IForm
+	 * @return \MvcCore\Ext\Form
 	 */
 	public function SetAction ($url = NULL);
 
@@ -55,7 +55,7 @@ interface IForm
 	 * - `\MvcCore\Ext\IForm::METHOD_POST`
 	 * - `\MvcCore\Ext\IForm::METHOD_GET`
 	 * @param string $method
-	 * @return \MvcCore\Ext\IForm
+	 * @return \MvcCore\Ext\Form
 	 */
 	public function SetMethod ($method = \MvcCore\Ext\IForm::METHOD_POST);
 
@@ -66,7 +66,7 @@ interface IForm
 	 * You can define css classes as single string, more classes separated 
 	 * by space or you can define css classes as array with strings.
 	 * @param string|\string[] $cssClasses
-	 * @return \MvcCore\Ext\IForm
+	 * @return \MvcCore\Ext\Form
 	 */
 	public function SetCssClasses ($cssClasses);
 
@@ -77,7 +77,7 @@ interface IForm
 	 * `$form->SubmittedRedirect();`, at the end of custom `Submit()` method implementation,
 	 * you need to specify at least success and error URL strings.
 	 * @param string|NULL $url
-	 * @return \MvcCore\Ext\IForm
+	 * @return \MvcCore\Ext\Form
 	 */
 	public function SetSuccessUrl ($url = NULL);
 
@@ -88,7 +88,7 @@ interface IForm
 	 * `$form->SubmittedRedirect();` at the end of custom `Submit()` method implementation,
 	 * you need to specify at least success and error URL strings.
 	 * @param string|NULL $url
-	 * @return \MvcCore\Ext\IForm
+	 * @return \MvcCore\Ext\Form
 	 */
 	public function SetErrorUrl ($url = NULL);
 
@@ -100,7 +100,7 @@ interface IForm
 	 * has to be language string (`en`, `de` ...) to translate the key into.
 	 * Result of `callable` object has to be a string - translated key for called language.
 	 * @param callable|NULL $handler
-	 * @return \MvcCore\Ext\IForm
+	 * @return \MvcCore\Ext\Form
 	 */
 	public function SetTranslator (callable $translator = NULL);
 
@@ -122,15 +122,15 @@ interface IForm
 	/**
 	 * Add multiple fully configured form field instances,
 	 * function have infinite params with new field instances.
-	 * @param \MvcCore\Ext\Forms\IField[] $fields,... Any `\MvcCore\Ext\Forms\IField` fully configured instance to add into form.
-	 * @return \MvcCore\Ext\IForm
+	 * @param \MvcCore\Ext\Forms\Field[] $fields,... Any `\MvcCore\Ext\Forms\IField` fully configured instance to add into form.
+	 * @return \MvcCore\Ext\Form
 	 */
 	public function AddFields ($fields);
 
 	/**
 	 * Add fully configured form field instance.
-	 * @param \MvcCore\Ext\Forms\IField $field
-	 * @return \MvcCore\Ext\IForm
+	 * @param \MvcCore\Ext\Forms\Field $field
+	 * @return \MvcCore\Ext\Form
 	 */
 	public function AddField (\MvcCore\Ext\Forms\IField $field);
 
@@ -153,7 +153,7 @@ interface IForm
 	 * Clear form values to empty array and clear form values in form session namespace,
 	 * clear form errors to empty array and clear form errors in form session namespace and
 	 * clear form CSRF tokens clear CRSF tokens in form session namespace.
-	 * @return \MvcCore\Ext\IForm
+	 * @return \MvcCore\Ext\Form
 	 */
 	public function ClearSession ();
 

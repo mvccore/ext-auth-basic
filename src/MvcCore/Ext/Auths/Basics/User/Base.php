@@ -7,8 +7,8 @@
  * For the full copyright and license information, please view
  * the LICENSE.md file that are distributed with this source code.
  *
- * @copyright	Copyright (c) 2016 Tom Flídr (https://github.com/mvccore/mvccore)
- * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
+ * @copyright	Copyright (c) 2016 Tom Flidr (https://github.com/mvccore)
+ * @license		https://mvccore.github.io/docs/mvccore/5.0.0/LICENCE.md
  */
 
 namespace MvcCore\Ext\Auths\Basics\User;
@@ -69,7 +69,7 @@ trait Base {
 	 * unique user name or anything uniquelse.
 	 * Example: `"admin" | "john" | "tom@gmail.com"`
 	 * @param string $userName
-	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
+	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetUserName ($userName) {
 		/** @var $this \MvcCore\Ext\Auths\Basics\User */
@@ -93,7 +93,7 @@ trait Base {
 	 * for authenticated user at sign out button.
 	 * Example: `"Administrator" | "John" | "Tom"`
 	 * @param string $fullName
-	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
+	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetFullName ($fullName) {
 		/** @var $this \MvcCore\Ext\Auths\Basics\User */
@@ -119,7 +119,7 @@ trait Base {
 	 * moment, when is compared hashed sent password and stored password hash.
 	 * After password hashes comparison, password hash is un-setted.
 	 * @param string|NULL $passwordHash
-	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\IUser
+	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetPasswordHash ($passwordHash) {
 		/** @var $this \MvcCore\Ext\Auths\Basics\User */

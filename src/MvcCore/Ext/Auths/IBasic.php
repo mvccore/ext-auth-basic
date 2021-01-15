@@ -1,9 +1,9 @@
 <?php
 
-namespace MvcCore\Ext\Auths\Basics;
+namespace MvcCore\Ext\Auths;
 
-interface IAuth
-{
+interface IBasic {
+
 	/**
 	 * Return singleton instance. If instance exists, return existing instance,
 	 * if not, create new basic authentication module instance, store it and return it.
@@ -187,7 +187,7 @@ interface IAuth
 	 * This method is only alias to call two other methods:
 	 * - `\MvcCore\Ext\Auths\Basic::GetInstance()->GetSignInForm();` for not authenticated users.
 	 * - `\MvcCore\Ext\Auths\Basic::GetInstance()->GetSignOutForm();` for authenticated users.
-	 * @var \MvcCore\Ext\Auths\Basics\IForm
+	 * @var \MvcCore\Ext\Auths\Basics\Form\SignIn|\MvcCore\Ext\Auths\Basics\Form\SignOut
 	 */
 	public function GetForm ();
 
@@ -195,7 +195,7 @@ interface IAuth
 	 * Return completed sign in form instance.
 	 * Form instance completion is processed only once,
 	 * created form instance is stored in `$auth->form` property.
-	 * @return \MvcCore\Ext\Auths\Basics\IForm
+	 * @return \MvcCore\Ext\Auths\Basics\Form\SignIn
 	 */
 	public function GetSignInForm ();
 
@@ -203,7 +203,7 @@ interface IAuth
 	 * Return completed sign out form instance.
 	 * Form instance completion is processed only once,
 	 * created form instance is stored in `$auth->form` property.
-	 * @return \MvcCore\Ext\Auths\Basics\IForm
+	 * @return \MvcCore\Ext\Auths\Basics\Form\SignOut
 	 */
 	public function GetSignOutForm ();
 

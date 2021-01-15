@@ -7,8 +7,8 @@
  * For the full copyright and license information, please view
  * the LICENSE.md file that are distributed with this source code.
  *
- * @copyright	Copyright (c) 2016 Tom Flídr (https://github.com/mvccore/mvccore)
- * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
+ * @copyright	Copyright (c) 2016 Tom Flidr (https://github.com/mvccore)
+ * @license		https://mvccore.github.io/docs/mvccore/5.0.0/LICENCE.md
  */
 
 namespace MvcCore\Ext\Auths\Basics\Form;
@@ -18,10 +18,10 @@ namespace MvcCore\Ext\Auths\Basics\Form;
  * - Protected property `$auth` to use authentication module more flexible for fields init.
  * - method `initAuthFormPropsAndHiddenControls()` always called from `Init()` method to init hidden fields for success URL and error url.
  */
-trait Base
-{
+trait Base {
+
 	/**
-	 * @var \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
+	 * @var \MvcCore\Ext\Auths\Basic
 	 */
 	protected $auth = NULL;
 

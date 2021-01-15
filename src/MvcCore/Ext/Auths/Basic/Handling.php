@@ -7,8 +7,8 @@
  * For the full copyright and license information, please view
  * the LICENSE.md file that are distributed with this source code.
  *
- * @copyright	Copyright (c) 2016 Tom Flídr (https://github.com/mvccore/mvccore)
- * @license		https://mvccore.github.io/docs/mvccore/4.0.0/LICENCE.md
+ * @copyright	Copyright (c) 2016 Tom Flidr (https://github.com/mvccore)
+ * @license		https://mvccore.github.io/docs/mvccore/5.0.0/LICENCE.md
  */
 
 namespace MvcCore\Ext\Auths\Basic;
@@ -21,17 +21,17 @@ namespace MvcCore\Ext\Auths\Basic;
  *   - Pre-route handler - to init sign-in/sign-out form URL addresses and routes if necessary.
  *   - Pre-dispatch handler - to assign user instance to prepared controller to dispatch if possible.
  */
-trait Handling
-{
+trait Handling {
+
 	/**
 	 * Return singleton instance. If instance exists, return existing instance,
 	 * if not, create new basic authentication module instance, store it and return it.
 	 * @param array $configuration Optional configuration passed into method
 	 *							 `\MvcCore\Ext\Auths\Basic::__construct($configuration)`.
-	 * @return \MvcCore\Ext\Auths\Basic|\MvcCore\Ext\Auths\Basics\IAuth
+	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public static function GetInstance ($configuration = []) {
-		/** @var $result \MvcCore\Ext\Auths\Basics\IAuth */
+		/** @var $result \MvcCore\Ext\Auths\Basics\Auth */
 		if (self::$instance === NULL) {
 			$result = new static($configuration);
 			self::$instance = $result;
@@ -145,7 +145,7 @@ trait Handling
 	 * Prepare configured route record into route instance if record is string or array.
 	 * @param string $routeName
 	 * @param string $actionName
-	 * @return \MvcCore\Route|\MvcCore\IRoute
+	 * @return \MvcCore\Route
 	 */
 	protected function getInitializedRoute ($actionName) {
 		$routeName = lcfirst($actionName) . 'Route';
