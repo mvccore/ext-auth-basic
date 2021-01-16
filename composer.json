@@ -3,25 +3,25 @@
 	"type": "library",
 	"description": "MvcCore - Extension - Auth - Basic - simple authentication extension, only to signin/signout user. Extension can use credentials defined in system `config.ini` or in database. Possibility to extend user, signin/signout forms, submit controller and extension class itself.",
 	"keywords": [
-		"mvc", 
-		"mvccore", 
-		"framework", 
-		"extension", 
-		"plugin", 
-		"plug-in", 
-		"ext", 
-		"auth", 
-		"authentication", 
-		"authorization", 
-		"authenticate", 
-		"user", 
-		"signin", 
-		"signout", 
-		"login", 
-		"logout", 
-		"sign in", 
-		"sign out", 
-		"log in", 
+		"mvc",
+		"mvccore",
+		"framework",
+		"extension",
+		"plugin",
+		"plug-in",
+		"ext",
+		"auth",
+		"authentication",
+		"authorization",
+		"authenticate",
+		"user",
+		"signin",
+		"signout",
+		"login",
+		"logout",
+		"sign in",
+		"sign out",
+		"log in",
 		"log out"
 	],
 	"license": ["BSD-3-Clause"],
@@ -31,13 +31,15 @@
 	}],
 	"require": {
 		"php": ">=5.4.0",
-		"mvccore/mvccore": "dev-master",
-		"mvccore/ext-form": "dev-master",
-		"mvccore/ext-form-field-text": "dev-master",
-		"mvccore/ext-form-field-button": "dev-master"
+		"mvccore/mvccore": "^5.0",
+		"mvccore/ext-form": "^5.0",
+		"mvccore/ext-form-field-text": "^5.0",
+		"mvccore/ext-form-field-button": "^5.0"
 	},
 	"autoload": {
-		"classmap": ["src/"]
+		"classmap": [
+			"src/"
+		]
 	},
 	"minimum-stability": "dev"
 }
