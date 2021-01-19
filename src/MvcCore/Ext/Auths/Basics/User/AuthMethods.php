@@ -119,7 +119,7 @@ trait AuthMethods {
 			} else {
 				throw new \InvalidArgumentException(
 					'['.get_class().'] No option `salt` given by second argument `$options`'
-					." or no salt configured by `\MvcCore\Ext\Auth::GetInstance()->SetPasswordHashSalt('...')`."
+					." or no salt configured by `\\MvcCore\\Ext\\Auth::GetInstance()->SetPasswordHashSalt('...')`."
 				);
 			}
 		}
@@ -157,7 +157,9 @@ trait AuthMethods {
 			$sessionClass = self::$_sessionClass ?: (
 				self::$_sessionClass = \MvcCore\Application::GetInstance()->GetSessionClass()
 			);
-			static::$sessionIdentity = $sessionClass::GetNamespace('MvcCore\Ext\Auths\Identity');
+			static::$sessionIdentity = $sessionClass::GetNamespace(
+				'MvcCore\\Ext\\Auths\\Identity'
+			);
 			static::$sessionIdentity->SetExpirationSeconds(
 				\MvcCore\Ext\Auths\Basic::GetInstance()->GetExpirationIdentity()
 			);
@@ -187,7 +189,9 @@ trait AuthMethods {
 			$sessionClass = self::$_sessionClass ?: (
 				self::$_sessionClass = \MvcCore\Application::GetInstance()->GetSessionClass()
 			);
-			static::$sessionAuthorization = $sessionClass::GetNamespace('MvcCore\Ext\Auths\Authorization');
+			static::$sessionAuthorization = $sessionClass::GetNamespace(
+				'MvcCore\\Ext\\Auths\\Authorization'
+			);
 			static::$sessionAuthorization->SetExpirationSeconds(
 				\MvcCore\Ext\Auths\Basic::GetInstance()->GetExpirationAuthorization()
 			);
