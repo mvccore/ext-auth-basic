@@ -15,34 +15,10 @@ namespace MvcCore\Ext\Auths\Basics\User;
 
 /**
  * Trait for `\MvcCore\Ext\Auths\Basics\User` class. Trait contains:
- * - Static property `$sessionIdentity` with their public setter and getter with expiration settings.
- * - Static property `$sessionAuthorization` with their public setter and getter with expiration settings.
  * - Static methods `LogIn()` and `LogOut()` to authenticate or remove user from session namespace.
  * - Static method `EncodePasswordToHash()` to hash password with custom or configured salt and other options.
  */
-trait Auth {
-
-	/**
-	 * MvcCore session namespace instance
-	 * to get/clear username record from session
-	 * to load user for authentication.
-	 * @var \MvcCore\Session
-	 */
-	protected static $sessionIdentity = NULL;
-
-	/**
-	 * MvcCore session namespace instance
-	 * to get/set authentication boolean record
-	 * about authenticated/not authenticated user.
-	 * @var \MvcCore\Session
-	 */
-	protected static $sessionAuthorization = NULL;
-
-	/**
-	 * MvcCore cached session class string.
-	 * @var string
-	 */
-	private static $_sessionClass = NULL;
+trait AuthMethods {
 
 	/**
 	 * Try to get user model instance from application users list

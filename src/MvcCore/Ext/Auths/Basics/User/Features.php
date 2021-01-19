@@ -31,5 +31,6 @@ trait Features {
 	use \MvcCore\Ext\Auths\Basics\User\RolesProps;
 	use \MvcCore\Ext\Auths\Basics\User\RolesMethods;
 
-	use \MvcCore\Ext\Auths\Basics\User\Auth;
+	use \MvcCore\Ext\Auths\Basics\User\AuthProps;
+	use \MvcCore\Ext\Auths\Basics\User\AuthMethods;
 }
