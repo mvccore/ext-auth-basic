@@ -17,28 +17,9 @@ use \MvcCore\Ext\Models\Db\Attrs;
 
 /**
  * Trait for `\MvcCore\Ext\Auths\Basics\User` and `\MvcCore\Ext\Auths\Basics\Role` class. Trait contains:
- * - Instance properties `$id` and `$active` with their public getters and setters.
+ * - Public getters and setters for instance properties `$id` and `$active`.
  */
-trait Base {
-
-	/**
-	 * User or role unique id, representing primary key in database
-	 * or sequence number in system config.
-	 * Example: `0 | 1 | 2...`
-	 * @column id
-	 * @keyPrimary
-	 * @var int|NULL
-	 */
-	#[Attrs\Column('id'), Attrs\KeyPrimary]
-	protected $id = NULL;
-
-	/**
-	 * User or role active state boolean.
-	 * @column active
-	 * @var bool
-	 */
-	#[Attrs\Column('active')]
-	protected $active = TRUE;
+trait GettersSetters {
 
 	/**
 	 * User unique id, representing primary key in database

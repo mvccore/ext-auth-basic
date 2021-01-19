@@ -17,27 +17,10 @@ use \MvcCore\Ext\Models\Db\Attrs;
 
 /**
  * Trait for `\MvcCore\Ext\Auths\Basics\User` class. Trait contains:
- * - Instance property `$admin` and `$roles` with their public getters and setters to manipulate with user roles.
- * - Method `IsAllowed()` to get allowed permissions from user instance or from user roles.
+ * - Public getters and setters for instance properties `$admin` and `$roles`.
+ * - Methods to determinate and manipulate with user permissions from user instance or from user roles.
  */
-trait Roles {
-
-	/**
-	 * `TRUE` if user is administrator. Administrator has always allowed everything.
-	 * Default value is `FALSE`.
-	 * @column admin
-	 * @var bool
-	 */
-	#[Attrs\Column('admin')]
-	protected $admin = FALSE;
-
-	/**
-	 * Array of roles names assigned for current user instance.
-	 * @column roles
-	 * @var \string[]
-	 */
-	#[Attrs\Column('roles')]
-	protected $roles = [];
+trait RolesMethods {
 
 	/**
 	 * Get if user is Administrator. Administrator has always allowed everything.

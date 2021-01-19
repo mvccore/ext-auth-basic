@@ -17,20 +17,9 @@ use \MvcCore\Ext\Database\Attributes as Attrs;
 
 /**
  * Trait for `\MvcCore\Ext\Auths\Basics\Role` class. Trait contains:
- * - `$name` property, it's public getter and setter.
- * - public `IsAllowed()` method.
+ * - public getter and setter for `$name` instance property.
  */
-trait Base {
-
-	/**
-	 * Unique role name.
-	 * Example: `"management" | "editor" | "quest"`
-	 * @column name
-	 * @keyUnique
-	 * @var string
-	 */
-	#[Attrs\Column('name'), Attrs\KeyUnique]
-	protected $name = NULL;
+trait GettersSetters {
 
 	/**
 	 * Get unique role name.

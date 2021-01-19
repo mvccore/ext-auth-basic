@@ -19,9 +19,17 @@ namespace MvcCore\Ext\Auths\Basics\User;
  */
 trait Features {
 	
-	use \MvcCore\Ext\Auths\Basics\User\Base;
-	use \MvcCore\Ext\Auths\Basics\UserAndRole\Base;
-	use \MvcCore\Ext\Auths\Basics\UserAndRole\Permissions;
+	use \MvcCore\Ext\Auths\Basics\User\Props;
+	use \MvcCore\Ext\Auths\Basics\User\GettersSetters;
+
+	use \MvcCore\Ext\Auths\Basics\UserAndRole\Props;
+	use \MvcCore\Ext\Auths\Basics\UserAndRole\GettersSetters;
+
+	use \MvcCore\Ext\Auths\Basics\UserAndRole\PermissionsProps;
+	use \MvcCore\Ext\Auths\Basics\UserAndRole\PermissionsMethods;
+	
+	use \MvcCore\Ext\Auths\Basics\User\RolesProps;
+	use \MvcCore\Ext\Auths\Basics\User\RolesMethods;
+
 	use \MvcCore\Ext\Auths\Basics\User\Auth;
-	use \MvcCore\Ext\Auths\Basics\User\Roles;
 }

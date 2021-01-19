@@ -22,7 +22,12 @@ namespace MvcCore\Ext\Auths\Basics\Role;
  */
 trait Features {
 	
-	use \MvcCore\Ext\Auths\Basics\UserAndRole\Base;
-	use \MvcCore\Ext\Auths\Basics\UserAndRole\Permissions;
-	use \MvcCore\Ext\Auths\Basics\Role\Base;
+	use \MvcCore\Ext\Auths\Basics\UserAndRole\Props;
+	use \MvcCore\Ext\Auths\Basics\UserAndRole\GettersSetters;
+	
+	use \MvcCore\Ext\Auths\Basics\UserAndRole\PermissionsProps;
+	use \MvcCore\Ext\Auths\Basics\UserAndRole\PermissionsMethods;
+
+	use \MvcCore\Ext\Auths\Basics\Role\Props;
+	use \MvcCore\Ext\Auths\Basics\Role\GettersSetters;
 }

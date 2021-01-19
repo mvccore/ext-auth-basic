@@ -17,18 +17,10 @@ use \MvcCore\Ext\Models\Db\Attrs;
 
 /**
  * Trait for `\MvcCore\Ext\Auths\Basics\User` and `\MvcCore\Ext\Auths\Basics\Role` class. Trait contains:
- * - Instance property `$permissions` with their public getters and setters to manipulate with permissions.
+ * - Public getters and setters to manipulate with instance property `$permissions`.
  */
-trait Permissions {
+trait PermissionsMethods {
 
-	/**
-	 * Array of strings describing what is allowed to do for user or role.
-	 * @column permissions
-	 * @var \string[]
-	 */
-	#[Attrs\Column('permissions')]
-	protected $permissions = [];
-	
 	/**
 	 * Get `TRUE` if given permission string(s) is/are (all or some) allowed for user or user role. 
 	 * `FALSE` otherwise. Permission name could contain asterisk char `*` in any place.
