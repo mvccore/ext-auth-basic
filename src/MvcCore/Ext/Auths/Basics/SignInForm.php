@@ -16,7 +16,7 @@ namespace MvcCore\Ext\Auths\Basics;
 /**
  * Responsibility - initialize necessary sign in form fields and handle sign in form submit.
  */
-class SignInForm
+class		SignInForm
 extends		\MvcCore\Ext\Form
 implements	\MvcCore\Ext\Auths\Basics\IForm {
 
