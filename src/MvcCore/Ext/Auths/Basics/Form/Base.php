@@ -16,7 +16,7 @@ namespace MvcCore\Ext\Auths\Basics\Form;
 /**
  * Trait for class `\MvcCore\Ext\Auths\Basics\SignInForm` and `\MvcCore\Ext\Auths\Basics\SignOutForm`. Trait contains:
  * - Protected property `$auth` to use authentication module more flexible for fields init.
- * - method `initAuthFormPropsAndHiddenControls()` always called from `Init()` method to init hidden fields for success URL and error url.
+ * - method `initAuthHiddenFields()` always called from `Init()` method to init hidden fields for success URL and error url.
  */
 trait Base {
 
@@ -49,24 +49,29 @@ trait Base {
 	 * after form is submitted.
 	 * @return \MvcCore\Ext\Form
 	 */
-	protected function initAuthFormPropsAndHiddenControls () {
-		/** @var $this \MvcCore\Ext\Forms\Form */
-		$this->auth = \MvcCore\Ext\Auths\Basic::GetInstance();
+	protected function initAuthHiddenFields () {
+		/** @var $this \MvcCore\Ext\Form */
+		$urlValidator = (new \MvcCore\Ext\Forms\Validators\Url)
+			->SetAllowedHostnames($this->GetRequest()->GetHostName());
 		$this->successUrlField = new \MvcCore\Ext\Forms\Fields\Hidden([
 			'name'			=> 'successUrl',
 			'value'			=> $this->auth->GetSignedInUrl(),
-			'validators'	=> ['Url'],
+			'validators'	=> [$urlValidator],
 		]);
 		$this->errorUrlField = new \MvcCore\Ext\Forms\Fields\Hidden([
 			'name'			=> 'errorUrl',
 			'value'			=> $this->auth->GetSignErrorUrl(),
-			'validators'	=> ['Url'],
+			'validators'	=> [$urlValidator],
 		]);
 		$this->sourceUrlField = new \MvcCore\Ext\Forms\Fields\Hidden([
 			'name'			=> 'sourceUrl',
-			'validators'	=> ['Url'],
+			'validators'	=> [$urlValidator],
 		]);
-		$this->AddFields($this->successUrlField, $this->errorUrlField, $this->sourceUrlField);
+		$this->AddFields(
+			$this->successUrlField, 
+			$this->errorUrlField, 
+			$this->sourceUrlField
+		);
 		return $this;
 	}
 
@@ -76,7 +81,7 @@ trait Base {
 	 * @return \MvcCore\Ext\Form
 	 */
 	public function PreDispatch ($submit = FALSE) {
-		/** @var $this \MvcCore\Ext\Forms\Form */
+		/** @var $this \MvcCore\Ext\Form */
 		if ($this->dispatchState > \MvcCore\IController::DISPATCH_STATE_INITIALIZED) 
 			return $this;
 		parent::PreDispatch($submit);

@@ -30,8 +30,9 @@ trait SignIn {
 	public function Init ($submit = FALSE) {
 		/** @var $this \MvcCore\Ext\Auths\Basics\SignInForm */
 		parent::Init($submit);
+		$this->auth = \MvcCore\Ext\Auths\Basic::GetInstance();
 		$this
-			->initAuthFormPropsAndHiddenControls()
+			->initAuthHiddenFields()
 			->AddField(new \MvcCore\Ext\Forms\Fields\Text([
 				'name'			=> 'username',
 				'placeHolder'	=> 'User',
@@ -75,22 +76,25 @@ trait SignIn {
 			if ($user === NULL) {
 				$errorMsg = 'User name or password is incorrect.';
 				if ($this->translate)
-					$errorMsg = $this->Translate('User name or password is incorrect.');
+					$errorMsg = $this->Translate($errorMsg);
 				$this->AddError(
 					$errorMsg,
 					['username', 'password']
 				);
 			}
 		}
-
+		
 		$successUrl = (isset($data['sourceUrl']) 
 			? $data['sourceUrl'] 
 			: (isset($data['successUrl']) 
 				? $data['successUrl'] 
 				: ''));
-		if ($successUrl) $this->SetSuccessUrl($successUrl);
+
+		if ($successUrl) 
+			$this->SetSuccessUrl($successUrl);
 		if (isset($data['errorUrl']) && $data['errorUrl'])
 			$this->SetErrorUrl($data['errorUrl']);
+
 		if (!$this->result)
 			sleep($this->auth->GetInvalidCredentialsTimeout());
 

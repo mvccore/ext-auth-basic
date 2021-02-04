@@ -31,9 +31,9 @@ trait SignOut {
 	public function Init ($submit = FALSE) {
 		/** @var $this \MvcCore\Ext\Auths\Basics\SignOutForm */
 		parent::Init($submit);
-
+		$this->auth = \MvcCore\Ext\Auths\Basic::GetInstance();
 		$this
-			->initAuthFormPropsAndHiddenControls()
+			->initAuthHiddenFields()
 			->AddField(new \MvcCore\Ext\Forms\Fields\SubmitButton([
 				'name'			=> 'send',
 				'value'			=> 'Log Out',
@@ -41,7 +41,6 @@ trait SignOut {
 			]));
 
 		$this->user = $this->auth->GetUser();
-
 		return $this;
 	}
 
@@ -59,9 +58,10 @@ trait SignOut {
 			$userClass = $this->auth->GetUserClass();
 			$userClass::LogOut();
 		}
-		$this
-			->SetSuccessUrl(isset($data['successUrl']) ? $data['successUrl'] : '')
-			->SetErrorUrl(isset($data['errorUrl']) ? $data['errorUrl'] : '');
+		if (isset($data['successUrl']))
+			$this->SetSuccessUrl($data['successUrl']);
+		if (isset($data['errorUrl']))
+			$this->SetErrorUrl($data['errorUrl']);
 		return [$this->result, $this->values, $this->errors];
 	}
 
