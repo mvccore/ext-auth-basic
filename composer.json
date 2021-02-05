@@ -31,7 +31,7 @@
 	}],
 	"require": {
 		"php": ">=5.4.0",
-		"mvccore/mvccore": "^5.0",
+		"mvccore/mvccore": "^5.0.4",
 		"mvccore/ext-form": "^5.0",
 		"mvccore/ext-form-field-text": "^5.1",
 		"mvccore/ext-form-field-button": "^5.0"
