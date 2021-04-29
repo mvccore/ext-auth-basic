@@ -18,6 +18,7 @@ use \MvcCore\Ext\Models\Db\Attrs;
 /**
  * Trait for `\MvcCore\Ext\Auths\Basics\User` class. Trait contains:
  * - Public getters and setters for instance properties `$userName`, `$fullName` and `$passwordHash`.
+ * @mixin \MvcCore\Ext\Auths\Basics\User
  */
 trait GettersSetters {
 
@@ -28,7 +29,6 @@ trait GettersSetters {
 	 * @var string
 	 */
 	public function GetUserName () {
-		/** @var $this \MvcCore\Ext\Auths\Basics\User */
 		return $this->userName;
 	}
 
@@ -40,7 +40,6 @@ trait GettersSetters {
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetUserName ($userName) {
-		/** @var $this \MvcCore\Ext\Auths\Basics\User */
 		$this->userName = $userName;
 		return $this;
 	}
@@ -52,7 +51,6 @@ trait GettersSetters {
 	 * @var string
 	 */
 	public function GetFullName () {
-		/** @var $this \MvcCore\Ext\Auths\Basics\User */
 		return $this->fullName;
 	}
 
@@ -64,7 +62,6 @@ trait GettersSetters {
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetFullName ($fullName) {
-		/** @var $this \MvcCore\Ext\Auths\Basics\User */
 		$this->fullName = $fullName;
 		return $this;
 	}
@@ -77,7 +74,6 @@ trait GettersSetters {
 	 * @var string|NULL
 	 */
 	public function GetPasswordHash () {
-		/** @var $this \MvcCore\Ext\Auths\Basics\User */
 		return $this->passwordHash;
 	}
 
@@ -90,7 +86,6 @@ trait GettersSetters {
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetPasswordHash ($passwordHash) {
-		/** @var $this \MvcCore\Ext\Auths\Basics\User */
 		$this->passwordHash = $passwordHash;
 		return $this;
 	}

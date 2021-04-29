@@ -16,6 +16,7 @@ namespace MvcCore\Ext\Auths\Basics\User;
 /**
  * Responsibility - base user model class features.
  * This trait is necessary to use to be able to login into your app.
+ * @mixin \MvcCore\Ext\Auths\Basics\User
  */
 trait Features {
 	

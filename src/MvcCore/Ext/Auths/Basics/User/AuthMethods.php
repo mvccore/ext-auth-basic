@@ -17,6 +17,7 @@ namespace MvcCore\Ext\Auths\Basics\User;
  * Trait for `\MvcCore\Ext\Auths\Basics\User` class. Trait contains:
  * - Static methods `LogIn()` and `LogOut()` to authenticate or remove user from session namespace.
  * - Static method `EncodePasswordToHash()` to hash password with custom or configured salt and other options.
+ * @mixin \MvcCore\Ext\Auths\Basics\User
  */
 trait AuthMethods {
 

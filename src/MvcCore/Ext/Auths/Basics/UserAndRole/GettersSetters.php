@@ -18,6 +18,7 @@ use \MvcCore\Ext\Models\Db\Attrs;
 /**
  * Trait for `\MvcCore\Ext\Auths\Basics\User` and `\MvcCore\Ext\Auths\Basics\Role` class. Trait contains:
  * - Public getters and setters for instance properties `$id` and `$active`.
+ * @mixin \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role
  */
 trait GettersSetters {
 
@@ -28,7 +29,6 @@ trait GettersSetters {
 	 * @return int|NULL
 	 */
 	public function GetId () {
-		/** @var $this \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role */
 		return $this->id;
 	}
 
@@ -40,7 +40,6 @@ trait GettersSetters {
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role
 	 */
 	public function SetId ($id) {
-		/** @var $this \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role */
 		$this->id = $id;
 		return $this;
 	}
@@ -51,7 +50,6 @@ trait GettersSetters {
 	 * @return bool
 	 */
 	public function IsActive () {
-		/** @var $this \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role */
 		return $this->active;
 	}
 
@@ -60,7 +58,6 @@ trait GettersSetters {
 	 * @return bool
 	 */
 	public function GetActive () {
-		/** @var $this \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role */
 		return $this->active;
 	}
 
@@ -69,7 +66,6 @@ trait GettersSetters {
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role
 	 */
 	public function SetActive ($active) {
-		/** @var $this \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role */
 		$this->active = (bool) $active;
 		return $this;
 	}

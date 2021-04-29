@@ -18,6 +18,7 @@ use \MvcCore\Ext\Models\Db\Attrs;
 /**
  * Trait for `\MvcCore\Ext\Auths\Basics\User` and `\MvcCore\Ext\Auths\Basics\Role` class. Trait contains:
  * - Instance properties `$id` and `$active`.
+ * @mixin \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role
  */
 trait Props {
 

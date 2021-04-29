@@ -17,6 +17,7 @@ namespace MvcCore\Ext\Auths\Basics\User;
  * Trait for `\MvcCore\Ext\Auths\Basics\User` class. Trait contains:
  * - Static property `$sessionIdentity` with their public setter and getter with expiration settings.
  * - Static property `$sessionAuthorization` with their public setter and getter with expiration settings.
+ * @mixin \MvcCore\Ext\Auths\Basics\User
  */
 trait AuthProps {
 

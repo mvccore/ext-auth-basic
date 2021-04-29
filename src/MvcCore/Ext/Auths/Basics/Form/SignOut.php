@@ -19,6 +19,7 @@ namespace MvcCore\Ext\Auths\Basics\Form;
  * - `Init()` method to initialize all necessary sign in form fields.
  * - `Submit()` method to handle sign-in form submit request (`POST` by default).
  * - `Render()` method to render sign out form without template by default.
+ * @mixin \MvcCore\Ext\Auths\Basics\SignOutForm
  */
 trait SignOut {
 
@@ -29,7 +30,6 @@ trait SignOut {
 	 * @return \MvcCore\Ext\Auths\Basics\SignOutForm
 	 */
 	public function Init ($submit = FALSE) {
-		/** @var $this \MvcCore\Ext\Auths\Basics\SignOutForm */
 		parent::Init($submit);
 		$this->auth = \MvcCore\Ext\Auths\Basic::GetInstance();
 		$this
@@ -51,7 +51,6 @@ trait SignOut {
 	 * @return array
 	 */
 	public function Submit (array & $rawRequestParams = []) {
-		/** @var $this \MvcCore\Ext\Auths\Basics\SignOutForm */
 		parent::Submit($rawRequestParams);
 		$data = & $this->values;
 		if ($this->result === \MvcCore\Ext\Form::RESULT_SUCCESS) {
@@ -71,7 +70,6 @@ trait SignOut {
 	 * @return string
 	 */
 	public function & Render ($controllerDashedName = NULL, $actionDashedName = NULL) {
-		/** @var $this \MvcCore\Ext\Auths\Basics\SignOutForm */
 		$this->PreDispatch();
 		$result = $this->RenderBegin();
 		if ($this->user)

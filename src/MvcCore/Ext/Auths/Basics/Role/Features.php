@@ -19,6 +19,7 @@ namespace MvcCore\Ext\Auths\Basics\Role;
  * `GetByName()` or more. It's also necessary to implement
  * loading users with roles and their permissions to be able
  * to check user roles and permissions.
+ * @mixin \MvcCore\Ext\Auths\Basics\Role
  */
 trait Features {
 	

@@ -21,6 +21,7 @@ namespace MvcCore\Ext\Auths\Basic;
  * - Getters for non-configurable and configurable instance properties.
  * - Setters for configurable properties with interface implementation checking for class name properties.
  * - Setters for non-configurable instance properties.
+ * @mixin \MvcCore\Ext\Auths\Basic
  */
 trait PropsGettersSetters {
 
@@ -282,7 +283,6 @@ trait PropsGettersSetters {
 	 * @return int
 	 */
 	public function GetExpirationIdentity () {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		return $this->expirationIdentity;
 	}
 
@@ -298,7 +298,6 @@ trait PropsGettersSetters {
 	 * @return int
 	 */
 	public function GetExpirationAuthorization () {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		return $this->expirationAuthorization;
 	}
 
@@ -311,7 +310,6 @@ trait PropsGettersSetters {
 	 * @return string
 	 */
 	public function GetUserClass () {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		return $this->userClass;
 	}
 
@@ -324,7 +322,6 @@ trait PropsGettersSetters {
 	 * @return string
 	 */
 	public function GetRoleClass () {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		return $this->roleClass;
 	}
 
@@ -338,7 +335,6 @@ trait PropsGettersSetters {
 	 * @return string
 	 */
 	public function GetControllerClass () {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		return $this->controllerClass;
 	}
 
@@ -351,7 +347,6 @@ trait PropsGettersSetters {
 	 * @return string
 	 */
 	public function GetSignInFormClass () {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		return $this->signInFormClass;
 	}
 
@@ -364,7 +359,6 @@ trait PropsGettersSetters {
 	 * @return string
 	 */
 	public function GetSignOutFormClass () {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		return $this->signOutFormClass;
 	}
 
@@ -376,7 +370,6 @@ trait PropsGettersSetters {
 	 * @return string|NULL
 	 */
 	public function GetSignedInUrl () {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		return $this->signedInUrl;
 	}
 
@@ -388,7 +381,6 @@ trait PropsGettersSetters {
 	 * @return string|NULL
 	 */
 	public function GetSignedOutUrl () {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		return $this->signedOutUrl;
 	}
 
@@ -402,7 +394,6 @@ trait PropsGettersSetters {
 	 * @return string|NULL
 	 */
 	public function GetSignErrorUrl () {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		return $this->signErrorUrl;
 	}
 
@@ -412,7 +403,6 @@ trait PropsGettersSetters {
 	 * @return \MvcCore\Route
 	 */
 	public function GetSignInRoute () {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		return $this->getInitializedRoute('SignIn');
 	}
 
@@ -422,7 +412,6 @@ trait PropsGettersSetters {
 	 * @return \MvcCore\Route
 	 */
 	public function GetSignOutRoute () {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		return $this->getInitializedRoute('SignOut');
 	}
 
@@ -433,7 +422,6 @@ trait PropsGettersSetters {
 	 * @return string|NULL
 	 */
 	public function GetPasswordHashSalt () {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		return $this->passwordHashSalt;
 	}
 
@@ -444,7 +432,6 @@ trait PropsGettersSetters {
 	 * @return int
 	 */
 	public function GetInvalidCredentialsTimeout () {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		return $this->invalidCredentialsTimeout;
 	}
 
@@ -455,7 +442,6 @@ trait PropsGettersSetters {
 	 * @return callable|NULL
 	 */
 	public function GetTranslator () {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		return $this->translator;
 	}
 
@@ -468,7 +454,6 @@ trait PropsGettersSetters {
 	 * @return \MvcCore\Ext\Auths\Basics\User|NULL
 	 */
 	public function GetUser () {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		if (!$this->userInitialized && $this->user === NULL) {
 			$configuredUserClass = $this->userClass;
 			$this->user = $configuredUserClass::SetUpUserBySession();
@@ -486,7 +471,6 @@ trait PropsGettersSetters {
 	 * @return bool
 	 */
 	public function IsAuthenticated () {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		return $this->GetUser() !== NULL;
 	}
 
@@ -504,7 +488,6 @@ trait PropsGettersSetters {
 	 * @var \MvcCore\Ext\Auths\Basics\SignInForm|\MvcCore\Ext\Auths\Basics\SignOutForm
 	 */
 	public function GetForm () {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		if ($this->IsAuthenticated()) {
 			$form = $this->GetSignOutForm();
 		} else {
@@ -520,7 +503,6 @@ trait PropsGettersSetters {
 	 * @return \MvcCore\Ext\Auths\Basics\SignInForm
 	 */
 	public function GetSignInForm () {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		if ($this->form !== NULL) return $this->form;
 		$routerClass = $this->application->GetRouterClass();
 		$router = $routerClass::GetInstance();
@@ -548,7 +530,6 @@ trait PropsGettersSetters {
 	 * @return \MvcCore\Ext\Auths\Basics\SignOutForm
 	 */
 	public function GetSignOutForm () {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		if ($this->form !== NULL) return $this->form;
 		$routerClass = $this->application->GetRouterClass();
 		$router = $routerClass::GetInstance();
@@ -574,7 +555,6 @@ trait PropsGettersSetters {
 	 * @return array
 	 */
 	public function GetConfiguration () {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		$result = [];
 		$type = new \ReflectionClass($this);
 		/** @var $props \ReflectionProperty[] */
@@ -609,7 +589,6 @@ trait PropsGettersSetters {
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetExpirationIdentity ($identityExpirationSeconds = 2592000) {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		$this->expirationIdentity = $identityExpirationSeconds;
 		return $this;
 	}
@@ -626,7 +605,6 @@ trait PropsGettersSetters {
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetExpirationAuthorization ($authorizationExpirationSeconds = 600) {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		$this->expirationAuthorization = $authorizationExpirationSeconds;
 		return $this;
 	}
@@ -641,7 +619,6 @@ trait PropsGettersSetters {
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetUserClass ($userClass = '') {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		$this->userClass = $this->checkClassImplementation(
 			$userClass, 'MvcCore\\Ext\\Auths\\Basics\\IUser', TRUE
 		);
@@ -658,7 +635,6 @@ trait PropsGettersSetters {
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetRoleClass ($roleClass = '') {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		$this->userClass = $this->checkClassImplementation(
 			$roleClass, 'MvcCore\\Ext\\Auths\\Basics\\IRole', TRUE
 		);
@@ -676,7 +652,6 @@ trait PropsGettersSetters {
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetControllerClass ($controllerClass = '') {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		if (substr($controllerClass, 0, 2) == '//') {
 			$controllerClassToCheck = substr($controllerClass, 2);
 		} else {
@@ -703,7 +678,6 @@ trait PropsGettersSetters {
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetSignInFormClass ($signInFormClass = '') {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		$this->signInFormClass = $this->checkClassImplementation(
 			$signInFormClass, 'MvcCore\\Ext\\Auths\\Basics\\IForm', FALSE
 		);
@@ -720,7 +694,6 @@ trait PropsGettersSetters {
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetSignOutFormClass ($signOutFormClass = '') {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		$this->signOutFormClass = $this->checkClassImplementation(
 			$signOutFormClass, 'MvcCore\\Ext\\Auths\\Basics\\IForm', FALSE
 		);
@@ -736,7 +709,6 @@ trait PropsGettersSetters {
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetSignedInUrl ($signedInUrl = NULL) {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		$this->signedInUrl = $signedInUrl;
 		return $this;
 	}
@@ -750,7 +722,6 @@ trait PropsGettersSetters {
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetSignedOutUrl ($signedOutUrl = NULL) {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		$this->signedOutUrl = $signedOutUrl;
 		return $this;
 	}
@@ -765,7 +736,6 @@ trait PropsGettersSetters {
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetSignErrorUrl ($signErrorUrl = NULL) {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		$this->signErrorUrl = $signErrorUrl;
 		return $this;
 	}
@@ -777,7 +747,6 @@ trait PropsGettersSetters {
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetSignInRoute ($signInRoute = NULL) {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		$this->signInRoute = $signInRoute;
 		$method = NULL;
 		if (gettype($signInRoute) == 'array' && isset($signInRoute['method']))
@@ -796,7 +765,6 @@ trait PropsGettersSetters {
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetSignOutRoute ($signOutRoute = NULL) {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		$this->signOutRoute = $signOutRoute;
 		$method = NULL;
 		if (gettype($signOutRoute) == 'array' && isset($signOutRoute['method']))
@@ -816,7 +784,6 @@ trait PropsGettersSetters {
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetPasswordHashSalt ($passwordHashSalt = '') {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		$this->passwordHashSalt = $passwordHashSalt;
 		return $this;
 	}
@@ -829,7 +796,6 @@ trait PropsGettersSetters {
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetInvalidCredentialsTimeout ($seconds = 3) {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		$this->invalidCredentialsTimeout = $seconds;
 		return $this;
 	}
@@ -842,7 +808,6 @@ trait PropsGettersSetters {
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetTranslator (callable $translator = NULL) {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		$this->translator = $translator;
 		return $this;
 	}
@@ -855,7 +820,6 @@ trait PropsGettersSetters {
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetUser (\MvcCore\Ext\Auths\Basics\IUser $user = NULL) {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		$this->user = $user;
 		if ($this->user !== NULL) $this->user->SetPasswordHash(NULL);
 		$this->userInitialized = TRUE;
@@ -869,7 +833,6 @@ trait PropsGettersSetters {
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetForm (\MvcCore\Ext\Auths\Basics\IForm $form) {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		$this->form = $form;
 		return $this;
 	}
@@ -884,7 +847,6 @@ trait PropsGettersSetters {
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetConfiguration ($configuration = [], $throwExceptionIfPropertyIsMissing = TRUE) {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		foreach ($configuration as $key => $value) {
 			$setter = 'Set' . ucfirst($key);
 			if (method_exists($this, $setter)) {
@@ -907,7 +869,6 @@ trait PropsGettersSetters {
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetTableStructureForDbUsers ($tableName = NULL, $columnNames = NULL) {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		$userClass = $this->userClass;
 		$toolClass = static::$toolClass;
 		if ($toolClass::CheckClassInterface($userClass, 'MvcCore\\Ext\\Auths\\Basics\\IDatabaseUser', TRUE, TRUE)) {
@@ -927,7 +888,6 @@ trait PropsGettersSetters {
 	 * @return string
 	 */
 	protected function checkClassImplementation ($testClassName, $interfaceName, $checkStaticMethods = FALSE) {
-		/** @var $this \MvcCore\Ext\Auths\Basic */
 		$toolClass = static::$toolClass;
 		if ($toolClass::CheckClassInterface($testClassName, $interfaceName, $checkStaticMethods, TRUE)) {
 			return $testClassName;

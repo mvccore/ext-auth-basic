@@ -18,6 +18,7 @@ use \MvcCore\Ext\Models\Db\Attrs;
 /**
  * Trait for `\MvcCore\Ext\Auths\Basics\User` class. Trait contains:
  * - Instance property `$admin` and `$roles`.
+ * @mixin \MvcCore\Ext\Auths\Basics\User
  */
 trait RolesProps {
 

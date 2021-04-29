@@ -18,6 +18,7 @@ use \MvcCore\Ext\Database\Attributes as Attrs;
 /**
  * Trait for `\MvcCore\Ext\Auths\Basics\Role` class. Trait contains:
  * - public getter and setter for `$name` instance property.
+ * @mixin \MvcCore\Ext\Auths\Basics\Role
  */
 trait GettersSetters {
 
@@ -27,7 +28,6 @@ trait GettersSetters {
 	 * @return string
 	 */
 	public function GetName () {
-		/** @var $this \MvcCore\Ext\Auths\Basics\Role */
 		return $this->name;
 	}
 
@@ -38,7 +38,6 @@ trait GettersSetters {
 	 * @return \MvcCore\Ext\Auths\Basics\Role
 	 */
 	public function SetName ($name) {
-		/** @var $this \MvcCore\Ext\Auths\Basics\Role */
 		$this->name = $name;
 		return $this;
 	}

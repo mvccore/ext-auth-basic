@@ -18,6 +18,7 @@ use \MvcCore\Ext\Models\Db\Attrs;
 /**
  * Trait for `\MvcCore\Ext\Auths\Basics\User` and `\MvcCore\Ext\Auths\Basics\Role` class. Trait contains:
  * - Public getters and setters to manipulate with instance property `$permissions`.
+ * @mixin \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role
  */
 trait PermissionsMethods {
 
@@ -29,7 +30,6 @@ trait PermissionsMethods {
 	 * @return bool
 	 */
 	public function IsAllowed ($permissionNameOrNames, $allPermissionsRequired = TRUE) {
-		/** @var $this \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role */
 		if (property_exists($this, 'admin') && $this->admin) return TRUE;
 		$permissionNames = is_array($permissionNameOrNames)
 			? $permissionNameOrNames
@@ -61,7 +61,6 @@ trait PermissionsMethods {
 	 * @return bool
 	 */
 	public function GetPermission ($permissionName) {
-		/** @var $this \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role */
 		if (property_exists($this, 'admin') && $this->admin) return TRUE;
 		if (in_array($permissionName, $this->permissions, TRUE)) return TRUE;
 		return FALSE;
@@ -75,7 +74,6 @@ trait PermissionsMethods {
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role
 	 */
 	public function SetPermission ($permissionName, $allow = TRUE) {
-		/** @var $this \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role */
 		if (!in_array($permissionName, $this->permissions, TRUE) && $allow) {
 			$this->permissions[] = $permissionName;
 		} else if (in_array($permissionName, $this->permissions, TRUE) && !$allow) {
@@ -90,7 +88,6 @@ trait PermissionsMethods {
 	 * @return \string[]
 	 */
 	public function & GetPermissions() {
-		/** @var $this \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role */
 		return $this->permissions;
 	}
 
@@ -100,7 +97,6 @@ trait PermissionsMethods {
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role
 	 */
 	public function SetPermissions ($permissions) {
-		/** @var $this \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role */
 		if (is_string($permissions)) {
 			$this->permissions = explode(',', $permissions);
 		} else if (is_array($permissions)) {

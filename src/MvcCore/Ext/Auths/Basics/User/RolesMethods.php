@@ -19,6 +19,7 @@ use \MvcCore\Ext\Models\Db\Attrs;
  * Trait for `\MvcCore\Ext\Auths\Basics\User` class. Trait contains:
  * - Public getters and setters for instance properties `$admin` and `$roles`.
  * - Methods to determinate and manipulate with user permissions from user instance or from user roles.
+ * @mixin \MvcCore\Ext\Auths\Basics\User
  */
 trait RolesMethods {
 
@@ -27,7 +28,6 @@ trait RolesMethods {
 	 * @return bool
 	 */
 	public function IsAdmin() {
-		/** @var $this \MvcCore\Ext\Auths\Basics\User */
 		return $this->admin;
 	}
 
@@ -36,7 +36,6 @@ trait RolesMethods {
 	 * @return bool
 	 */
 	public function GetAdmin() {
-		/** @var $this \MvcCore\Ext\Auths\Basics\User */
 		return $this->admin;
 	}
 
@@ -46,7 +45,6 @@ trait RolesMethods {
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetAdmin ($admin = TRUE) {
-		/** @var $this \MvcCore\Ext\Auths\Basics\User */
 		$this->admin = (bool) $admin;
 		return $this;
 	}
@@ -56,7 +54,6 @@ trait RolesMethods {
 	 * @return \string[]
 	 */
 	public function & GetRoles () {
-		/** @var $this \MvcCore\Ext\Auths\Basics\User */
 		return $this->roles;
 	}
 
@@ -66,7 +63,6 @@ trait RolesMethods {
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetRoles ($rolesOrRolesNames = []) {
-		/** @var $this \MvcCore\Ext\Auths\Basics\User */
 		$this->roles = [];
 		foreach ($rolesOrRolesNames as $roleOrRoleName)
 			$this->roles[] = static::getRoleName($roleOrRoleName);
@@ -80,7 +76,6 @@ trait RolesMethods {
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function AddRole ($roleOrRoleName) {
-		/** @var $this \MvcCore\Ext\Auths\Basics\User */
 		$roleName = static::getRoleName($roleOrRoleName);
 		if (!in_array($roleName, $this->roles, TRUE))
 			$this->roles[] = $roleName;
@@ -94,7 +89,6 @@ trait RolesMethods {
 	 * @return bool
 	 */
 	public function HasRole ($roleOrRoleName) {
-		/** @var $this \MvcCore\Ext\Auths\Basics\User */
 		$roleName = static::getRoleName($roleOrRoleName);
 		return in_array($roleName, $this->roles, TRUE);
 	}
@@ -106,7 +100,6 @@ trait RolesMethods {
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function RemoveRole ($roleOrRoleName) {
-		/** @var $this \MvcCore\Ext\Auths\Basics\User */
 		$roleName = static::getRoleName($roleOrRoleName);
 		$position = array_search($roleName, $this->roles);
 		if ($position !== FALSE) array_splice($this->roles, $position, 1);
@@ -120,7 +113,6 @@ trait RolesMethods {
 	 * @return string
 	 */
 	protected static function getRoleName ($roleOrRoleName) {
-		/** @var $this \MvcCore\Ext\Auths\Basics\User */
 		if (is_string($roleOrRoleName)) {
 			return $roleOrRoleName;
 		} else if ($roleOrRoleName instanceof \MvcCore\Ext\Auths\Basics\IRole) {

@@ -18,6 +18,7 @@ use \MvcCore\Ext\Models\Db\Attrs;
 /**
  * Trait for `\MvcCore\Ext\Auths\Basics\User` class. Trait contains:
  * - Instance properties `$aserName`, `$fullName` and `$passwordHash`.
+ * @mixin \MvcCore\Ext\Auths\Basics\User
  */
 trait Props {
 

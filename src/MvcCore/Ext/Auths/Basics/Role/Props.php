@@ -18,6 +18,7 @@ use \MvcCore\Ext\Database\Attributes as Attrs;
 /**
  * Trait for `\MvcCore\Ext\Auths\Basics\Role` class. Trait contains:
  * - `$name` instance property.
+ * @mixin \MvcCore\Ext\Auths\Basics\Role
  */
 trait Props {
 

@@ -17,6 +17,7 @@ namespace MvcCore\Ext\Auths\Basics\Form;
  * Trait for class `\MvcCore\Ext\Auths\Basics\SignInForm` and `\MvcCore\Ext\Auths\Basics\SignOutForm`. Trait contains:
  * - Protected property `$auth` to use authentication module more flexible for fields init.
  * - method `initAuthHiddenFields()` always called from `Init()` method to init hidden fields for success URL and error url.
+ * @mixin \MvcCore\Ext\Auths\Basics\SignInForm|\MvcCore\Ext\Auths\Basics\SignOutForm
  */
 trait Base {
 
@@ -50,7 +51,6 @@ trait Base {
 	 * @return \MvcCore\Ext\Form
 	 */
 	protected function initAuthHiddenFields () {
-		/** @var $this \MvcCore\Ext\Form */
 		$urlValidator = (new \MvcCore\Ext\Forms\Validators\Url)
 			->SetAllowedHostnames($this->GetRequest()->GetHostName());
 		$this->successUrlField = new \MvcCore\Ext\Forms\Fields\Hidden([
@@ -81,7 +81,6 @@ trait Base {
 	 * @return \MvcCore\Ext\Form
 	 */
 	public function PreDispatch ($submit = FALSE) {
-		/** @var $this \MvcCore\Ext\Form */
 		if ($this->dispatchState > \MvcCore\IController::DISPATCH_STATE_INITIALIZED) 
 			return $this;
 		parent::PreDispatch($submit);

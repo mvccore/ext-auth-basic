@@ -15,6 +15,7 @@ namespace MvcCore\Ext\Auths\Basics\Controller;
 
 /**
  * Responsibility - handle configured sign-in form and sign-out form submit requests.
+ * @mixin \MvcCore\Ext\Auths\Basics\Controller
  */
 trait Base {
 
@@ -25,7 +26,6 @@ trait Base {
 	 * @return void
 	 */
 	public function SignInAction () {
-		/** @var $this \MvcCore\Ext\Auths\Basics\Controller */
 		$form = \MvcCore\Ext\Auths\Basic::GetInstance()->GetSignInForm();
 		list ($result,) = $form->Submit();
 		if ($result !== \MvcCore\Ext\Form::RESULT_SUCCESS) {
@@ -44,7 +44,6 @@ trait Base {
 	 * @return void
 	 */
 	public function SignOutAction () {
-		/** @var $this \MvcCore\Ext\Auths\Basics\Controller */
 		$form = \MvcCore\Ext\Auths\Basic::GetInstance()->GetSignOutForm();
 		list ($result,) = $form->Submit();
 		if ($result) $form->ClearSession(); // to remove all submitted data from session

@@ -20,6 +20,7 @@ namespace MvcCore\Ext\Auths\Basic;
  * - Protected methods to handle:
  *   - Pre-route handler - to init sign-in/sign-out form URL addresses and routes if necessary.
  *   - Pre-dispatch handler - to assign user instance to prepared controller to dispatch if possible.
+ * @mixin \MvcCore\Ext\Auths\Basic
  */
 trait Handling {
 
@@ -31,7 +32,7 @@ trait Handling {
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public static function GetInstance ($configuration = []) {
-		/** @var $result \MvcCore\Ext\Auths\Basics\Auth */
+		/** @var \MvcCore\Ext\Auths\Basics\Auth $result */
 		if (self::$instance === NULL) {
 			$result = new static($configuration);
 			self::$instance = $result;
