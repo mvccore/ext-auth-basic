@@ -26,10 +26,12 @@ trait SignOut {
 	/**
 	 * Initialize sign out button and user into
 	 * template for any custom template rendering.
-	 * @param bool $submit
-	 * @return \MvcCore\Ext\Auths\Basics\SignOutForm
+	 * @param  bool $submit
+	 * @return void
 	 */
 	public function Init ($submit = FALSE) {
+		if ($this->dispatchState > \MvcCore\IController::DISPATCH_STATE_CREATED) 
+			return;
 		parent::Init($submit);
 		$this->auth = \MvcCore\Ext\Auths\Basic::GetInstance();
 		$this
@@ -41,7 +43,6 @@ trait SignOut {
 			]));
 
 		$this->user = $this->auth->GetUser();
-		return $this;
 	}
 
 	/**

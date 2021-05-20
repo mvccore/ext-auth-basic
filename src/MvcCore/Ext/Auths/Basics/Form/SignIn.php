@@ -25,10 +25,12 @@ trait SignIn {
 	 * Initialize all form fields, initialize hidden field with
 	 * sourceUrl for cases when in request params is any source URL param.
 	 * To return there after form is submitted.
-	 * @param bool $submit
-	 * @return \MvcCore\Ext\Auths\Basics\SignInForm
+	 * @param  bool $submit
+	 * @return void
 	 */
 	public function Init ($submit = FALSE) {
+		if ($this->dispatchState > \MvcCore\IController::DISPATCH_STATE_CREATED) 
+			return;
 		parent::Init($submit);
 		$this->auth = \MvcCore\Ext\Auths\Basic::GetInstance();
 		$this
@@ -50,7 +52,6 @@ trait SignIn {
 				'value'			=> 'Sign In',
 				'cssClasses'	=> ['button'],
 			]));
-		return $this;
 	}
 
 	/**
