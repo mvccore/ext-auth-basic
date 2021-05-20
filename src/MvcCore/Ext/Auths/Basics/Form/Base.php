@@ -77,16 +77,16 @@ trait Base {
 
 	/**
 	 * Prepare form for rendering.
-	 * @param bool $submit
-	 * @return \MvcCore\Ext\Form
+	 * @param  bool $submit
+	 * @return void
 	 */
 	public function PreDispatch ($submit = FALSE) {
 		if ($this->dispatchState > \MvcCore\IController::DISPATCH_STATE_INITIALIZED) 
-			return $this;
+			return;
 		parent::PreDispatch($submit);
 		if ($submit) {
 			$this->dispatchState = \MvcCore\IController::DISPATCH_STATE_PRE_DISPATCHED;
-			return $this;
+			return;
 		}
 
 		$successUrlValue = $this->successUrlField->GetValue();
@@ -118,6 +118,5 @@ trait Base {
 		$parsedSourceUrlHost = $toolClass::ParseUrl($sourceUrl, PHP_URL_HOST);
 		if ($parsedSourceUrlHost === $this->request->GetHostName()) 
 			$this->sourceUrlField->SetValue(rawurlencode($sourceUrl));
-		return $this;
 	}
 }
