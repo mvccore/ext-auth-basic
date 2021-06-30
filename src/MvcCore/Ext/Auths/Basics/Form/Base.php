@@ -114,6 +114,8 @@ trait Base {
 		$sourceUrl = $this->request->GetParam('sourceUrl', FALSE, '', 'string');
 		while (preg_match("#%[0-9a-zA-Z]{2}#", $sourceUrl)) 
 			$sourceUrl = rawurldecode($sourceUrl);
+		$sourceUrl = str_replace('%', '%25', $sourceUrl);
+
 		$toolClass = $this->application->GetToolClass();
 		$parsedSourceUrlHost = $toolClass::ParseUrl($sourceUrl, PHP_URL_HOST);
 		if ($parsedSourceUrlHost === $this->request->GetHostName()) 
