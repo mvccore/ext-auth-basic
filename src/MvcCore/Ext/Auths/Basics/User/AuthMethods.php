@@ -159,7 +159,7 @@ trait AuthMethods {
 				self::$_sessionClass = \MvcCore\Application::GetInstance()->GetSessionClass()
 			);
 			static::$sessionIdentity = $sessionClass::GetNamespace(
-				'MvcCore\\Ext\\Auths\\Identity'
+				'\\MvcCore\\Ext\\Auths\\Identity'
 			);
 			static::$sessionIdentity->SetExpirationSeconds(
 				\MvcCore\Ext\Auths\Basic::GetInstance()->GetExpirationIdentity()
@@ -191,7 +191,7 @@ trait AuthMethods {
 				self::$_sessionClass = \MvcCore\Application::GetInstance()->GetSessionClass()
 			);
 			static::$sessionAuthorization = $sessionClass::GetNamespace(
-				'MvcCore\\Ext\\Auths\\Authorization'
+				'\\MvcCore\\Ext\\Auths\\Authorization'
 			);
 			static::$sessionAuthorization->SetExpirationSeconds(
 				\MvcCore\Ext\Auths\Basic::GetInstance()->GetExpirationAuthorization()
