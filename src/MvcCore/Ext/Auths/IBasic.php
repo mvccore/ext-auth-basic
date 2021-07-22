@@ -56,7 +56,7 @@ interface IBasic {
 	 * `\MvcCore\Ext\Auths\Basics\IUser`.
 	 * Default value after authentication module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\User`.
-	 * @return string
+	 * @return string|\MvcCore\Ext\Auths\Basics\IUser
 	 */
 	public function GetUserClass ();
 
@@ -66,7 +66,7 @@ interface IBasic {
 	 * `\MvcCore\Ext\Auths\Basics\IRole`.
 	 * Default value after authentication module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\Role`.
-	 * @return string
+	 * @return string|\MvcCore\Ext\Auths\Basics\IRole
 	 */
 	public function GetRoleClass ();
 
@@ -77,7 +77,7 @@ interface IBasic {
 	 * - `\MvcCore\IController`
 	 * Default value after authentication module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\Controller`.
-	 * @return string
+	 * @return string|\MvcCore\Ext\Auths\Basics\IController
 	 */
 	public function GetControllerClass ();
 
@@ -87,7 +87,7 @@ interface IBasic {
 	 * `\MvcCore\Ext\Auths\Basics\IForm`.
 	 * Default value after authentication module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\SignInForm`.
-	 * @return string
+	 * @return string|\MvcCore\Ext\Auths\Basics\IForm
 	 */
 	public function GetSignInFormClass ();
 
@@ -97,7 +97,7 @@ interface IBasic {
 	 * `\MvcCore\Ext\Auths\Basics\IForm`.
 	 * Default value after authentication module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\SignOutForm`.
-	 * @return string
+	 * @return string|\MvcCore\Ext\Auths\Basics\IForm
 	 */
 	public function GetSignOutFormClass ();
 

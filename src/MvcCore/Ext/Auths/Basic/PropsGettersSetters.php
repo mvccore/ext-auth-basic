@@ -307,7 +307,7 @@ trait PropsGettersSetters {
 	 * `\MvcCore\Ext\Auths\Basics\IUser`.
 	 * Default value after authentication module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\User`.
-	 * @return string
+	 * @return string|\MvcCore\Ext\Auths\Basics\User
 	 */
 	public function GetUserClass () {
 		return $this->userClass;
@@ -319,7 +319,7 @@ trait PropsGettersSetters {
 	 * `\MvcCore\Ext\Auths\Basics\IRole`.
 	 * Default value after authentication module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\Role`.
-	 * @return string
+	 * @return string|\MvcCore\Ext\Auths\Basics\Role
 	 */
 	public function GetRoleClass () {
 		return $this->roleClass;
@@ -332,7 +332,7 @@ trait PropsGettersSetters {
 	 * - `\MvcCore\IController`
 	 * Default value after authentication module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\Controller`.
-	 * @return string
+	 * @return string|\MvcCore\Ext\Auths\Basics\Controller
 	 */
 	public function GetControllerClass () {
 		return $this->controllerClass;
@@ -344,7 +344,7 @@ trait PropsGettersSetters {
 	 * `\MvcCore\Ext\Auths\Basics\IForm`.
 	 * Default value after authentication module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\SignInForm`.
-	 * @return string
+	 * @return string|\MvcCore\Ext\Auths\Basics\SignInForm
 	 */
 	public function GetSignInFormClass () {
 		return $this->signInFormClass;
@@ -356,7 +356,7 @@ trait PropsGettersSetters {
 	 * `\MvcCore\Ext\Auths\Basics\IForm`.
 	 * Default value after authentication module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\SignOutForm`.
-	 * @return string
+	 * @return string|\MvcCore\Ext\Auths\Basics\SignOutForm
 	 */
 	public function GetSignOutFormClass () {
 		return $this->signOutFormClass;
