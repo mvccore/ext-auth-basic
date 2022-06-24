@@ -113,7 +113,7 @@ trait AuthMethods {
 	 * @return string
 	 */
 	public static function EncodePasswordToHash ($password = '', $options = []) {
-		if (!isset($options['salt'])) {
+		if (!isset($options['salt']) && \PHP_VERSION_ID < 80000) {
 			$configuredSalt = \MvcCore\Ext\Auths\Basic::GetInstance()->GetPasswordHashSalt();
 			if ($configuredSalt !== NULL) {
 				$options['salt'] = $configuredSalt;
