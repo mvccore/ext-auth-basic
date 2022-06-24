@@ -47,11 +47,17 @@ trait PropsGettersSetters {
 	 * or internal instances for authentication module,
 	 * which are not configuration properties, instance properties only.
 	 * This array is used only in `\MvcCore\Ext\Auth::GetConfiguration();`.
-	 * @var array
+	 * @var \string[]
 	 */
 	protected static $nonConfigurationProperties = [
 		'userInitialized', 'application', 'user', 'form',
 	];
+
+	/**
+	 * Internal interface for database user type.
+	 * @var string
+	 */
+	protected static $databaseUserInterface = 'MvcCore\\Ext\\Auths\\Basics\\IDatabaseUser';
 
 
 	/***********************************************************************************
@@ -159,7 +165,7 @@ trait PropsGettersSetters {
 	 * or as route configuration array or as route instance.
 	 * Default match/reverse pattern for route sign request is
 	 * `/signin` by POST.
-	 * @var string|array|\MvcCore\Route
+	 * @var string|array<string, string>|\MvcCore\Route
 	 */
 	protected $signInRoute = [
 		'name'		=> 'auth_signin',
@@ -174,7 +180,7 @@ trait PropsGettersSetters {
 	 * or as route configuration array or as route instance.
 	 * Default match/reverse pattern for route sign request is
 	 * `/signout` by POST.
-	 * @var string|array|\MvcCore\Route
+	 * @var string|array<string, string>|\MvcCore\Route
 	 */
 	protected $signOutRoute = [
 		'name'		=> 'auth_signout',
@@ -187,7 +193,8 @@ trait PropsGettersSetters {
 	 * Salt for `passord_hash();` to generate password by `PASSWORD_BCRYPT`.
 	 * `NULL` by default. This option is the only one option required
 	 * to configure authentication module to use it properly.
-	 * @var string
+	 * @deprecated
+	 * @var string|NULL
 	 */
 	protected $passwordHashSalt = NULL;
 
@@ -266,7 +273,7 @@ trait PropsGettersSetters {
 	 */
 	protected $addRoutesForAnyRequestMethod = FALSE;
 
-
+	
 	/***********************************************************************************
 	 *									 Getters									 *
 	 ***********************************************************************************/
@@ -390,7 +397,6 @@ trait PropsGettersSetters {
 	 * for example wrong credentials.
 	 * If `NULL` (by default), user will be redirected
 	 * to the same url, where was sign in/out form rendered.
-	 * @param string $signErrorUrl
 	 * @return string|NULL
 	 */
 	public function GetSignErrorUrl () {
@@ -419,6 +425,7 @@ trait PropsGettersSetters {
 	 * Get configured salt for `passord_hash();` to generate password by `PASSWORD_BCRYPT`.
 	 * `NULL` by default. This option is the only one option required
 	 * to configure authentication module to use it properly.
+	 * @deprecated
 	 * @return string|NULL
 	 */
 	public function GetPasswordHashSalt () {
@@ -552,7 +559,7 @@ trait PropsGettersSetters {
 
 	/**
 	 * Return `array` with all protected configuration properties.
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	public function GetConfiguration () {
 		$result = [];
@@ -585,7 +592,7 @@ trait PropsGettersSetters {
 	 * exists much longer then browser close moment only.
 	 * So better is not to use a zero value.
 	 * Default value is 1 month (30 days, 2592000 seconds).
-	 * @param int $expirationIdentity
+	 * @param  int $identityExpirationSeconds
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetExpirationIdentity ($identityExpirationSeconds = 2592000) {
@@ -602,6 +609,7 @@ trait PropsGettersSetters {
 	 * exists much longer then browser close moment only.
 	 * So better is not to use a zero value.
 	 * Default value is 10 minutes (600 seconds).
+	 * @param  int $authorizationExpirationSeconds
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetExpirationAuthorization ($authorizationExpirationSeconds = 600) {
@@ -615,10 +623,10 @@ trait PropsGettersSetters {
 	 * `\MvcCore\Ext\Auths\Basics\IUser`.
 	 * Default value after authentication module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\User`.
-	 * @param string $userClass User full class name implementing `\MvcCore\Ext\Auths\Basics\IUser`.
+	 * @param  string $userClass User full class name implementing `\MvcCore\Ext\Auths\Basics\IUser`.
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
-	public function SetUserClass ($userClass = '') {
+	public function SetUserClass ($userClass) {
 		$this->userClass = $this->checkClassImplementation(
 			$userClass, 'MvcCore\\Ext\\Auths\\Basics\\IUser', TRUE
 		);
@@ -631,10 +639,10 @@ trait PropsGettersSetters {
 	 * `\MvcCore\Ext\Auths\Basics\IRole`.
 	 * Default value after authentication module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\Role`.
-	 * @param string $roleClass Role full class name implementing `\MvcCore\Ext\Auths\Basics\IRole`.
+	 * @param  string $roleClass Role full class name implementing `\MvcCore\Ext\Auths\Basics\IRole`.
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
-	public function SetRoleClass ($roleClass = '') {
+	public function SetRoleClass ($roleClass) {
 		$this->userClass = $this->checkClassImplementation(
 			$roleClass, 'MvcCore\\Ext\\Auths\\Basics\\IRole', TRUE
 		);
@@ -648,10 +656,10 @@ trait PropsGettersSetters {
 	 * - `\MvcCore\IController`
 	 * Default value after authentication module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\Controller`.
-	 * @param string $controllerClass Controller full class name implementing `\MvcCore\Ext\Auths\Basics\IController`.
+	 * @param  string $controllerClass Controller full class name implementing `\MvcCore\Ext\Auths\Basics\IController`.
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
-	public function SetControllerClass ($controllerClass = '') {
+	public function SetControllerClass ($controllerClass) {
 		if (substr($controllerClass, 0, 2) == '//') {
 			$controllerClassToCheck = substr($controllerClass, 2);
 		} else {
@@ -674,10 +682,10 @@ trait PropsGettersSetters {
 	 * `\MvcCore\Ext\Auths\Basics\IForm`.
 	 * Default value after authentication module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\SignInForm`.
-	 * @param string $signInFormClass Form full class name implementing `\MvcCore\Ext\Auths\Basics\IForm`.
+	 * @param  string $signInFormClass Form full class name implementing `\MvcCore\Ext\Auths\Basics\IForm`.
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
-	public function SetSignInFormClass ($signInFormClass = '') {
+	public function SetSignInFormClass ($signInFormClass) {
 		$this->signInFormClass = $this->checkClassImplementation(
 			$signInFormClass, 'MvcCore\\Ext\\Auths\\Basics\\IForm', FALSE
 		);
@@ -690,10 +698,10 @@ trait PropsGettersSetters {
 	 * `\MvcCore\Ext\Auths\Basics\IForm`.
 	 * Default value after authentication module init is
 	 * configured to `\MvcCore\Ext\Auths\Basics\SignOutForm`.
-	 * @param string $signInFormClass Form full class name implementing `\MvcCore\Ext\Auths\Basics\IForm`.
+	 * @param  string $signInFormClass Form full class name implementing `\MvcCore\Ext\Auths\Basics\IForm`.
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
-	public function SetSignOutFormClass ($signOutFormClass = '') {
+	public function SetSignOutFormClass ($signOutFormClass) {
 		$this->signOutFormClass = $this->checkClassImplementation(
 			$signOutFormClass, 'MvcCore\\Ext\\Auths\\Basics\\IForm', FALSE
 		);
@@ -705,10 +713,10 @@ trait PropsGettersSetters {
 	 * POST request was successful.
 	 * If `NULL` (by default), user will be redirected
 	 * to the same url, where was sign in form rendered.
-	 * @param string|NULL $signedInUrl
+	 * @param  string|NULL $signedInUrl
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
-	public function SetSignedInUrl ($signedInUrl = NULL) {
+	public function SetSignedInUrl ($signedInUrl) {
 		$this->signedInUrl = $signedInUrl;
 		return $this;
 	}
@@ -718,10 +726,10 @@ trait PropsGettersSetters {
 	 * POST request was successful.
 	 * If `NULL` (by default), user will be redirected
 	 * to the same url, where was sign out form rendered.
-	 * @param string|NULL $signedOutUrl
+	 * @param  string|NULL $signedOutUrl
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
-	public function SetSignedOutUrl ($signedOutUrl = NULL) {
+	public function SetSignedOutUrl ($signedOutUrl) {
 		$this->signedOutUrl = $signedOutUrl;
 		return $this;
 	}
@@ -732,10 +740,10 @@ trait PropsGettersSetters {
 	 * for example wrong credentials.
 	 * If `NULL` (by default), user will be redirected
 	 * to the same url, where was sign in/out form rendered.
-	 * @param string|NULL $signErrorUrl
+	 * @param  string|NULL $signErrorUrl
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
-	public function SetSignErrorUrl ($signErrorUrl = NULL) {
+	public function SetSignErrorUrl ($signErrorUrl) {
 		$this->signErrorUrl = $signErrorUrl;
 		return $this;
 	}
@@ -743,16 +751,17 @@ trait PropsGettersSetters {
 	/**
 	 * Set route instance to submit sign in form into.
 	 * Default configured route for sign in request is `/signin` by POST.
-	 * @param string|array|\MvcCore\Route $signInRoute
+	 * @param  string|array<string, string>|\MvcCore\Route $signInRoute
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
-	public function SetSignInRoute ($signInRoute = NULL) {
+	public function SetSignInRoute ($signInRoute) {
 		$this->signInRoute = $signInRoute;
 		$method = NULL;
-		if (gettype($signInRoute) == 'array' && isset($signInRoute['method']))
+		if (is_array($signInRoute) && isset($signInRoute['method'])) {
 			$method = strtoupper($signInRoute['method']);
-		if ($signInRoute instanceof \MvcCore\IRoute)
+		} else if ($signInRoute instanceof \MvcCore\IRoute) {
 			$method = $signInRoute->GetMethod();
+		}
 		if ($method !== \MvcCore\IRequest::METHOD_POST)
 			$this->addRoutesForAnyRequestMethod = TRUE;
 		return $this;
@@ -761,16 +770,17 @@ trait PropsGettersSetters {
 	/**
 	 * Set route to submit sign out form into.
 	 * Default configured route for sign in request is `/signout` by POST.
-	 * @param string|array|\MvcCore\Route $signOutRoute
+	 * @param  string|array<string, string>|\MvcCore\Route $signOutRoute
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
-	public function SetSignOutRoute ($signOutRoute = NULL) {
+	public function SetSignOutRoute ($signOutRoute) {
 		$this->signOutRoute = $signOutRoute;
 		$method = NULL;
-		if (gettype($signOutRoute) == 'array' && isset($signOutRoute['method']))
+		if (is_array($signOutRoute) && isset($signOutRoute['method'])) {
 			$method = strtoupper($signOutRoute['method']);
-		if ($signOutRoute instanceof \MvcCore\IRoute)
+		} else if ($signOutRoute instanceof \MvcCore\IRoute) {
 			$method = $signOutRoute->GetMethod();
+		}
 		if ($method !== \MvcCore\IRequest::METHOD_POST)
 			$this->addRoutesForAnyRequestMethod = TRUE;
 		return $this;
@@ -780,11 +790,16 @@ trait PropsGettersSetters {
 	 * Set configured salt for `passord_hash();` to generate password by `PASSWORD_BCRYPT`.
 	 * `NULL` by default. This option is the only one option required
 	 * to configure authentication module to use it properly.
-	 * @param string $passwordHashSalt
+	 * @deprecated
+	 * @param  string $passwordHashSalt
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
-	public function SetPasswordHashSalt ($passwordHashSalt = '') {
-		$this->passwordHashSalt = $passwordHashSalt;
+	public function SetPasswordHashSalt ($passwordHashSalt) {
+		if (PHP_VERSION_ID >= 80000) {
+			trigger_error('The salt option is deprecated, https://www.php.net/manual/en/function.password-hash.php', E_USER_DEPRECATED);
+		} else {
+			$this->passwordHashSalt = $passwordHashSalt;
+		}
 		return $this;
 	}
 
@@ -792,7 +807,7 @@ trait PropsGettersSetters {
 	 * Set timeout to `sleep();` PHP script before sending response to user,
 	 * when user submitted invalid username or password.
 	 * Default value is `3` (3 seconds).
-	 * @param int $seconds
+	 * @param  int $seconds
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetInvalidCredentialsTimeout ($seconds = 3) {
@@ -804,7 +819,7 @@ trait PropsGettersSetters {
 	 * Set callable translator to set it into authentication form
 	 * to translate form labels, placeholders or buttons.
 	 * Default value is `NULL` (forms without translations).
-	 * @param callable $translator
+	 * @param  callable|NULL $translator
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetTranslator (callable $translator = NULL) {
@@ -816,7 +831,7 @@ trait PropsGettersSetters {
 	 * Set user instance manually. If you use this method
 	 * no authentication by `{$configuredUserClass}::SetUpUserBySession();`
 	 * is used and authentication state is always positive.
-	 * @param \MvcCore\Ext\Auths\Basics\User|NULL $user
+	 * @param  \MvcCore\Ext\Auths\Basics\User|NULL $user
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetUser (\MvcCore\Ext\Auths\Basics\IUser $user = NULL) {
@@ -841,20 +856,22 @@ trait PropsGettersSetters {
 	 * Set up authorization module configuration.
 	 * Each array key has to be key by protected configuration property in this class.
 	 * All properties are one by one configured by it's setter method.
-	 * @param array $configuration Keys by protected properties names in camel case.
-	 * @param bool $throwExceptionIfPropertyIsMissing
+	 * @param  array<string, mixed> $configuration                     Keys by protected properties names in camel case.
+	 * @param  bool                 $throwExceptionIfPropertyIsMissing
 	 * @throws \InvalidArgumentException
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
-	public function SetConfiguration ($configuration = [], $throwExceptionIfPropertyIsMissing = TRUE) {
-		foreach ($configuration as $key => $value) {
-			$setter = 'Set' . ucfirst($key);
-			if (method_exists($this, $setter)) {
-				$this->{$setter}($value);
-			} else if ($throwExceptionIfPropertyIsMissing) {
-				throw new \InvalidArgumentException (
-					'['.get_class().'] Property `'.$key.'` has no setter method `'.$setter.'` in class `'.get_class($this).'`.'
-				);
+	public function SetConfiguration ($configuration, $throwExceptionIfPropertyIsMissing = TRUE) {
+		if (is_array($configuration)) {
+			foreach ($configuration as $key => $value) {
+				$setter = 'Set' . ucfirst($key);
+				if (method_exists($this, $setter)) {
+					$this->{$setter}($value);
+				} else if ($throwExceptionIfPropertyIsMissing) {
+					throw new \InvalidArgumentException (
+						'['.get_class().'] Property `'.$key.'` has no setter method `'.$setter.'` in class `'.get_class($this).'`.'
+					);
+				}
 			}
 		}
 		return $this;
@@ -864,14 +881,14 @@ trait PropsGettersSetters {
 	 * Optional alias method if you have user class configured
 	 * to database user: `\MvcCore\Ext\Auths\Basics\Users\Database`.
 	 * Alias for `\MvcCore\Ext\Auths\Basics\Users\Database::SetUsersTableStructure($tableName, $columnNames);`.
-	 * @param string|NULL	$tableName Database table name.
-	 * @param string[]|NULL	$columnNames Keys are user class protected properties names in camel case, values are database columns names.
+	 * @param  string|NULL    $tableName Database table name.
+	 * @param  \string[]|NULL $columnNames Keys are user class protected properties names in camel case, values are database columns names.
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
-	public function SetTableStructureForDbUsers ($tableName = NULL, $columnNames = NULL) {
+	public function SetTableStructureForDbUsers ($tableName, $columnNames) {
 		$userClass = $this->userClass;
 		$toolClass = static::$toolClass;
-		if ($toolClass::CheckClassInterface($userClass, 'MvcCore\\Ext\\Auths\\Basics\\IDatabaseUser', TRUE, TRUE)) {
+		if ($toolClass::CheckClassInterface($userClass, static::$databaseUserInterface, TRUE, TRUE)) {
 			$userClass::SetUsersTableStructure($tableName, $columnNames);
 		};
 		return $this;
@@ -881,9 +898,9 @@ trait PropsGettersSetters {
 	 * Check if given class name implements given interface
 	 * and optionally if test class implements static interface methods.
 	 * If not, thrown an `\InvalidArgumentException` every time.
-	 * @param string $testClassName Full test class name.
-	 * @param string $interfaceName Full interface class name.
-	 * @param bool $checkStaticMethods `FALSE` by default.
+	 * @param  string $testClassName      Full test class name.
+	 * @param  string $interfaceName      Full interface class name.
+	 * @param  bool   $checkStaticMethods `FALSE` by default.
 	 * @throws \InvalidArgumentException
 	 * @return string
 	 */
