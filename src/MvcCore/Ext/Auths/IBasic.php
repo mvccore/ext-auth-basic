@@ -189,21 +189,6 @@ interface IBasic {
 	public function IsAuthenticated ();
 
 	/**
-	 * Return completed sign in or sign out form instance.
-	 * Form instance completion is processed only once,
-	 * any created form instance is stored in `$auth->form` property.
-	 * This method is always called by you, your application
-	 * to set form into you custom template to render it for user.
-	 * If user is not authenticated, sign in form is returned and
-	 * if user is authenticated, opposite sign out form is returned.
-	 * This method is only alias to call two other methods:
-	 * - `\MvcCore\Ext\Auths\Basic::GetInstance()->GetSignInForm();` for not authenticated users.
-	 * - `\MvcCore\Ext\Auths\Basic::GetInstance()->GetSignOutForm();` for authenticated users.
-	 * @var \MvcCore\Ext\Auths\Basics\Form\SignIn|\MvcCore\Ext\Auths\Basics\Form\SignOut
-	 */
-	public function GetForm ();
-
-	/**
 	 * Return completed sign in form instance.
 	 * Form instance completion is processed only once,
 	 * created form instance is stored in `$auth->form` property.
@@ -392,14 +377,6 @@ interface IBasic {
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetUser (\MvcCore\Ext\Auths\Basics\IUser $user = NULL);
-
-	/**
-	 * Set sign in, sign out or any authentication form instance.
-	 * Use this method only if you need sometimes to complete different form to render.
-	 * @param  \MvcCore\Ext\Auths\Basics\IForm $form
-	 * @return \MvcCore\Ext\Auths\Basic
-	 */
-	public function SetForm (\MvcCore\Ext\Auths\Basics\IForm $form);
 
 	/**
 	 * Set up authorization module configuration.

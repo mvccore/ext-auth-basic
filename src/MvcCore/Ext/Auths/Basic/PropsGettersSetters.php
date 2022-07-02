@@ -241,13 +241,22 @@ trait PropsGettersSetters {
 	protected $user = NULL;
 
 	/**
-	 * Sign in form instance, sign out form instance or any
-	 * other authentication form instance in extended classes.
-	 * If user is authenticated by username record in session namespace,
-	 * there is completed sign out form, if not authenticated, sign in form otherwise etc...
-	 * @var \MvcCore\Ext\Auths\Basics\SignInForm|\MvcCore\Ext\Auths\Basics\SignOutForm
+	 * Sign in form instance or any other authentication 
+	 * form instance in extended classes. If user is 
+	 * authenticated by username record in session namespace,
+	 * there is completed sign out form.
+	 * @var \MvcCore\Ext\Auths\Basics\SignInForm|NULL
 	 */
-	protected $form = NULL;
+	protected $signInForm = NULL;
+
+	/**
+	 * Sign out form instance or any other authentication 
+	 * form instance in extended classes. If user is not 
+	 * authenticated by username record in session namespace, 
+	 * there is completed sign in form.
+	 * @var \MvcCore\Ext\Auths\Basics\SignOutForm|NULL
+	 */
+	protected $signOutForm = NULL;
 
 	/**
 	 * This is only internal semaphore to call
@@ -482,52 +491,30 @@ trait PropsGettersSetters {
 	}
 
 	/**
-	 * Return completed sign in or sign out form instance.
-	 * Form instance completion is processed only once,
-	 * any created form instance is stored in `$auth->form` property.
-	 * This method is always called by you, your application
-	 * to set form into you custom template to render it for user.
-	 * If user is not authenticated, sign in form is returned and
-	 * if user is authenticated, opposite sign out form is returned.
-	 * This method is only alias to call two other methods:
-	 * - `\MvcCore\Ext\Auths\Basic::GetInstance()->GetSignInForm();` for not authenticated users.
-	 * - `\MvcCore\Ext\Auths\Basic::GetInstance()->GetSignOutForm();` for authenticated users.
-	 * @var \MvcCore\Ext\Auths\Basics\SignInForm|\MvcCore\Ext\Auths\Basics\SignOutForm
-	 */
-	public function GetForm () {
-		if ($this->IsAuthenticated()) {
-			$form = $this->GetSignOutForm();
-		} else {
-			$form = $this->GetSignInForm();
-		}
-		return $form;
-	}
-
-	/**
 	 * Return completed sign in form instance.
 	 * Form instance completion is processed only once,
 	 * created form instance is stored in `$auth->form` property.
 	 * @return \MvcCore\Ext\Auths\Basics\SignInForm
 	 */
 	public function GetSignInForm () {
-		if ($this->form !== NULL) return $this->form;
+		if ($this->signInForm !== NULL) return $this->signInForm;
 		$routerClass = $this->application->GetRouterClass();
 		$router = $routerClass::GetInstance();
 		$route = $this->getInitializedRoute('SignIn')->SetRouter($router);
 		$method = $route->GetMethod();
 		$appCtrl = $this->application->GetController();
 		$formClassType = new \ReflectionClass($this->signInFormClass);
-		$this->form = $formClassType->newInstanceArgs([$appCtrl]);
-		$this->form
-			->AddCssClasses(str_replace('_', ' ', $this->form->GetId()))
+		$this->signInForm = $formClassType->newInstanceArgs([$appCtrl]);
+		$this->signInForm
+			->AddCssClasses(str_replace('_', ' ', $this->signInForm->GetId()))
 			->SetMethod($method !== NULL ? $method : \MvcCore\IRequest::METHOD_POST)
 			->SetAction($router->UrlByRoute($route))
 			->SetSuccessUrl($this->signedInUrl)
 			->SetErrorUrl($this->signErrorUrl);
 		if ($this->translator)
-			$this->form->SetTranslator($this->translator);
-		$this->form->Init();
-		return $this->form;
+			$this->signInForm->SetTranslator($this->translator);
+		$this->signInForm->Init();
+		return $this->signInForm;
 	}
 
 	/**
@@ -537,24 +524,24 @@ trait PropsGettersSetters {
 	 * @return \MvcCore\Ext\Auths\Basics\SignOutForm
 	 */
 	public function GetSignOutForm () {
-		if ($this->form !== NULL) return $this->form;
+		if ($this->signOutForm !== NULL) return $this->signOutForm;
 		$routerClass = $this->application->GetRouterClass();
 		$router = $routerClass::GetInstance();
 		$route = $this->getInitializedRoute('SignOut')->SetRouter($router);
 		$method = $route->GetMethod();
 		$appCtrl =  $this->application->GetController();
 		$formClassType = new \ReflectionClass($this->signOutFormClass);
-		$this->form = $formClassType->newInstanceArgs([$appCtrl]);
-		$this->form
-			->AddCssClasses(str_replace('_', ' ', $this->form->GetId()))
+		$this->signOutForm = $formClassType->newInstanceArgs([$appCtrl]);
+		$this->signOutForm
+			->AddCssClasses(str_replace('_', ' ', $this->signOutForm->GetId()))
 			->SetMethod($method !== NULL ? $method : \MvcCore\IRequest::METHOD_POST)
 			->SetAction($router->UrlByRoute($route))
 			->SetSuccessUrl($this->signedOutUrl)
 			->SetErrorUrl($this->signErrorUrl);
 		if ($this->translator)
-			$this->form->SetTranslator($this->translator);
-		$this->form->Init();
-		return $this->form;
+			$this->signOutForm->SetTranslator($this->translator);
+		$this->signOutForm->Init();
+		return $this->signOutForm;
 	}
 
 	/**
@@ -838,17 +825,6 @@ trait PropsGettersSetters {
 		$this->user = $user;
 		if ($this->user !== NULL) $this->user->SetPasswordHash(NULL);
 		$this->userInitialized = TRUE;
-		return $this;
-	}
-
-	/**
-	 * Set sign in, sign out or any authentication form instance.
-	 * Use this method only if you need sometimes to complete different form to render.
-	 * @param \MvcCore\Ext\Auths\Basics\SignInForm|\MvcCore\Ext\Auths\Basics\SignOutForm $form
-	 * @return \MvcCore\Ext\Auths\Basic
-	 */
-	public function SetForm (\MvcCore\Ext\Auths\Basics\IForm $form) {
-		$this->form = $form;
 		return $this;
 	}
 
