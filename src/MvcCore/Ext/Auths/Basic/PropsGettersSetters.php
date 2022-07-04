@@ -471,6 +471,7 @@ trait PropsGettersSetters {
 	 */
 	public function GetUser () {
 		if (!$this->userInitialized && $this->user === NULL) {
+			/** @var \MvcCore\Ext\Auths\Basics\User $configuredUserClass */
 			$configuredUserClass = $this->userClass;
 			$this->user = $configuredUserClass::SetUpUserBySession();
 			if ($this->user !== NULL) $this->user->SetPasswordHash(NULL);
