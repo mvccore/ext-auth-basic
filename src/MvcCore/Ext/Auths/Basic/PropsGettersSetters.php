@@ -783,11 +783,12 @@ trait PropsGettersSetters {
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetPasswordHashSalt ($passwordHashSalt) {
-		if (PHP_VERSION_ID >= 80000) {
+		// Deprecation message removed for larger single file projects compatibility.
+		/*if (PHP_VERSION_ID >= 80000) {
 			trigger_error('The salt option is deprecated, https://www.php.net/manual/en/function.password-hash.php', E_USER_DEPRECATED);
-		} else {
+		} else {*/
 			$this->passwordHashSalt = $passwordHashSalt;
-		}
+		//}
 		return $this;
 	}
 
