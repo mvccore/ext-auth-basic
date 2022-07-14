@@ -52,9 +52,8 @@ trait SignOut {
 	 * @return array
 	 */
 	public function Submit (array & $rawRequestParams = []) {
-		parent::Submit($rawRequestParams);
-		$data = & $this->values;
-		if ($this->result === \MvcCore\Ext\Form::RESULT_SUCCESS) {
+		list($result, $data) = parent::Submit($rawRequestParams);
+		if ($result === \MvcCore\Ext\Form::RESULT_SUCCESS) {
 			$userClass = $this->auth->GetUserClass();
 			$userClass::LogOut();
 		}
