@@ -27,7 +27,7 @@ class SystemConfig extends \MvcCore\Ext\Auths\Basics\User {
 	public static function GetByUserName ($userName) {
 		$result = NULL;
 		$configClass = \MvcCore\Application::GetInstance()->GetConfigClass();
-		$allSysConfigCredentials = $configClass::GetSystem()->users;
+		$allSysConfigCredentials = $configClass::GetConfigSystem()->users;
 		foreach ($allSysConfigCredentials as $key => $sysConfigCredentials) {
 			if ($sysConfigCredentials->userName === $userName) {
 				$result = (new static())
