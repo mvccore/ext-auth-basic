@@ -39,6 +39,7 @@ trait AuthMethods {
 			$sessionAuthorization->{$authorizedStr}
 		) {
 			$user = static::GetByUserName($sessionIdentity->{$userNameStr});
+			if ($user === NULL) return NULL;
 			$user->passwordHash = NULL;
 			if (is_array($user->initialValues) && array_key_exists('passwordHash', $user->initialValues))
 				$user->initialValues['passwordHash'] = NULL;
