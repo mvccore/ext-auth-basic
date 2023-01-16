@@ -32,7 +32,7 @@ implements	\MvcCore\Ext\Auths\Basics\IRole {
 
 	/**
 	 * Get role instance from application roles list. It could be database or any other custom resource.
-	 * @param string $name Role unique name.
+	 * @param  string $name Role unique name.
 	 * @throws \RuntimeException
 	 * @return \MvcCore\Ext\Auths\Basics\Role
 	 */

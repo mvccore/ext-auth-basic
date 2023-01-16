@@ -18,7 +18,7 @@ namespace MvcCore\Ext\Auths\Basics;
  */
 interface IRole {
 
-	// trait: \MvcCore\Ext\Auths\Basics\Traits\UserAndRole\Base
+	// trait: \MvcCore\Ext\Auths\Basics\Traits\UserAndRole\GettersSetters
 
 	/**
 	 * User unique id, representing primary key in database
@@ -32,7 +32,7 @@ interface IRole {
 	 * Set user unique id, representing primary key in database
 	 * or sequence number in system config.
 	 * Example: `0 | 1 | 2...`
-	 * @param int|NULL $id
+	 * @param  int|NULL $id
 	 * @return \MvcCore\Ext\Auths\Basics\Role
 	 */
 	public function SetId ($id);
@@ -52,44 +52,69 @@ interface IRole {
 
 	/**
 	 * Set user active state boolean. `TRUE` for active, `FALSE` otherwise.
+	 * @param  bool $active `TRUE` by default.
 	 * @return \MvcCore\Ext\Auths\Basics\Role
 	 */
-	public function SetActive ($active);
+	public function SetActive ($active = TRUE);
 
 
-	// trait: \MvcCore\Ext\Auths\Basics\Traits\UserAndRole\Permissions
+	// trait: \MvcCore\Ext\Auths\Basics\Traits\UserAndRole\PermissionsMethods
 
 	/**
-	 * Get `TRUE` if given permission string is allowed for user or role. `FALSE` otherwise.
-	 * @param string $permissionName
+	 * Get `TRUE` if given permission string(s) is/are (all or some) allowed for role. 
+	 * `FALSE` otherwise. Permission name could contain asterisk char `*` in any place.
+	 * @param  string|\string[] $permissionNameOrNames
+	 * @param  bool             $allPermissionsRequired `TRUE` by default.
 	 * @return bool
 	 */
-	public function GetPermission ($permissionName);
+	public function IsAllowed ($permissionNameOrNames, $allPermissionsRequired = TRUE);
 
 	/**
-	 * Set `$permissionName` string with `$allow` boolean to allow
-	 * or to disallow permission (with `$allow = FALSE`) for user or role.
-	 * @param string $permissionName Strings describing what is allowed/disallowed to do for user or role.
-	 * @param bool $allow `TRUE` by default.
+	 * Get `TRUE` if given permission string or permission database id 
+	 * is allowed for role, return FALSE` otherwise.
+	 * @param  string|NULL $permissionName Permission name, optional, describing what is allowed/disallowed to do for role.
+	 * @param  int|NULL    $idPermission   Permission database id, optional.
+	 * @return bool
+	 */
+	public function HasPermission ($permissionName = NULL, $idPermission = NULL);
+
+	/**
+	 * Add permission by name or by permission database id and name
+	 * into permissions to allow something for role.
+	 * @param  string|NULL $permissionName Permission name, optional, describing what is allowed/disallowed to do for role.
+	 * @param  int|NULL    $idPermission   Permission database id, optional.
 	 * @return \MvcCore\Ext\Auths\Basics\Role
 	 */
-	public function SetPermission ($permissionName, $allow = TRUE);
+	public function AddPermission ($permissionName = NULL, $idPermission = NULL);
 
 	/**
-	 * Get array of strings describing what is allowed to do for user or role.
-	 * @return \string[]
+	 * Remove permission by name or by permission database id and name
+	 * to disallow something for role.
+	 * @param  string|NULL $permissionName Permission name, optional, describing what is allowed/disallowed to do for role.
+	 * @param  int|NULL    $idPermission   Permission database id, optional.
+	 * @return \MvcCore\Ext\Auths\Basics\Role
 	 */
-	public function & GetPermissions();
+	public function RemovePermission ($permissionName = NULL, $idPermission = NULL);
 
 	/**
-	 * Set array of strings describing what is allowed to do for user or role.
-	 * @param string|\string[] $permissions The permissions string, separated by comma character or array of strings.
+	 * Get array of strings or array with permissions database ids as keys
+	 * and permissions names as values, describing what is allowed to do for role.
+	 * @return \string[]|array<int, string>
+	 */
+	public function & GetPermissions ();
+
+	/**
+	 * Set array of strings or array with permissions database ids and names
+	 * describing what is allowed to do for role.
+	 * @param  string|\string[]|array<int, string> $permissions The permissions string, separated by comma character 
+	 *                                                          or array of strings or array with permissions database 
+	 *                                                          ids as keys and permissions names as values.
 	 * @return \MvcCore\Ext\Auths\Basics\Role
 	 */
 	public function SetPermissions ($permissions);
 
 
-	// trait: \MvcCore\Ext\Auths\Basics\Traits\Role
+	// trait: \MvcCore\Ext\Auths\Basics\Traits\GettersSetters
 
 	/**
 	 * Get unique role name.
@@ -101,26 +126,17 @@ interface IRole {
 	/**
 	 * Set unique role name.
 	 * Example: `"management" | "editor" | "quest"`
-	 * @param string $name
+	 * @param  string $name
 	 * @return \MvcCore\Ext\Auths\Basics\Role
 	 */
 	public function SetName ($name);
-
-	/**
-	 * Get `TRUE` if given permission string(s) is/are (all or some) allowed for user or user role. 
-	 * `FALSE` otherwise. Permission name could contain asterisk char `*` in any place.
-	 * @param string|\string[] $permissionNameOrNames
-	 * @param bool $allPermissionsRequired `TRUE` by default.
-	 * @return bool
-	 */
-	public function IsAllowed ($permissionNameOrNames, $allPermissionsRequired = TRUE);
 
 
 	// class: \MvcCore\Ext\Auths\Basics\Role
 
 	/**
 	 * Get role instance from application roles list. It could be database or any other custom resource.
-	 * @param string $name Role unique name.
+	 * @param  string $name Role unique name.
 	 * @throws \RuntimeException
 	 * @return \MvcCore\Ext\Auths\Basics\Role
 	 */

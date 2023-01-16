@@ -17,17 +17,18 @@ use \MvcCore\Ext\Models\Db\Attrs;
 
 /**
  * Trait for `\MvcCore\Ext\Auths\Basics\User` class. Trait contains:
- * - Instance property `$roles`.
+ * - Instance property `$admin`.
  * @mixin \MvcCore\Ext\Auths\Basics\User
  */
-trait RolesProps {
+trait AdminProps {
 
 	/**
-	 * Array of roles names or array with roles database ids as keys and roles names
-	 * as values, describing roles assigned for current user instance.
-	 * @column roles
-	 * @var \string[]|array<int,string>
+	 * `TRUE` if user is administrator. Administrator has always allowed everything.
+	 * Default value is `FALSE`.
+	 * @column admin
+	 * @var bool
 	 */
-	#[Attrs\Column('roles')]
-	protected $roles = [];
+	#[Attrs\Column('admin')]
+	protected $admin = FALSE;
+
 }

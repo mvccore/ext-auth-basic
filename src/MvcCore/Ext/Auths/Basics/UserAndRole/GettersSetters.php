@@ -36,7 +36,7 @@ trait GettersSetters {
 	 * Set user unique id, representing primary key in database
 	 * or sequence number in system config.
 	 * Example: `0 | 1 | 2...`
-	 * @param int|NULL $id
+	 * @param  int|NULL $id
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role
 	 */
 	public function SetId ($id) {
@@ -63,9 +63,10 @@ trait GettersSetters {
 
 	/**
 	 * Set user active state boolean. `TRUE` for active, `FALSE` otherwise.
+	 * @param  bool $active `TRUE` by default.
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role
 	 */
-	public function SetActive ($active) {
+	public function SetActive ($active = TRUE) {
 		$this->active = (bool) $active;
 		return $this;
 	}

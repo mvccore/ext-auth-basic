@@ -17,112 +17,92 @@ use \MvcCore\Ext\Models\Db\Attrs;
 
 /**
  * Trait for `\MvcCore\Ext\Auths\Basics\User` class. Trait contains:
- * - Public getters and setters for instance properties `$admin` and `$roles`.
- * - Methods to determinate and manipulate with user permissions from user instance or from user roles.
+ * - Public getters and setters for instance property `$roles`.
+ * - Methods to determinate and manipulate with user roles from user instance.
  * @mixin \MvcCore\Ext\Auths\Basics\User
  */
 trait RolesMethods {
 
 	/**
-	 * Get if user is Administrator. Administrator has always allowed everything.
+	 * Get `TRUE` if given role string or role database id 
+	 * is allowed for user, return FALSE` otherwise.
+	 * @param  string|NULL $roleName Role name, optional, describing what is allowed/disallowed to do for user.
+	 * @param  int|NULL    $idRole   Role database id, optional.
 	 * @return bool
 	 */
-	public function IsAdmin() {
-		return $this->admin;
+	public function HasRole ($roleName = NULL, $idRole = NULL) {
+		if ($this->admin) return TRUE;
+		if (is_int($idRole)) {
+			return isset($this->roles[$idRole]);
+		} else {
+			if (in_array($roleName, array_values($this->roles), TRUE)) 
+				return TRUE;
+		}
+		return FALSE;
 	}
 
 	/**
-	 * Get if user is Administrator. Administrator has always allowed everything.
-	 * @return bool
-	 */
-	public function GetAdmin() {
-		return $this->admin;
-	}
-
-	/**
-	 * Set user to Administrator. Administrator has always allowed everything.
-	 * @param bool $admin `TRUE` by default.
+	 * Add role by name or by role database id and name
+	 * into roles to allow something for user.
+	 * @param  string|NULL $roleName Role name, optional, describing what is allowed/disallowed to do for user.
+	 * @param  int|NULL    $idRole   Role database id, optional.
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
-	public function SetAdmin ($admin = TRUE) {
-		$this->admin = (bool) $admin;
+	public function AddRole ($roleName = NULL, $idRole = NULL) {
+		if ($roleName !== NULL) {
+			if (is_int($idRole)) {
+				$this->roles[$idRole] = $roleName;
+			} else {
+				if (!in_array($roleName, array_values($this->roles), TRUE))
+					$this->roles[] = $roleName;
+			}
+		}
 		return $this;
 	}
 
 	/**
-	 * Return array of user's roles names.
-	 * @return \string[]
+	 * Remove role by name or by role database id and name
+	 * to disallow something for user.
+	 * @param  string|NULL $roleName Role name, optional, describing what is allowed/disallowed to do for user.
+	 * @param  int|NULL    $idRole   Role database id, optional.
+	 * @return \MvcCore\Ext\Auths\Basics\User
+	 */
+	public function RemoveRole ($roleName = NULL, $idRole = NULL) {
+		if (is_int($idRole)) {
+			unset($this->roles[$idRole]);
+		} else if (
+			$roleName !== NULL && 
+			in_array($roleName, array_values($this->roles), TRUE)
+		) {
+			$position = array_search($roleName, $this->roles);
+			if ($position !== FALSE) array_splice($this->roles, $position, 1);
+		}
+		return $this;
+	}
+
+	/**
+	 * Get array of roles names or array with roles database ids as keys and roles names
+	 * as values, describing roles assigned for current user instance.
+	 * @return \string[]|array<int, string>
 	 */
 	public function & GetRoles () {
 		return $this->roles;
 	}
 
 	/**
-	 * Set new user's roles or roles names.
-	 * @param \string[]|\MvcCore\Ext\Auths\Basics\Role[] $rolesOrRolesNames
+	 * Set array of roles names or array with roles database ids as keys and roles names
+	 * as values, describing roles assigned for current user instance.
+	 * @param  string|\string[]|array<int, string> $roles The roles string, separated by comma character 
+	 *                                                    or array of strings or array with roles database 
+	 *                                                    ids as keys and roles names as values.
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
-	public function SetRoles ($rolesOrRolesNames = []) {
-		$this->roles = [];
-		foreach ($rolesOrRolesNames as $roleOrRoleName)
-			$this->roles[] = static::getRoleName($roleOrRoleName);
-		return $this;
-	}
-
-	/**
-	 * Add user role or role name.
-	 * @param string|\MvcCore\Ext\Auths\Basics\Role $roleOrRoleName
-	 * @throws \InvalidArgumentException
-	 * @return \MvcCore\Ext\Auths\Basics\User
-	 */
-	public function AddRole ($roleOrRoleName) {
-		$roleName = static::getRoleName($roleOrRoleName);
-		if (!in_array($roleName, $this->roles, TRUE))
-			$this->roles[] = $roleName;
-		return $this;
-	}
-
-	/**
-	 * Get `TRUE` if user has already assigned role or role name.
-	 * @param string|\MvcCore\Ext\Auths\Basics\Role $roleOrRoleName
-	 * @throws \InvalidArgumentException
-	 * @return bool
-	 */
-	public function HasRole ($roleOrRoleName) {
-		$roleName = static::getRoleName($roleOrRoleName);
-		return in_array($roleName, $this->roles, TRUE);
-	}
-
-	/**
-	 * Remove user role or role name from user roles.
-	 * @param string|\MvcCore\Ext\Auths\Basics\Role $roleOrRoleName
-	 * @throws \InvalidArgumentException
-	 * @return \MvcCore\Ext\Auths\Basics\User
-	 */
-	public function RemoveRole ($roleOrRoleName) {
-		$roleName = static::getRoleName($roleOrRoleName);
-		$position = array_search($roleName, $this->roles);
-		if ($position !== FALSE) array_splice($this->roles, $position, 1);
-		return $this;
-	}
-
-	/**
-	 * Get role name from given role instance or given role name.
-	 * @param string|\MvcCore\Ext\Auths\Basics\Role $roleOrRoleName
-	 * @throws \InvalidArgumentException
-	 * @return string
-	 */
-	protected static function getRoleName ($roleOrRoleName) {
-		if (is_string($roleOrRoleName)) {
-			return $roleOrRoleName;
-		} else if ($roleOrRoleName instanceof \MvcCore\Ext\Auths\Basics\IRole) {
-			return $roleOrRoleName->GetName();
-		} else {
-			throw new \InvalidArgumentException(
-				'['.get_class()."] Given argument `{$roleOrRoleName}` doesn't "
-				."implement interface `\\MvcCore\\Ext\\Auths\\Basics\\IRole` "
-				."or it's not string with role name."
-			);
+	public function SetRoles ($roles) {
+		if (is_string($roles)) {
+			$this->roles = explode(',', $roles);
+		} else if (is_array($roles)) {
+			$this->roles = $roles;
 		}
+		return $this;
 	}
 }

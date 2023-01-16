@@ -36,7 +36,7 @@ trait GettersSetters {
 	 * Set unique user name to log in. It could be email,
 	 * unique user name or anything uniquelse.
 	 * Example: `"admin" | "john" | "tom@gmail.com"`
-	 * @param string $userName
+	 * @param  string $userName
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetUserName ($userName) {
@@ -58,7 +58,7 @@ trait GettersSetters {
 	 * Set user full name string to display in application
 	 * for authenticated user at sign out button.
 	 * Example: `"Administrator" | "John" | "Tom"`
-	 * @param string $fullName
+	 * @param  string $fullName
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetFullName ($fullName) {
@@ -82,7 +82,7 @@ trait GettersSetters {
 	 * From moment, when is user instance loaded with password hash by session username to
 	 * moment, when is compared hashed sent password and stored password hash.
 	 * After password hashes comparison, password hash is un-setted.
-	 * @param string|NULL $passwordHash
+	 * @param  string|NULL $passwordHash
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetPasswordHash ($passwordHash) {

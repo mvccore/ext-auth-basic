@@ -29,7 +29,7 @@ interface IUser {
 	const SESSION_AUTHORIZED_KEY = 'authorized';
 
 
-	// trait: \MvcCore\Ext\Auths\Basics\Traits\UserAndRole\Base
+	// trait: \MvcCore\Ext\Auths\Basics\Traits\UserAndRole\GettersSetters
 
 	/**
 	 * User unique id, representing primary key in database
@@ -43,7 +43,7 @@ interface IUser {
 	 * Set user unique id, representing primary key in database
 	 * or sequence number in system config.
 	 * Example: `0 | 1 | 2...`
-	 * @param int|NULL $id
+	 * @param  int|NULL $id
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetId ($id);
@@ -63,12 +63,13 @@ interface IUser {
 
 	/**
 	 * Set user active state boolean. `TRUE` for active, `FALSE` otherwise.
+	 * @param  bool $active `TRUE` by default.
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
-	public function SetActive ($active);
+	public function SetActive ($active = TRUE);
 
 
-	// trait: \MvcCore\Ext\Auths\Basics\Traits\User\Base
+	// trait: \MvcCore\Ext\Auths\Basics\Traits\User\GettersSetters
 
 	/**
 	 * Unique user name to log in. It could be email,
@@ -82,7 +83,7 @@ interface IUser {
 	 * Set unique user name to log in. It could be email,
 	 * unique user name or anything uniquelse.
 	 * Example: `"admin" | "john" | "tomflidr@gmail.com"`
-	 * @param string $userName
+	 * @param  string $userName
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetUserName ($userName);
@@ -99,7 +100,7 @@ interface IUser {
 	 * Set user full name string to display in application
 	 * for authenticated user at sign out button.
 	 * Example: `"Administrator" | "John" | "Tom"`
-	 * @param string $fullName
+	 * @param  string $fullName
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetFullName ($fullName);
@@ -118,13 +119,13 @@ interface IUser {
 	 * From moment, when is user instance loaded with password hash by session username to
 	 * moment, when is compared hashed sent password and stored password hash.
 	 * After password hashes comparison, password hash is un-setted.
-	 * @param string|NULL $passwordHash
+	 * @param  string|NULL $passwordHash
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetPasswordHash ($passwordHash);
 
 
-	// trait: \MvcCore\Ext\Auths\Basics\Traits\User\Auth
+	// trait: \MvcCore\Ext\Auths\Basics\Traits\User\AuthMethods
 
 	/**
 	 * Try to get user model instance from application users list
@@ -142,8 +143,8 @@ interface IUser {
 	 * hashed submitted password and user password hash from application users
 	 * list. If password hashes are the same, set username and authenticated boolean
 	 * into user session namespace. Then user is logged in.
-	 * @param string $userName Submitted and cleaned username. Characters `' " ` < > \ = ^ | & ~` are automatically encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
-	 * @param string $password Submitted and cleaned password. Characters `' " ` < > \ = ^ | & ~` are automatically encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
+	 * @param  string $userName Submitted and cleaned username. Characters `' " ` < > \ = ^ | & ~` are automatically encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
+	 * @param  string $password Submitted and cleaned password. Characters `' " ` < > \ = ^ | & ~` are automatically encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
 	 * @return \MvcCore\Ext\Auths\Basics\User|NULL
 	 */
 	public static function LogIn ($userName = '', $password = '');
@@ -153,7 +154,7 @@ interface IUser {
 	 * by default. User name should still remain in user session namespace.
 	 * If First argument `$destroyWholeSession` is `TRUE`, destroy whole
 	 * user session namespace with `authenticated` bool and with `userName` string record.
-	 * @param bool $destroyWholeSession
+	 * @param  bool $destroyWholeSession
 	 * @return void
 	 */
 	public static function LogOut ($destroyWholeSession = FALSE);
@@ -163,8 +164,8 @@ interface IUser {
 	 * by `\MvcCore\Ext\Auths\Basic` extension configuration or
 	 * by custom salt in second argument `$options['salt'] = 'abcdefg';`.
 	 * @see http://php.net/manual/en/function.password-hash.php
-	 * @param string $password
-	 * @param array $options An options for `password_hash()`.
+	 * @param  string $password
+	 * @param  array  $options An options for `password_hash()`.
 	 * @return string
 	 */
 	public static function EncodePasswordToHash ($password = '', $options = []);
@@ -181,7 +182,7 @@ interface IUser {
 
 	/**
 	 * Set identity session namespace.
-	 * @param \MvcCore\Session $sessionIdentity
+	 * @param  \MvcCore\Session $sessionIdentity
 	 * @return \MvcCore\Session
 	 */
 	public static function SetSessionIdentity (\MvcCore\ISession $sessionIdentity);
@@ -198,107 +199,129 @@ interface IUser {
 
 	/**
 	 * Set authorization session namespace.
-	 * @param \MvcCore\Session $sessionAuthorization
+	 * @param  \MvcCore\Session $sessionAuthorization
 	 * @return \MvcCore\Session
 	 */
 	public static function SetSessionAuthorization (\MvcCore\ISession $sessionAuthorization);
 
 
-	// trait: \MvcCore\Ext\Auths\Basics\Traits\User\Roles
+	// trait: \MvcCore\Ext\Auths\Basics\Traits\User\RolesMethods
 
 	/**
 	 * Get if user is Administrator. Administrator has always allowed everything.
 	 * @return bool
 	 */
-	public function IsAdmin();
+	public function IsAdmin ();
 
 	/**
 	 * Get if user is Administrator. Administrator has always allowed everything.
 	 * @return bool
 	 */
-	public function GetAdmin();
+	public function GetAdmin ();
 
 	/**
 	 * Set user to Administrator. Administrator has always allowed everything.
-	 * @param bool $admin `TRUE` by default.
+	 * @param  bool $admin `TRUE` by default.
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetAdmin ($admin = TRUE);
 
 	/**
-	 * Return array of user's roles names.
-	 * @return \string[]
+	 * Get `TRUE` if given role string or role database id 
+	 * is allowed for user, return FALSE` otherwise.
+	 * @param  string|NULL $roleName Role name, optional, describing what is allowed/disallowed to do for user.
+	 * @param  int|NULL    $idRole   Role database id, optional.
+	 * @return bool
+	 */
+	public function HasRole ($roleName = NULL, $idRole = NULL);
+
+	/**
+	 * Add role by name or by role database id and name
+	 * into roles to allow something for user.
+	 * @param  string|NULL $roleName Role name, optional, describing what is allowed/disallowed to do for user.
+	 * @param  int|NULL    $idRole   Role database id, optional.
+	 * @return \MvcCore\Ext\Auths\Basics\User
+	 */
+	public function AddRole ($roleName = NULL, $idRole = NULL);
+
+	/**
+	 * Remove role by name or by role database id and name
+	 * to disallow something for user.
+	 * @param  string|NULL $roleName Role name, optional, describing what is allowed/disallowed to do for user.
+	 * @param  int|NULL    $idRole   Role database id, optional.
+	 * @return \MvcCore\Ext\Auths\Basics\User
+	 */
+	public function RemoveRole ($roleName = NULL, $idRole = NULL);
+
+	/**
+	 * Get array of roles names or array with roles database ids as keys and roles names
+	 * as values, describing roles assigned for current user instance.
+	 * @return \string[]|array<int, string>
 	 */
 	public function & GetRoles ();
 
 	/**
-	 * Set new user's roles or roles names.
-	 * @param \string[]|\MvcCore\Ext\Auths\Basics\Role[] $rolesOrRolesNames
+	 * Set array of roles names or array with roles database ids as keys and roles names
+	 * as values, describing roles assigned for current user instance.
+	 * @param  string|\string[]|array<int, string> $roles The roles string, separated by comma character 
+	 *                                                    or array of strings or array with roles database 
+	 *                                                    ids as keys and roles names as values.
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
-	public function SetRoles ($rolesOrRolesNames = []);
+	public function SetRoles ($roles);
 
-	/**
-	 * Add user role or role name.
-	 * @param string|\MvcCore\Ext\Auths\Basics\Role $roleOrRoleName
-	 * @throws \InvalidArgumentException
-	 * @return \MvcCore\Ext\Auths\Basics\User
-	 */
-	public function AddRole ($roleOrRoleName);
-
-	/**
-	 * Get `TRUE` if user has already assigned role or role name.
-	 * @param string|\MvcCore\Ext\Auths\Basics\Role $roleOrRoleName
-	 * @throws \InvalidArgumentException
-	 * @return bool
-	 */
-	public function HasRole ($roleOrRoleName);
-
-	/**
-	 * Remove user role or role name from user roles.
-	 * @param string|\MvcCore\Ext\Auths\Basics\Role $roleOrRoleName
-	 * @throws \InvalidArgumentException
-	 * @return \MvcCore\Ext\Auths\Basics\User
-	 */
-	public function RemoveRole ($roleOrRoleName);
+	
+	// trait: \MvcCore\Ext\Auths\Basics\Traits\UserAndRole\PermissionsMethods
 
 	/**
 	 * Get `TRUE` if given permission string(s) is/are (all or some) allowed for user or user role. 
 	 * `FALSE` otherwise. Permission name could contain asterisk char `*` in any place.
-	 * @param string|\string[] $permissionNameOrNames
-	 * @param bool $allPermissionsRequired `TRUE` by default.
+	 * @param  string|\string[] $permissionNameOrNames
+	 * @param  bool             $allPermissionsRequired `TRUE` by default.
 	 * @return bool
 	 */
 	public function IsAllowed ($permissionNameOrNames, $allPermissionsRequired = TRUE);
 
-
-	// trait: \MvcCore\Ext\Auths\Basics\Traits\UserAndRole\Permissions
-
 	/**
-	 * Get `TRUE` if given permission string is allowed for user or role. `FALSE` otherwise.
-	 * @param string $permissionName
+	 * Get `TRUE` if given permission string or permission database id 
+	 * is allowed for user, return FALSE` otherwise.
+	 * @param  string|NULL $permissionName Permission name, optional, describing what is allowed/disallowed to do for user.
+	 * @param  int|NULL    $idPermission   Permission database id, optional.
 	 * @return bool
 	 */
-	public function GetPermission ($permissionName);
+	public function HasPermission ($permissionName = NULL, $idPermission = NULL);
 
 	/**
-	 * Set `$permissionName` string with `$allow` boolean to allow
-	 * or to disallow permission (with `$allow = FALSE`) for user or role.
-	 * @param string $permissionName Strings describing what is allowed/disallowed to do for user or role.
-	 * @param bool $allow `TRUE` by default.
+	 * Add permission by name or by permission database id and name
+	 * into permissions to allow something for user.
+	 * @param  string|NULL $permissionName Permission name, optional, describing what is allowed/disallowed to do for user.
+	 * @param  int|NULL    $idPermission   Permission database id, optional.
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
-	public function SetPermission ($permissionName, $allow = TRUE);
+	public function AddPermission ($permissionName = NULL, $idPermission = NULL);
 
 	/**
-	 * Get array of strings describing what is allowed to do for user or role.
-	 * @return \string[]
+	 * Remove permission by name or by permission database id and name
+	 * to disallow something for user.
+	 * @param  string|NULL $permissionName Permission name, optional, describing what is allowed/disallowed to do for user.
+	 * @param  int|NULL    $idPermission   Permission database id, optional.
+	 * @return \MvcCore\Ext\Auths\Basics\User
+	 */
+	public function RemovePermission ($permissionName = NULL, $idPermission = NULL);
+
+	/**
+	 * Get array of strings or array with permissions database ids as keys
+	 * and permissions names as values, describing what is allowed to do for user.
+	 * @return \string[]|array<int, string>
 	 */
 	public function & GetPermissions ();
 
 	/**
-	 * Set array of strings describing what is allowed to do for user or role.
-	 * @param string|\string[] $permissions The permissions string, separated by comma character or array of strings.
+	 * Set array of strings or array with permissions database ids and names
+	 * describing what is allowed to do for user.
+	 * @param  string|\string[]|array<int, string> $permissions The permissions string, separated by comma character 
+	 *                                                          or array of strings or array with permissions database 
+	 *                                                          ids as keys and permissions names as values.
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetPermissions ($permissions);
@@ -309,7 +332,7 @@ interface IUser {
 	/**
 	 * Get user model instance from database or any other users list
 	 * resource by submitted and cleaned `$userName` field value.
-	 * @param string $userName Submitted and cleaned username. Characters `' " ` < > \ = ^ | & ~` are automatically encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
+	 * @param  string $userName Submitted and cleaned username. Characters `' " ` < > \ = ^ | & ~` are automatically encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public static function GetByUserName ($userName);

@@ -48,7 +48,7 @@ trait SignOut {
 	/**
 	 * Sign out submit - if everything is OK, unset user unique name from session
 	 * for next requests to have not authenticated user anymore.
-	 * @param array $rawRequestParams
+	 * @param  array $rawRequestParams
 	 * @return array
 	 */
 	public function Submit (array & $rawRequestParams = []) {

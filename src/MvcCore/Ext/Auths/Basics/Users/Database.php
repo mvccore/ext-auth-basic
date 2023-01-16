@@ -39,8 +39,9 @@ implements	\MvcCore\Ext\Auths\Basics\IDatabaseUser {
 
 	/**
 	 * Set database table structure how to load user from db.
-	 * @param string|NULL	$tableName Database table name.
-	 * @param string[]|NULL	$columnNames Keys are user class protected properties names in camel case, values are database columns names.
+	 * @param  string|NULL   $tableName   Database table name.
+	 * @param  string[]|NULL $columnNames Keys are user class protected properties names in camel case, values are database columns names.
+	 * @return void
 	 */
 	public static function SetUsersTableStructure ($tableName = NULL, $columnNames = NULL) {
 		if ($tableName !== NULL) static::$usersTableStructure['table'] = $tableName;
@@ -54,7 +55,7 @@ implements	\MvcCore\Ext\Auths\Basics\IDatabaseUser {
 	/**
 	 * Get user model instance from database or any other users list
 	 * resource by submitted and cleaned `$userName` field value.
-	 * @param string $userName Submitted and cleaned username. Characters `' " ` < > \ = ^ | & ~` are automatically encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
+	 * @param  string $userName Submitted and cleaned username. Characters `' " ` < > \ = ^ | & ~` are automatically encoded to html entities by default `\MvcCore\Ext\Auths\Basic` sign in form.
 	 * @throws \RuntimeException
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Model
 	 */

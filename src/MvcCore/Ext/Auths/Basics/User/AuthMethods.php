@@ -89,7 +89,7 @@ trait AuthMethods {
 	 * by default. User name should still remain in user session namespace.
 	 * If First argument `$destroyWholeSession` is `TRUE`, destroy whole
 	 * user session namespace with `authenticated` bool and with `userName` string record.
-	 * @param bool $destroyWholeSession
+	 * @param  bool $destroyWholeSession
 	 * @return void
 	 */
 	public static function LogOut ($destroyWholeSession = FALSE) {
@@ -109,8 +109,8 @@ trait AuthMethods {
 	 * by `\MvcCore\Ext\Auths\Basic` extension configuration or
 	 * by custom salt in second agument `$options['salt'] = 'abcdefg';`.
 	 * @see http://php.net/manual/en/function.password-hash.php
-	 * @param string $password
-	 * @param array $options An options for `password_hash()`.
+	 * @param  string $password
+	 * @param  array  $options  An options for `password_hash()`.
 	 * @return string
 	 */
 	public static function EncodePasswordToHash ($password = '', $options = []) {
@@ -171,7 +171,7 @@ trait AuthMethods {
 
 	/**
 	 * Set identity session namespace.
-	 * @param \MvcCore\Session $sessionIdentity
+	 * @param  \MvcCore\Session $sessionIdentity
 	 * @return \MvcCore\Session
 	 */
 	public static function SetSessionIdentity (\MvcCore\ISession $sessionIdentity) {
@@ -203,7 +203,7 @@ trait AuthMethods {
 
 	/**
 	 * Set authorization session namespace.
-	 * @param \MvcCore\Session $sessionAuthorization
+	 * @param  \MvcCore\Session $sessionAuthorization
 	 * @return \MvcCore\Session
 	 */
 	public static function SetSessionAuthorization (\MvcCore\ISession $sessionAuthorization) {
@@ -212,8 +212,8 @@ trait AuthMethods {
 
 	/**
 	 * Backward compatible hash equals for PHP 5.4.
-	 * @param string $hash1
-	 * @param string $hash2
+	 * @param  string $hash1
+	 * @param  string $hash2
 	 * @return bool
 	 */
 	protected static function hashEquals ($hash1, $hash2) {

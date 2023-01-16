@@ -58,7 +58,7 @@ trait SignIn {
 	 * Sign in submit - if there is any user with the same password imprint
 	 * store user in session for next requests, if there is not - wait for
 	 * three seconds and then go to error page.
-	 * @param array $rawRequestParams
+	 * @param  array $rawRequestParams
 	 * @return array
 	 */
 	public function Submit (array & $rawRequestParams = []) {

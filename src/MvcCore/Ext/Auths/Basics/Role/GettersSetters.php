@@ -34,7 +34,7 @@ trait GettersSetters {
 	/**
 	 * Set unique role name.
 	 * Example: `"management" | "editor" | "quest"`
-	 * @param string $name
+	 * @param  string $name
 	 * @return \MvcCore\Ext\Auths\Basics\Role
 	 */
 	public function SetName ($name) {

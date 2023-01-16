@@ -29,6 +29,9 @@ trait Features {
 	use \MvcCore\Ext\Auths\Basics\UserAndRole\PermissionsProps;
 	use \MvcCore\Ext\Auths\Basics\UserAndRole\PermissionsMethods;
 	
+	use \MvcCore\Ext\Auths\Basics\User\AdminProps;
+	use \MvcCore\Ext\Auths\Basics\User\AdminMethods;
+	
 	use \MvcCore\Ext\Auths\Basics\User\RolesProps;
 	use \MvcCore\Ext\Auths\Basics\User\RolesMethods;
 

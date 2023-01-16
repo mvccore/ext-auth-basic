@@ -25,8 +25,8 @@ trait PermissionsMethods {
 	/**
 	 * Get `TRUE` if given permission string(s) is/are (all or some) allowed for user or user role. 
 	 * `FALSE` otherwise. Permission name could contain asterisk char `*` in any place.
-	 * @param string|\string[] $permissionNameOrNames
-	 * @param bool $allPermissionsRequired `TRUE` by default.
+	 * @param  string|\string[] $permissionNameOrNames
+	 * @param  bool             $allPermissionsRequired `TRUE` by default.
 	 * @return bool
 	 */
 	public function IsAllowed ($permissionNameOrNames, $allPermissionsRequired = TRUE) {
@@ -34,49 +34,85 @@ trait PermissionsMethods {
 		$permissionNames = is_array($permissionNameOrNames)
 			? $permissionNameOrNames
 			: [$permissionNameOrNames];
+		$permissionNamesCount = count($permissionNames);
 		$allMatchedPermissionsCount = 0;
 		foreach ($permissionNames as $permissionName) {
 			$starCharPos = mb_strpos($permissionName, '*');
 			if ($starCharPos === FALSE) {
-				if (in_array($permissionName, $this->permissions, TRUE)) {
+				if (in_array($permissionName, array_values($this->permissions), TRUE)) {
 					$allMatchedPermissionsCount++;
-					if (!$allMatchedPermissionsCount) break;
+					if (!$allPermissionsRequired) {
+						$allMatchedPermissionsCount = $permissionNamesCount;
+						break;
+					}
 				}
 			} else {
 				$regExpPattern = '#^' . str_replace('*', '.*', $permissionName) . '$#';
-				$matchedPermissions = preg_grep($regExpPattern, $this->permissions);
+				$matchedPermissions = preg_grep($regExpPattern, array_values($this->permissions));
 				$matchedPermissionsCount = count($matchedPermissions);
 				if ($matchedPermissionsCount > 0) {
 					$allMatchedPermissionsCount += $matchedPermissionsCount;
-					if (!$allPermissionsRequired) break;
+					if (!$allPermissionsRequired) {
+						$allMatchedPermissionsCount = $permissionNamesCount;
+						break;
+					}
 				}
 			}
 		}
-		return $allMatchedPermissionsCount >= count($permissionNames);
+		return $allMatchedPermissionsCount >= $permissionNamesCount;
 	}
 
 	/**
-	 * Get `TRUE` if given permission string is allowed for user or role. `FALSE` otherwise.
-	 * @param string $permissionName
+	 * Get `TRUE` if given permission string or permission database id 
+	 * is allowed for user or role, return FALSE` otherwise.
+	 * @param  string|NULL $permissionName Permission name, optional, describing what is allowed/disallowed to do for user or role.
+	 * @param  int|NULL    $idPermission   Permission database id, optional.
 	 * @return bool
 	 */
-	public function GetPermission ($permissionName) {
+	public function HasPermission ($permissionName = NULL, $idPermission = NULL) {
 		if (property_exists($this, 'admin') && $this->admin) return TRUE;
-		if (in_array($permissionName, $this->permissions, TRUE)) return TRUE;
+		if (is_int($idPermission)) {
+			return isset($this->permissions[$idPermission]);
+		} else {
+			if (in_array($permissionName, array_values($this->permissions), TRUE)) 
+				return TRUE;
+		}
 		return FALSE;
 	}
 
 	/**
-	 * Set `$permissionName` string with `$allow` boolean to allow
-	 * or to disallow permission (with `$allow = FALSE`) for user or role.
-	 * @param string $permissionName Strings describing what is allowed/disallowed to do for user or role.
-	 * @param bool $allow `TRUE` by default.
+	 * Add permission by name or by permission database id and name
+	 * into permissions to allow something for user or role.
+	 * @param  string|NULL $permissionName Permission name, optional, describing what is allowed/disallowed to do for user or role.
+	 * @param  int|NULL    $idPermission   Permission database id, optional.
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role
 	 */
-	public function SetPermission ($permissionName, $allow = TRUE) {
-		if (!in_array($permissionName, $this->permissions, TRUE) && $allow) {
-			$this->permissions[] = $permissionName;
-		} else if (in_array($permissionName, $this->permissions, TRUE) && !$allow) {
+	public function AddPermission ($permissionName = NULL, $idPermission = NULL) {
+		if ($permissionName !== NULL) {
+			if (is_int($idPermission)) {
+				$this->permissions[$idPermission] = $permissionName;
+			} else {
+				if (!in_array($permissionName, array_values($this->permissions), TRUE))
+					$this->permissions[] = $permissionName;
+			}
+		}
+		return $this;
+	}
+
+	/**
+	 * Remove permission by name or by permission database id and name
+	 * to disallow something for user or role.
+	 * @param  string|NULL $permissionName Permission name, optional, describing what is allowed/disallowed to do for user or role.
+	 * @param  int|NULL    $idPermission   Permission database id, optional.
+	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role
+	 */
+	public function RemovePermission ($permissionName = NULL, $idPermission = NULL) {
+		if (is_int($idPermission)) {
+			unset($this->permissions[$idPermission]);
+		} else if (
+			$permissionName !== NULL && 
+			in_array($permissionName, array_values($this->permissions), TRUE)
+		) {
 			$position = array_search($permissionName, $this->permissions);
 			if ($position !== FALSE) array_splice($this->permissions, $position, 1);
 		}
@@ -84,16 +120,20 @@ trait PermissionsMethods {
 	}
 
 	/**
-	 * Get array of strings describing what is allowed to do for user or role.
-	 * @return \string[]
+	 * Get array of strings or array with permissions database ids as keys
+	 * and permissions names as values, describing what is allowed to do for user or role.
+	 * @return \string[]|array<int, string>
 	 */
-	public function & GetPermissions() {
+	public function & GetPermissions () {
 		return $this->permissions;
 	}
 
 	/**
-	 * Set array of strings describing what is allowed to do for user or role.
-	 * @param string|\string[] $permissions The permissions string, separated by comma character or array of strings.
+	 * Set array of strings or array with permissions database ids and names
+	 * describing what is allowed to do for user or role.
+	 * @param  string|\string[]|array<int, string> $permissions The permissions string, separated by comma character 
+	 *                                                          or array of strings or array with permissions database 
+	 *                                                          ids as keys and permissions names as values.
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role
 	 */
 	public function SetPermissions ($permissions) {
