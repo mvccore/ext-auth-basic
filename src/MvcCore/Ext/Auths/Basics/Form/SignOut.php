@@ -56,6 +56,7 @@ trait SignOut {
 		if ($result === \MvcCore\Ext\Form::RESULT_SUCCESS) {
 			$userClass = $this->auth->GetUserClass();
 			$userClass::LogOut();
+			$this->auth->SetUser(NULL);
 		}
 		if (isset($data['successUrl']))
 			$this->SetSuccessUrl($data['successUrl']);

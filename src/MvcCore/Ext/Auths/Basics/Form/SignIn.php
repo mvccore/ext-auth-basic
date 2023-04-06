@@ -73,7 +73,9 @@ trait SignIn {
 				isset($data['username']) ? $data['username'] : '', 
 				isset($data['password']) ? $data['password'] : ''
 			);
-			if ($user === NULL) {
+			if ($user !== NULL) {
+				$this->auth->SetUser($user);
+			} else {
 				$errorMsg = 'User name or password is incorrect.';
 				if ($this->translate)
 					$errorMsg = $this->Translate($errorMsg);
