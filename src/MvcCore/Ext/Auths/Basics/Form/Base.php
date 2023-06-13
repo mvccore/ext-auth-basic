@@ -112,8 +112,10 @@ trait Base {
 		}
 
 		$sourceUrl = $this->request->GetParam('sourceUrl', FALSE, '', 'string');
-		while (preg_match("#%[0-9a-zA-Z]{2}#", $sourceUrl)) 
+		while (preg_match("#%[0-9a-fA-F]{2}#", $sourceUrl)) {
+			if (json_encode(rawurldecode($sourceUrl)) === FALSE) break;
 			$sourceUrl = rawurldecode($sourceUrl);
+		}
 		$sourceUrl = str_replace('%', '%25', $sourceUrl);
 
 		$toolClass = $this->application->GetToolClass();
