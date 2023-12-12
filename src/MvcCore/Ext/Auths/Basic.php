@@ -34,7 +34,7 @@ class Basic implements \MvcCore\Ext\Auths\IBasic {
 	 * Comparison by PHP function version_compare();
 	 * @see http://php.net/manual/en/function.version-compare.php
 	 */
-	const VERSION = '5.2.4';
+	const VERSION = '5.2.5';
 
 	use \MvcCore\Ext\Auths\Basic\PropsGettersSetters;
 	use \MvcCore\Ext\Auths\Basic\Handling;
