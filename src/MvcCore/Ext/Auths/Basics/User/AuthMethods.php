@@ -120,14 +120,14 @@ trait AuthMethods {
 				$options['salt'] = $configuredSalt;
 			} else {
 				throw new \InvalidArgumentException(
-					'['.get_class().'] No option `salt` given by second argument `$options`'
+					'['.get_called_class().'] No option `salt` given by second argument `$options`'
 					." or no salt configured by `\\MvcCore\\Ext\\Auth::GetInstance()->SetPasswordHashSalt('...')`."
 				);
 			}
 		}
 		if (isset($options['cost']) && ($options['cost'] < 4 || $options['cost'] > 31))
 			throw new \InvalidArgumentException(
-				'['.get_class().'] `cost` option has to be from `4` to `31`, `' . $options['cost'] . '` given.'
+				'['.get_called_class().'] `cost` option has to be from `4` to `31`, `' . $options['cost'] . '` given.'
 			);
 		if (\PHP_VERSION_ID >= 50500) {
 			if (\PHP_VERSION_ID >= 80000 && isset($options['salt'])) 
@@ -141,7 +141,7 @@ trait AuthMethods {
 		}
 		if (!$result || strlen($result) < 60)
 			throw new \RuntimeException(
-				'['.get_class().'] Hash computed by `password_hash()` is invalid. Try a little bit longer salt.'
+				'['.get_called_class().'] Hash computed by `password_hash()` is invalid. Try a little bit longer salt.'
 			);
 		return $result;
 	}

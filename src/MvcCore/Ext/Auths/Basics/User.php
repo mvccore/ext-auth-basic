@@ -36,7 +36,7 @@ implements	\MvcCore\Ext\Auths\Basics\IUser {
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public static function GetByUserName ($userName) {
-		$selfClass = get_class();
+		$selfClass = get_called_class();
 		throw new \RuntimeException(
 			'['.$selfClass.'] Method is not implemented. '
 			.'Use class `\MvcCore\Ext\Auths\Basics\Users\Database` or '

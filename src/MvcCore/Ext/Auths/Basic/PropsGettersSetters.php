@@ -847,7 +847,7 @@ trait PropsGettersSetters {
 					$this->{$setter}($value);
 				} else if ($throwExceptionIfPropertyIsMissing) {
 					throw new \InvalidArgumentException (
-						'['.get_class().'] Property `'.$key.'` has no setter method `'.$setter.'` in class `'.get_class($this).'`.'
+						'['.get_class($this).'] Property `'.$key.'` has no setter method `'.$setter.'` in class `'.get_class($this).'`.'
 					);
 				}
 			}

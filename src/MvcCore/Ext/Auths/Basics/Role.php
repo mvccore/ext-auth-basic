@@ -37,7 +37,7 @@ implements	\MvcCore\Ext\Auths\Basics\IRole {
 	 * @return \MvcCore\Ext\Auths\Basics\Role
 	 */
 	public function GetByName ($roleName) {
-		$selfClass = get_class();
+		$selfClass = get_class($this);
 		throw new \RuntimeException(
 			'['.$selfClass.'] Method is not implemented. '
 			.'Extend class `'.$selfClass.'` and implement method `GetByName ($roleName)` by your own.'
