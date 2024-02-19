@@ -26,7 +26,7 @@ trait PermissionsProps {
 	 * Array of strings or array with permissions ids as keys and
 	 * permissions names as values, describing what is allowed to do for user or role.
 	 * @column permissions
-	 * @var \string[]|array<int,string>
+	 * @var array|array<int,string>|\string[]
 	 */
 	#[Attrs\Column('permissions')]
 	protected $permissions = [];

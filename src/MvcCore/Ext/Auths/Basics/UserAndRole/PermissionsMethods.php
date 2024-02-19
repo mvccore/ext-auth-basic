@@ -122,7 +122,7 @@ trait PermissionsMethods {
 	/**
 	 * Get array of strings or array with permissions database ids as keys
 	 * and permissions names as values, describing what is allowed to do for user or role.
-	 * @return \string[]|array<int, string>
+	 * @return array|array<int,string>|\string[]
 	 */
 	public function & GetPermissions () {
 		return $this->permissions;
@@ -131,9 +131,9 @@ trait PermissionsMethods {
 	/**
 	 * Set array of strings or array with permissions database ids and names
 	 * describing what is allowed to do for user or role.
-	 * @param  string|\string[]|array<int, string> $permissions The permissions string, separated by comma character 
-	 *                                                          or array of strings or array with permissions database 
-	 *                                                          ids as keys and permissions names as values.
+	 * @param  array|array<int,string>|\string[]|string $permissions The permissions string, separated by comma character 
+	 *                                                               or array of strings or array with permissions database 
+	 *                                                               ids as keys and permissions names as values.
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role
 	 */
 	public function SetPermissions ($permissions) {
