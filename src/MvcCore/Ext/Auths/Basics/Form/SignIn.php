@@ -38,11 +38,13 @@ trait SignIn {
 			->AddField(new \MvcCore\Ext\Forms\Fields\Text([
 				'name'			=> 'username',
 				'placeHolder'	=> 'User',
+				'required'		=> TRUE,
 				'validators'	=> ['SafeString'],
 			]))
 			->AddField(new \MvcCore\Ext\Forms\Fields\Password([
 				'name'			=> 'password',
 				'placeHolder'	=> 'Password',
+				'required'		=> TRUE,
 				// do not use 'SafeString' here - it converts special chars in 
 				// password string into entities:
 				'validators'	=> [], 
