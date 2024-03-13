@@ -30,7 +30,7 @@ trait SignOut {
 	 * @return void
 	 */
 	public function Init ($submit = FALSE) {
-		if ($this->dispatchState > \MvcCore\IController::DISPATCH_STATE_CREATED) 
+		if (!$this->DispatchStateCheck(static::DISPATCH_STATE_INITIALIZED, $submit)) 
 			return;
 		parent::Init($submit);
 		$this->auth = \MvcCore\Ext\Auths\Basic::GetInstance();
@@ -71,7 +71,7 @@ trait SignOut {
 	 * @return string
 	 */
 	public function & Render ($controllerDashedName = NULL, $actionDashedName = NULL) {
-		$this->PreDispatch();
+		$this->DispatchStateCheck(static::DISPATCH_STATE_RENDERED, $this->submit);
 		$result = $this->RenderBegin();
 		if ($this->user)
 			$result .= '<span>'.$this->user->GetFullName().'</span>';

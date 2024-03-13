@@ -29,7 +29,7 @@ trait SignIn {
 	 * @return void
 	 */
 	public function Init ($submit = FALSE) {
-		if ($this->dispatchState > \MvcCore\IController::DISPATCH_STATE_CREATED) 
+		if (!$this->DispatchStateCheck(static::DISPATCH_STATE_INITIALIZED, $submit)) 
 			return;
 		parent::Init($submit);
 		$this->auth = \MvcCore\Ext\Auths\Basic::GetInstance();

@@ -81,13 +81,11 @@ trait Base {
 	 * @return void
 	 */
 	public function PreDispatch ($submit = FALSE) {
-		if ($this->dispatchState > \MvcCore\IController::DISPATCH_STATE_INITIALIZED) 
+		if (!$this->DispatchStateCheck(static::DISPATCH_STATE_PRE_DISPATCHED, $submit))
 			return;
 		parent::PreDispatch($submit);
-		if ($submit) {
-			$this->dispatchState = \MvcCore\IController::DISPATCH_STATE_PRE_DISPATCHED;
+		if ($this->submit)
 			return;
-		}
 
 		$successUrlValue = $this->successUrlField->GetValue();
 		if ($successUrlValue) {
