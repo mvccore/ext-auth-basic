@@ -364,19 +364,21 @@ interface IBasic {
 	 * Set callable translator to set it into authentication form
 	 * to translate form labels, placeholders or buttons.
 	 * Default value is `NULL` (forms without translations).
-	 * @param  callable $translator
+	 * @param  callable|NULL $translator
+	 * @throws \Exception Translator is not callable.
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
-	public function SetTranslator (callable $translator = NULL);
+	public function SetTranslator ($translator = NULL);
 
 	/**
 	 * Set user instance manually. If you use this method
 	 * no authentication by `{$configuredUserClass}::SetUpUserBySession();`
 	 * is used and authentication state is always positive.
 	 * @param  \MvcCore\Ext\Auths\Basics\User|NULL $user
+	 * @throws \Exception User doesn't implement \MvcCore\Ext\Auths\Basics\IUser interface.
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
-	public function SetUser (\MvcCore\Ext\Auths\Basics\IUser $user = NULL);
+	public function SetUser ($user = NULL);
 
 	/**
 	 * Set up authorization module configuration.

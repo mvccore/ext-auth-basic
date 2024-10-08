@@ -809,9 +809,12 @@ trait PropsGettersSetters {
 	 * to translate form labels, placeholders or buttons.
 	 * Default value is `NULL` (forms without translations).
 	 * @param  callable|NULL $translator
+	 * @throws \Exception Translator is not callable.
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
-	public function SetTranslator (callable $translator = NULL) {
+	public function SetTranslator ($translator = NULL) {
+		if ($translator !== NULL && !is_callable($translator))
+			throw new \Exception("[" . get_class($this) . "] Translator is not callable.");
 		$this->translator = $translator;
 		return $this;
 	}
@@ -821,9 +824,12 @@ trait PropsGettersSetters {
 	 * no authentication by `{$configuredUserClass}::SetUpUserBySession();`
 	 * is used and authentication state is always positive.
 	 * @param  \MvcCore\Ext\Auths\Basics\User|NULL $user
+	 * @throws \Exception User doesn't implement \MvcCore\Ext\Auths\Basics\IUser interface.
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
-	public function SetUser (\MvcCore\Ext\Auths\Basics\IUser $user = NULL) {
+	public function SetUser ($user = NULL) {
+		if ($user !== NULL && !($user instanceof \MvcCore\Ext\Auths\Basics\IUser))
+			throw new \Exception("[" . get_class($this) . "] User doesn't implement \MvcCore\Ext\Auths\Basics\IUser interface.");
 		$this->user = $user;
 		if ($this->user !== NULL) $this->user->SetPasswordHash(NULL);
 		$this->userInitialized = TRUE;
