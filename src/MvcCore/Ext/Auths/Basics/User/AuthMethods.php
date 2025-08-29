@@ -71,12 +71,16 @@ trait AuthMethods {
 				$authenticated = static::hashEquals($user->passwordHash, $hashedPassword);
 			}
 			if ($authenticated) {
+
+				static::RegenerateSession();
 				$sessionIdentity = static::GetSessionIdentity();
 				$sessionAuthorization = static::GetSessionAuthorization();
+
 				$userNameStr = \MvcCore\Ext\Auths\Basics\IUser::SESSION_USERNAME_KEY;
 				$authorizedStr = \MvcCore\Ext\Auths\Basics\IUser::SESSION_AUTHORIZED_KEY;
 				$sessionIdentity->{$userNameStr} = $user->userName;
 				$sessionAuthorization->{$authorizedStr} = TRUE;
+				
 				$user->passwordHash = NULL;
 				if (is_array($user->initialValues) && array_key_exists('passwordHash', $user->initialValues))
 					$user->initialValues['passwordHash'] = NULL;
@@ -95,14 +99,15 @@ trait AuthMethods {
 	 * @return void
 	 */
 	public static function LogOut ($keepIdentityData = FALSE) {
+		static::RegenerateSession();
 		$sessionIdentity = static::GetSessionIdentity();
 		$sessionAuthorization = static::GetSessionAuthorization();
-		if ($destroyWholeSession) {
-			$sessionIdentity->Destroy();
-			$sessionAuthorization->Destroy();
-		} else {
+		if ($keepIdentityData) {
 			$authorizedStr = \MvcCore\Ext\Auths\Basics\IUser::SESSION_AUTHORIZED_KEY;
 			$sessionAuthorization->{$authorizedStr} = FALSE;
+		} else {
+			$sessionIdentity->Destroy();
+			$sessionAuthorization->Destroy();
 		}
 	}
 
@@ -158,9 +163,7 @@ trait AuthMethods {
 	 */
 	public static function GetSessionIdentity () {
 		if (static::$sessionIdentity === NULL) {
-			$sessionClass = self::$_sessionClass ?: (
-				self::$_sessionClass = \MvcCore\Application::GetInstance()->GetSessionClass()
-			);
+			$sessionClass = self::getSessionClass();
 			static::$sessionIdentity = $sessionClass::GetNamespace(
 				'\\MvcCore\\Ext\\Auths\\Identity'
 			);
@@ -179,6 +182,24 @@ trait AuthMethods {
 	public static function SetSessionIdentity (\MvcCore\ISession $sessionIdentity) {
 		return static::$sessionIdentity = $sessionIdentity;
 	}
+	
+	/**
+	 * Regenerate always session ID and security cookie if necessary.
+	 * Drop any previous session data and move them into new session.
+	 * If application security mode is configured with security cookie token,
+	 * regenerate this token immediatelly.
+	 * @return bool
+	 */
+	public static function RegenerateSession () {
+		$app = \MvcCore\Application::GetInstance();
+		/** @var \MvcCore\Session|string $sessionClass */
+		$sessionClass = self::getSessionClass();
+		$result = $sessionClass::RegenerateSessionId();
+		$securityCookieMode = ($app->GetSecurityProtection() & \MvcCore\Application\IConstants::SECURITY_PROTECTION_COOKIE) != 0;
+		if ($securityCookieMode)
+			return $result && $sessionClass::RegenerateSecurityToken(TRUE, FALSE);
+		return $result;
+	}
 
 	/**
 	 * MvcCore session namespace instance
@@ -190,9 +211,7 @@ trait AuthMethods {
 	 */
 	public static function GetSessionAuthorization () {
 		if (static::$sessionAuthorization === NULL) {
-			$sessionClass = self::$_sessionClass ?: (
-				self::$_sessionClass = \MvcCore\Application::GetInstance()->GetSessionClass()
-			);
+			$sessionClass = self::getSessionClass();
 			static::$sessionAuthorization = $sessionClass::GetNamespace(
 				'\\MvcCore\\Ext\\Auths\\Authorization'
 			);
@@ -232,5 +251,15 @@ trait AuthMethods {
 				return !$ret;
 			}
 		}
+	}
+
+	/**
+	 * Return staticly cached session class string.
+	 * @return \MvcCore\Session|string
+	 */
+	protected static function getSessionClass () {
+		return self::$_sessionClass ?: (
+			self::$_sessionClass = \MvcCore\Application::GetInstance()->GetSessionClass()
+		);
 	}
 }
