@@ -32,7 +32,7 @@ trait Handling {
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public static function GetInstance ($configuration = []) {
-		/** @var \MvcCore\Ext\Auths\Basics\Auth $result */
+		/** @var \MvcCore\Ext\Auths\Basic $result */
 		if (self::$instance === NULL) {
 			$result = new static($configuration);
 			self::$instance = $result;
