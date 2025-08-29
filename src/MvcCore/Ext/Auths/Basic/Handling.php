@@ -84,7 +84,7 @@ trait Handling {
 		$this->preRouteHandlerSetUpUrlAdresses();
 		if (
 			$this->addRoutesForAnyRequestMethod ||
-			$this->application->GetRequest()->GetMethod() == \MvcCore\IRequest::METHOD_POST
+			$this->application->GetRequest()->GetMethod() == \MvcCore\Request\IConstants::METHOD_POST
 		) {
 			$this->preRouteHandlerSetUpRouter();
 		}
