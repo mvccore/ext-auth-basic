@@ -72,8 +72,8 @@ trait SignIn {
 			// try to get use by username and compare password hashes:
 			$userClass = $this->auth->GetUserClass();
 			$user = $userClass::LogIn(
-				isset($data['username']) ? $data['username'] : '', 
-				isset($data['password']) ? $data['password'] : ''
+				$data['username'] ?: NULL, 
+				$data['password'] ?: NULL
 			);
 			if ($user !== NULL) {
 				$this->auth->SetUser($user);
