@@ -24,7 +24,7 @@ interface IRole {
 	 * User unique id, representing primary key in database
 	 * or sequence number in system config.
 	 * Example: `0 | 1 | 2...`
-	 * @return int|NULL
+	 * @return ?int
 	 */
 	public function GetId ();
 
@@ -32,7 +32,7 @@ interface IRole {
 	 * Set user unique id, representing primary key in database
 	 * or sequence number in system config.
 	 * Example: `0 | 1 | 2...`
-	 * @param  int|NULL $id
+	 * @param  ?int $id
 	 * @return \MvcCore\Ext\Auths\Basics\Role
 	 */
 	public function SetId ($id);
@@ -72,8 +72,8 @@ interface IRole {
 	/**
 	 * Get `TRUE` if given permission string or permission database id 
 	 * is allowed for role, return FALSE` otherwise.
-	 * @param  string|NULL $permissionName Permission name, optional, describing what is allowed/disallowed to do for role.
-	 * @param  int|NULL    $idPermission   Permission database id, optional.
+	 * @param  ?string $permissionName Permission name, optional, describing what is allowed/disallowed to do for role.
+	 * @param  ?int    $idPermission   Permission database id, optional.
 	 * @return bool
 	 */
 	public function HasPermission ($permissionName = NULL, $idPermission = NULL);
@@ -81,8 +81,8 @@ interface IRole {
 	/**
 	 * Add permission by name or by permission database id and name
 	 * into permissions to allow something for role.
-	 * @param  string|NULL $permissionName Permission name, optional, describing what is allowed/disallowed to do for role.
-	 * @param  int|NULL    $idPermission   Permission database id, optional.
+	 * @param  ?string $permissionName Permission name, optional, describing what is allowed/disallowed to do for role.
+	 * @param  ?int    $idPermission   Permission database id, optional.
 	 * @return \MvcCore\Ext\Auths\Basics\Role
 	 */
 	public function AddPermission ($permissionName = NULL, $idPermission = NULL);
@@ -90,8 +90,8 @@ interface IRole {
 	/**
 	 * Remove permission by name or by permission database id and name
 	 * to disallow something for role.
-	 * @param  string|NULL $permissionName Permission name, optional, describing what is allowed/disallowed to do for role.
-	 * @param  int|NULL    $idPermission   Permission database id, optional.
+	 * @param  ?string $permissionName Permission name, optional, describing what is allowed/disallowed to do for role.
+	 * @param  ?int    $idPermission   Permission database id, optional.
 	 * @return \MvcCore\Ext\Auths\Basics\Role
 	 */
 	public function RemovePermission ($permissionName = NULL, $idPermission = NULL);

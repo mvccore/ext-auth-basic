@@ -106,7 +106,7 @@ interface IBasic {
 	 * POST request was successful.
 	 * If `NULL` (by default), user will be redirected
 	 * to the same url, where was sign in form rendered.
-	 * @return string|NULL
+	 * @return ?string
 	 */
 	public function GetSignedInUrl ();
 
@@ -115,7 +115,7 @@ interface IBasic {
 	 * POST request was successful.
 	 * If `NULL` (by default), user will be redirected
 	 * to the same url, where was sign out form rendered.
-	 * @return string|NULL
+	 * @return ?string
 	 */
 	public function GetSignedOutUrl ();
 
@@ -126,7 +126,7 @@ interface IBasic {
 	 * If `NULL` (by default), user will be redirected
 	 * to the same url, where was sign in/out form rendered.
 	 * @param string $signErrorUrl
-	 * @return string|NULL
+	 * @return ?string
 	 */
 	public function GetSignErrorUrl ();
 
@@ -149,7 +149,7 @@ interface IBasic {
 	 * `NULL` by default. This option is the only one option required
 	 * to configure authentication module to use it properly.
 	 * @deprecated
-	 * @return string|NULL
+	 * @return ?string
 	 */
 	public function GetPasswordHashSalt ();
 
@@ -165,7 +165,7 @@ interface IBasic {
 	 * Get configured callable translator to set it into authentication form
 	 * to translate form labels, placeholders, buttons or error messages.
 	 * Default value is `NULL` (forms without translations).
-	 * @return callable|NULL
+	 * @return ?callable
 	 */
 	public function GetTranslator ();
 
@@ -175,7 +175,7 @@ interface IBasic {
 	 * If user has not yet been initialized, load the user internally by
 	 * `{$configuredUserClass}::SetUpUserBySession();` to try to load
 	 * user by username record in session namespace.
-	 * @return \MvcCore\Ext\Auths\Basics\User|NULL
+	 * @return ?\MvcCore\Ext\Auths\Basics\User
 	 */
 	public function GetUser ();
 
@@ -300,7 +300,7 @@ interface IBasic {
 	 * POST request was successful.
 	 * If `NULL` (by default), user will be redirected
 	 * to the same url, where was sign in form rendered.
-	 * @param  string|NULL $signedInUrl
+	 * @param  ?string $signedInUrl
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetSignedInUrl ($signedInUrl);
@@ -310,7 +310,7 @@ interface IBasic {
 	 * POST request was successful.
 	 * If `NULL` (by default), user will be redirected
 	 * to the same url, where was sign out form rendered.
-	 * @param  string|NULL $signedOutUrl
+	 * @param  ?string $signedOutUrl
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetSignedOutUrl ($signedOutUrl);
@@ -321,7 +321,7 @@ interface IBasic {
 	 * for example wrong credentials.
 	 * If `NULL` (by default), user will be redirected
 	 * to the same url, where was sign in/out form rendered.
-	 * @param  string|NULL $signErrorUrl
+	 * @param  ?string $signErrorUrl
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetSignErrorUrl ($signErrorUrl);
@@ -364,7 +364,7 @@ interface IBasic {
 	 * Set callable translator to set it into authentication form
 	 * to translate form labels, placeholders or buttons.
 	 * Default value is `NULL` (forms without translations).
-	 * @param  callable|NULL $translator
+	 * @param  ?callable  $translator
 	 * @throws \Exception Translator is not callable.
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
@@ -374,7 +374,7 @@ interface IBasic {
 	 * Set user instance manually. If you use this method
 	 * no authentication by `{$configuredUserClass}::SetUpUserBySession();`
 	 * is used and authentication state is always positive.
-	 * @param  \MvcCore\Ext\Auths\Basics\User|NULL $user
+	 * @param  ?\MvcCore\Ext\Auths\Basics\User $user
 	 * @throws \Exception User doesn't implement \MvcCore\Ext\Auths\Basics\IUser interface.
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
@@ -395,8 +395,8 @@ interface IBasic {
 	 * Optional alias method if you have user class configured
 	 * to database user: `\MvcCore\Ext\Auths\Basics\Users\Database`.
 	 * Alias for `\MvcCore\Ext\Auths\Basics\Users\Database::SetUsersTableStructure($tableName, $columnNames);`.
-	 * @param string|NULL	$tableName Database table name.
-	 * @param string[]|NULL	$columnNames Keys are user class protected properties names in camel case, values are database columns names.
+	 * @param ?string	$tableName Database table name.
+	 * @param ?string[]	$columnNames Keys are user class protected properties names in camel case, values are database columns names.
 	 * @return \MvcCore\Ext\Auths\Basic
 	 */
 	public function SetTableStructureForDbUsers ($tableName, $columnNames);

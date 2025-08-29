@@ -65,8 +65,8 @@ trait PermissionsMethods {
 	/**
 	 * Get `TRUE` if given permission string or permission database id 
 	 * is allowed for user or role, return FALSE` otherwise.
-	 * @param  string|NULL $permissionName Permission name, optional, describing what is allowed/disallowed to do for user or role.
-	 * @param  int|NULL    $idPermission   Permission database id, optional.
+	 * @param  ?string $permissionName Permission name, optional, describing what is allowed/disallowed to do for user or role.
+	 * @param  ?int    $idPermission   Permission database id, optional.
 	 * @return bool
 	 */
 	public function HasPermission ($permissionName = NULL, $idPermission = NULL) {
@@ -83,8 +83,8 @@ trait PermissionsMethods {
 	/**
 	 * Add permission by name or by permission database id and name
 	 * into permissions to allow something for user or role.
-	 * @param  string|NULL $permissionName Permission name, optional, describing what is allowed/disallowed to do for user or role.
-	 * @param  int|NULL    $idPermission   Permission database id, optional.
+	 * @param  ?string $permissionName Permission name, optional, describing what is allowed/disallowed to do for user or role.
+	 * @param  ?int    $idPermission   Permission database id, optional.
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role
 	 */
 	public function AddPermission ($permissionName = NULL, $idPermission = NULL) {
@@ -102,8 +102,8 @@ trait PermissionsMethods {
 	/**
 	 * Remove permission by name or by permission database id and name
 	 * to disallow something for user or role.
-	 * @param  string|NULL $permissionName Permission name, optional, describing what is allowed/disallowed to do for user or role.
-	 * @param  int|NULL    $idPermission   Permission database id, optional.
+	 * @param  ?string $permissionName Permission name, optional, describing what is allowed/disallowed to do for user or role.
+	 * @param  ?int    $idPermission   Permission database id, optional.
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role
 	 */
 	public function RemovePermission ($permissionName = NULL, $idPermission = NULL) {

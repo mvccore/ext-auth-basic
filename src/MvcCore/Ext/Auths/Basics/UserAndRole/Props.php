@@ -28,7 +28,7 @@ trait Props {
 	 * Example: `0 | 1 | 2...`
 	 * @column id
 	 * @keyPrimary
-	 * @var int|NULL
+	 * @var ?int
 	 */
 	#[Attrs\Column('id'), Attrs\KeyPrimary]
 	protected $id = NULL;

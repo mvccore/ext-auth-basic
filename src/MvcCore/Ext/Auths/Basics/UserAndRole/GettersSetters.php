@@ -26,7 +26,7 @@ trait GettersSetters {
 	 * User unique id, representing primary key in database
 	 * or sequence number in system config.
 	 * Example: `0 | 1 | 2...`
-	 * @return int|NULL
+	 * @return ?int
 	 */
 	public function GetId () {
 		return $this->id;
@@ -36,7 +36,7 @@ trait GettersSetters {
 	 * Set user unique id, representing primary key in database
 	 * or sequence number in system config.
 	 * Example: `0 | 1 | 2...`
-	 * @param  int|NULL $id
+	 * @param  ?int $id
 	 * @return \MvcCore\Ext\Auths\Basics\User|\MvcCore\Ext\Auths\Basics\Role
 	 */
 	public function SetId ($id) {

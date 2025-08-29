@@ -26,8 +26,8 @@ trait RolesMethods {
 	/**
 	 * Get `TRUE` if given role string or role database id 
 	 * is allowed for user, return FALSE` otherwise.
-	 * @param  string|NULL $roleName Role name, optional, describing what is allowed/disallowed to do for user.
-	 * @param  int|NULL    $idRole   Role database id, optional.
+	 * @param  ?string $roleName Role name, optional, describing what is allowed/disallowed to do for user.
+	 * @param  ?int    $idRole   Role database id, optional.
 	 * @return bool
 	 */
 	public function HasRole ($roleName = NULL, $idRole = NULL) {
@@ -44,8 +44,8 @@ trait RolesMethods {
 	/**
 	 * Add role by name or by role database id and name
 	 * into roles to allow something for user.
-	 * @param  string|NULL $roleName Role name, optional, describing what is allowed/disallowed to do for user.
-	 * @param  int|NULL    $idRole   Role database id, optional.
+	 * @param  ?string $roleName Role name, optional, describing what is allowed/disallowed to do for user.
+	 * @param  ?int    $idRole   Role database id, optional.
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function AddRole ($roleName = NULL, $idRole = NULL) {
@@ -63,8 +63,8 @@ trait RolesMethods {
 	/**
 	 * Remove role by name or by role database id and name
 	 * to disallow something for user.
-	 * @param  string|NULL $roleName Role name, optional, describing what is allowed/disallowed to do for user.
-	 * @param  int|NULL    $idRole   Role database id, optional.
+	 * @param  ?string $roleName Role name, optional, describing what is allowed/disallowed to do for user.
+	 * @param  ?int    $idRole   Role database id, optional.
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function RemoveRole ($roleName = NULL, $idRole = NULL) {
