@@ -65,19 +65,22 @@ To get sign out form into view in your application controller:
 	}
 ...
 ```
-For any forms CSRF errors - you can call in base controller `Init()` action:
+For detected CSRF atacks - you can call logout, for example in base controller `Init()` action:
 ```php
 ...
 	public function Init() {
 		parent::Init();
-		// when any CSRF token is outdated or not the same - sign out user by default
-		\MvcCore\Ext\Form::AddCsrfErrorHandler(function (\MvcCore\Ext\Form & $form, $errorMsg) {
-			\MvcCore\Ext\Auths\Basics\User::LogOut();
-			self::Redirect($this->Url(
-				'Index:Index',
-				array('absolute' => TRUE, 'sourceUrl'	=> rawurlencode($form->ErrorUrl))
-			));
-		});
+		// when detected any CSRF attack - sign out user by default
+		$this->application->AddSecurityErrorHandler(
+			function (\MvcCore\IRequest $req, \MvcCore\IResponse $res, ?\MvcCore\Ext\IForm $form = NULL): void {
+				\MvcCore\Ext\Auths\Basics\User::LogOut();
+				self::Redirect($this->Url(
+					'Index:Index',
+					array('absolute' => TRUE, 'sourceUrl'	=> rawurlencode($form->ErrorUrl))
+				));
+				return FALSE;
+			}
+		);
 	}
 ...
 ```
