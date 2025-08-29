@@ -26,7 +26,7 @@ trait AuthMethods {
 	 * (it could be database table or system config) by user session namespace
 	 * `userName` record if `authenticated` boolean in user session namespace is `TRUE`.
 	 * Or return `NULL` for no user by user session namespace records.
-	 * @return \MvcCore\Ext\Auths\Basics\User|NULL
+	 * @return ?\MvcCore\Ext\Auths\Basics\User
 	 */
 	public static function SetUpUserBySession () {
 		$sessionIdentity = static::GetSessionIdentity();
@@ -89,10 +89,10 @@ trait AuthMethods {
 	 * by default. User name should still remain in user session namespace.
 	 * If First argument `$destroyWholeSession` is `TRUE`, destroy whole
 	 * user session namespace with `authenticated` bool and with `userName` string record.
-	 * @param  bool $destroyWholeSession
+	 * @param  bool $keepIdentityData
 	 * @return void
 	 */
-	public static function LogOut ($destroyWholeSession = FALSE) {
+	public static function LogOut ($keepIdentityData = FALSE) {
 		$sessionIdentity = static::GetSessionIdentity();
 		$sessionAuthorization = static::GetSessionAuthorization();
 		if ($destroyWholeSession) {

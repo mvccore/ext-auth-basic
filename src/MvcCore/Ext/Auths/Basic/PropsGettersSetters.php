@@ -38,7 +38,7 @@ trait PropsGettersSetters {
 	/**
 	 * Shortcut for configured core tool class value
 	 * from `\MvcCore\Application::GetInstance()->GetToolClass();`.
-	 * @var string|NULL
+	 * @var ?string
 	 */
 	protected static $toolClass = NULL;
 
@@ -136,7 +136,7 @@ trait PropsGettersSetters {
 	 * POST request was successful.
 	 * If `NULL` (by default), user will be redirected
 	 * to the same url, where was sign in form rendered.
-	 * @var string|NULL
+	 * @var ?string
 	 */
 	protected $signedInUrl = NULL;
 
@@ -145,7 +145,7 @@ trait PropsGettersSetters {
 	 * POST request was successful.
 	 * If `NULL` (by default), user will be redirected
 	 * to the same url, where was sign out form rendered.
-	 * @var string|NULL
+	 * @var ?string
 	 */
 	protected $signedOutUrl = NULL;
 
@@ -155,7 +155,7 @@ trait PropsGettersSetters {
 	 * for example wrong credentials.
 	 * If `NULL` (by default), user will be redirected
 	 * to the same url, where was sign in/out form rendered.
-	 * @var string|NULL
+	 * @var ?string
 	 */
 	protected $signErrorUrl = NULL;
 
@@ -194,7 +194,7 @@ trait PropsGettersSetters {
 	 * `NULL` by default. This option is the only one option required
 	 * to configure authentication module to use it properly.
 	 * @deprecated
-	 * @var string|NULL
+	 * @var ?string
 	 */
 	protected $passwordHashSalt = NULL;
 
@@ -236,7 +236,7 @@ trait PropsGettersSetters {
 
 	/**
 	 * User model instance or `NULL` if user has no username record in session namespace.
-	 * @var \MvcCore\Ext\Auths\Basics\User|NULL
+	 * @var ?\MvcCore\Ext\Auths\Basics\User
 	 */
 	protected $user = NULL;
 
@@ -245,7 +245,7 @@ trait PropsGettersSetters {
 	 * form instance in extended classes. If user is 
 	 * authenticated by username record in session namespace,
 	 * there is completed sign out form.
-	 * @var \MvcCore\Ext\Auths\Basics\SignInForm|NULL
+	 * @var ?\MvcCore\Ext\Auths\Basics\SignInForm
 	 */
 	protected $signInForm = NULL;
 
@@ -254,7 +254,7 @@ trait PropsGettersSetters {
 	 * form instance in extended classes. If user is not 
 	 * authenticated by username record in session namespace, 
 	 * there is completed sign in form.
-	 * @var \MvcCore\Ext\Auths\Basics\SignOutForm|NULL
+	 * @var ?\MvcCore\Ext\Auths\Basics\SignOutForm
 	 */
 	protected $signOutForm = NULL;
 

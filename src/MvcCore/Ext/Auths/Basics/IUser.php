@@ -35,7 +35,7 @@ interface IUser {
 	 * User unique id, representing primary key in database
 	 * or sequence number in system config.
 	 * Example: `0 | 1 | 2...`
-	 * @return int|NULL
+	 * @return ?int
 	 */
 	public function GetId () ;
 
@@ -43,7 +43,7 @@ interface IUser {
 	 * Set user unique id, representing primary key in database
 	 * or sequence number in system config.
 	 * Example: `0 | 1 | 2...`
-	 * @param  int|NULL $id
+	 * @param  ?int $id
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetId ($id);
@@ -110,7 +110,7 @@ interface IUser {
 	 * From moment, when is user instance loaded with password hash by session username to
 	 * moment, when is compared hashed sent password and stored password hash.
 	 * After password hashes comparison, password hash is un-setted.
-	 * @var string|NULL
+	 * @var ?string
 	 */
 	public function GetPasswordHash ();
 
@@ -119,7 +119,7 @@ interface IUser {
 	 * From moment, when is user instance loaded with password hash by session username to
 	 * moment, when is compared hashed sent password and stored password hash.
 	 * After password hashes comparison, password hash is un-setted.
-	 * @param  string|NULL $passwordHash
+	 * @param  ?string $passwordHash
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetPasswordHash ($passwordHash);
@@ -132,7 +132,7 @@ interface IUser {
 	 * (it could be database table or system config) by user session namespace
 	 * `userName` record if `authenticated` boolean in user session namespace is `TRUE`.
 	 * Or return `NULL` for no user by user session namespace records.
-	 * @return \MvcCore\Ext\Auths\Basics\User|NULL
+	 * @return ?\MvcCore\Ext\Auths\Basics\User
 	 */
 	public static function SetUpUserBySession ();
 
@@ -154,10 +154,10 @@ interface IUser {
 	 * by default. User name should still remain in user session namespace.
 	 * If First argument `$destroyWholeSession` is `TRUE`, destroy whole
 	 * user session namespace with `authenticated` bool and with `userName` string record.
-	 * @param  bool $destroyWholeSession
+	 * @param  bool $keepIdentityData
 	 * @return void
 	 */
-	public static function LogOut ($destroyWholeSession = FALSE);
+	public static function LogOut ($keepIdentityData = FALSE);
 
 	/**
 	 * Get password hash by `password_hash()` with salt
@@ -229,8 +229,8 @@ interface IUser {
 	/**
 	 * Get `TRUE` if given role string or role database id 
 	 * is allowed for user, return FALSE` otherwise.
-	 * @param  string|NULL $roleName Role name, optional, describing what is allowed/disallowed to do for user.
-	 * @param  int|NULL    $idRole   Role database id, optional.
+	 * @param  ?string $roleName Role name, optional, describing what is allowed/disallowed to do for user.
+	 * @param  ?int    $idRole   Role database id, optional.
 	 * @return bool
 	 */
 	public function HasRole ($roleName = NULL, $idRole = NULL);
@@ -238,8 +238,8 @@ interface IUser {
 	/**
 	 * Add role by name or by role database id and name
 	 * into roles to allow something for user.
-	 * @param  string|NULL $roleName Role name, optional, describing what is allowed/disallowed to do for user.
-	 * @param  int|NULL    $idRole   Role database id, optional.
+	 * @param  ?string $roleName Role name, optional, describing what is allowed/disallowed to do for user.
+	 * @param  ?int    $idRole   Role database id, optional.
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function AddRole ($roleName = NULL, $idRole = NULL);
@@ -247,8 +247,8 @@ interface IUser {
 	/**
 	 * Remove role by name or by role database id and name
 	 * to disallow something for user.
-	 * @param  string|NULL $roleName Role name, optional, describing what is allowed/disallowed to do for user.
-	 * @param  int|NULL    $idRole   Role database id, optional.
+	 * @param  ?string $roleName Role name, optional, describing what is allowed/disallowed to do for user.
+	 * @param  ?int    $idRole   Role database id, optional.
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function RemoveRole ($roleName = NULL, $idRole = NULL);
@@ -285,8 +285,8 @@ interface IUser {
 	/**
 	 * Get `TRUE` if given permission string or permission database id 
 	 * is allowed for user, return FALSE` otherwise.
-	 * @param  string|NULL $permissionName Permission name, optional, describing what is allowed/disallowed to do for user.
-	 * @param  int|NULL    $idPermission   Permission database id, optional.
+	 * @param  ?string $permissionName Permission name, optional, describing what is allowed/disallowed to do for user.
+	 * @param  ?int    $idPermission   Permission database id, optional.
 	 * @return bool
 	 */
 	public function HasPermission ($permissionName = NULL, $idPermission = NULL);
@@ -294,8 +294,8 @@ interface IUser {
 	/**
 	 * Add permission by name or by permission database id and name
 	 * into permissions to allow something for user.
-	 * @param  string|NULL $permissionName Permission name, optional, describing what is allowed/disallowed to do for user.
-	 * @param  int|NULL    $idPermission   Permission database id, optional.
+	 * @param  ?string $permissionName Permission name, optional, describing what is allowed/disallowed to do for user.
+	 * @param  ?int    $idPermission   Permission database id, optional.
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function AddPermission ($permissionName = NULL, $idPermission = NULL);
@@ -303,8 +303,8 @@ interface IUser {
 	/**
 	 * Remove permission by name or by permission database id and name
 	 * to disallow something for user.
-	 * @param  string|NULL $permissionName Permission name, optional, describing what is allowed/disallowed to do for user.
-	 * @param  int|NULL    $idPermission   Permission database id, optional.
+	 * @param  ?string $permissionName Permission name, optional, describing what is allowed/disallowed to do for user.
+	 * @param  ?int    $idPermission   Permission database id, optional.
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function RemovePermission ($permissionName = NULL, $idPermission = NULL);

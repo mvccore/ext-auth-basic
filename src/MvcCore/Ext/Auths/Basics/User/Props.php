@@ -49,7 +49,7 @@ trait Props {
 	 * moment, when is compared hashed sent password and stored password hash.
 	 * After password hashes comparison, password hash is un-setted.
 	 * @column password_hash
-	 * @var string|NULL
+	 * @var ?string
 	 */
 	#[Attrs\Column('password_hash')]
 	protected $passwordHash = NULL;

@@ -71,7 +71,7 @@ trait GettersSetters {
 	 * From moment, when is user instance loaded with password hash by session username to
 	 * moment, when is compared hashed sent password and stored password hash.
 	 * After password hashes comparison, password hash is un-setted.
-	 * @var string|NULL
+	 * @var ?string
 	 */
 	public function GetPasswordHash () {
 		return $this->passwordHash;
@@ -82,7 +82,7 @@ trait GettersSetters {
 	 * From moment, when is user instance loaded with password hash by session username to
 	 * moment, when is compared hashed sent password and stored password hash.
 	 * After password hashes comparison, password hash is un-setted.
-	 * @param  string|NULL $passwordHash
+	 * @param  ?string $passwordHash
 	 * @return \MvcCore\Ext\Auths\Basics\User
 	 */
 	public function SetPasswordHash ($passwordHash) {
